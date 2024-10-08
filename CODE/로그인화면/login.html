@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인 페이지</title> 
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <!-- required를 사용시 "이 입력란을 작성하세요."라는 경고가 자동으로 등장하는 html 기본기능 -->
+    <div class="login-container">
+        <h2>BookWeb</h2>
+        <form class="login-form">
+            <label for="username">ID</label>
+            <input type="text" id="username" name="username" placeholder="아이디를 입력하세요" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요" required>
+
+            <button type="submit">로그인</button>
+        </form>
+
+        <div class="login-options">
+            <a href="#">회원가입</a>
+            <a href="#">아이디/비밀번호 찾기</a>
+        </div>
+    </div>
+
+</body>
+</html>

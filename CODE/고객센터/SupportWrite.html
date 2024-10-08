@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글 등록하기</title>
+    <link rel="stylesheet" href="SupportWrite.css">
+
+</head>
+<body>
+    <header>
+        <h1>글 등록하기</h1>
+    </header>
+    <main>
+        <section id="writePost">
+            <h2>글쓰기</h2>
+            <form>
+                <!-- 작성자 입력 -->
+                <div id="authorSection">
+                    <label for="author">작성자:</label>
+                    <input type="text" id="author" placeholder="작성자 입력" />
+                </div>
+
+                <!-- 글 제목 입력 -->
+                <div>
+                    <label for="title">제목:</label>
+                    <input type="text" id="title" placeholder="제목 입력" required />
+                </div>
+
+                <!-- 글 내용 입력 -->
+                <div>
+                    <label for="content">내용:</label>
+                    <textarea id="content" rows="5" placeholder="내용 입력" required></textarea>
+                </div>
+
+                <!-- 공개/비공개 선택 -->
+                <div>
+                    <label for="visibility">공개 여부:</label>
+                    <select id="visibility">
+                        <option value="public">공개</option>
+                        <option value="private">비공개</option>
+                    </select>
+                </div>
+
+                <!-- 비공개일 경우 암호 입력란 -->
+                <div id="passwordSection" style="display: none;">
+                    <label for="password">비밀번호:</label>
+                    <input type="password" id="password" placeholder="비밀번호 입력" />
+                </div>
+
+                <!-- 제출 버튼 -->
+                <button type="submit">등록하기</button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>

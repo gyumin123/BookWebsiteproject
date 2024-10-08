@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마이페이지 UI</title>
+    <link rel="stylesheet" href="mypage.css">
+</head>
+<body>
+
+
+<div class="container">
+
+    <!-- 프로필 섹션 -->
+    <div class="profile-section">
+        <div class="profile-pic">
+            <img src="profile_placeholder.png" alt="프로필 사진">
+            <button class="edit-icon">수정하기</button>
+        </div>
+
+        <div class="profile-info">
+            <div class="nickname">
+                닉네임 :
+                <input type="text" disabled>
+                <button class="edit-icon pen-icon">✏️</button>
+                <button class="edit-bar" id="save-nickname">완료</button>
+            </div>
+            <div class="group">
+                내 그룹 :
+                <input type="text" disabled>
+                <button class="house-icon">🏠</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 사이드바 -->
+    <div class="sidebar">
+        <ul>
+            <li>비밀번호 변경</li>
+            <li>나의 활동</li>
+            <li>구매 / 대여 내역</li>
+            <li>고객센터</li>
+        </ul>
+    </div>
+    <div class="box-panel">
+    </div>
+</div>
+<script>
+    const editButton = document.querySelector('.pen-icon');
+    const saveButton = document.getElementById('save-nickname');
+    const nicknameInput = document.querySelector('.nickname input');
+
+    editButton.addEventListener('click', () => {
+        nicknameInput.disabled = false;
+        nicknameInput.focus();
+        editButton.style.display = 'none';
+        saveButton.style.display = 'inline-block';
+    });
+
+    saveButton.addEventListener('click', () => {
+        nicknameInput.disabled = true;
+        editButton.style.display = 'inline-block';
+        saveButton.style.display = 'none';
+    });
+</script>
+</body>
+</html>
