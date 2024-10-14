@@ -2,6 +2,7 @@ package com.book.controller;
 
 import com.book.DTO.LoginDTO;
 import com.book.DTO.MembershipDTO;
+import com.book.DTO.UserIdDTO;
 import com.book.domain.Member;
 import com.book.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -59,7 +60,7 @@ public class MemberController {
      * 로그아웃
      */
     @PostMapping(value = "/user/logout")
-    public String logout(@RequestBody LoginDTO logoutDTO, HttpServletRequest request) {
+    public String logout(@RequestBody UserIdDTO userIdDTO, HttpServletRequest request) {
         //세션을 제거한다.
         HttpSession session = request.getSession(false);
         if(session != null){
@@ -69,11 +70,14 @@ public class MemberController {
     }
 
 
+
+
+
     /**
      * 사용자 상태 확인(로그인?)
     */
     @GetMapping("/user/states")
-    public boolean isloggedin(HttpServletRequest request) {
+    public boolean isLoggedin(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         return session != null;
     }

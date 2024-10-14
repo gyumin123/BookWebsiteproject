@@ -34,6 +34,13 @@ public class MemoryMemberRepository implements MemberRepository {
                 .findAny();
     }
 
+    @Override
+    public Optional<Member> findByName(String userName) {
+        return store.values().stream()
+                .filter(member -> member.getName().equals(userName))
+                .findAny();
+    }
+
     public void clearStore() {
         store.clear();
     }

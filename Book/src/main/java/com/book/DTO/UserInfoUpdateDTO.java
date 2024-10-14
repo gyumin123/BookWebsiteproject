@@ -1,6 +1,6 @@
 package com.book.DTO;
 
-public class UserUpdateInfoDTO {
+public class UserInfoUpdateDTO {
     private String profildImg;
     private String username;
     private String password;

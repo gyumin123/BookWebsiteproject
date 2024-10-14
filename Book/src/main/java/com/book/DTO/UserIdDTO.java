@@ -1,6 +1,6 @@
 package com.book.DTO;
 
-public class LogoutDTO {
+public class UserIdDTO {
     private String userid;
 
     public String getUserid() {
