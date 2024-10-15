@@ -4,6 +4,7 @@ import com.book.DTO.UserIdDTO;
 import com.book.DTO.UserInfoUpdateDTO;
 import com.book.service.MemberInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,8 +25,9 @@ public class MemberInfoController {
      * 사용자 프로필 이미지 가져오기
      */
     @PostMapping(value = "/image")
-    public void getUserImage(@RequestBody UserIdDTO userIdDTO) {
+    public String getUserImage(@RequestBody UserIdDTO userIdDTO) {
         memberInfoService.getUserImage(userIdDTO);
+        return null;
     }
 
 
@@ -46,9 +48,10 @@ public class MemberInfoController {
      * 사용자 비밀번호 찾기
      */
     @PostMapping(value = "/find/pwd/{userid}")
-    public void findPassword(@PathVariable("userid") String userid) {
+    public String findPassword(@PathVariable("userid") String userid) {
         memberInfoService.resetPassword(userid);
 
+        return null;
     }
 
 
@@ -56,18 +59,20 @@ public class MemberInfoController {
      * 사용자 아이디 찾기
      */
     @GetMapping("/find/id/{username}/{email}")
-    public String findUserId(@PathVariable("username") String username, @PathVariable("email") String email) {
+    public ResponseEntity<String> findUserId(@PathVariable("username") String username, @PathVariable("email") String email) {
+        String userid = memberInfoService.findUserId(username, email);
 
-        return memberInfoService.findUserId(username, email);
+        return ResponseEntity.ok(userid);
     }
 
     /**
      * 사용자 비밀번호 가져오기
      */
     @GetMapping("/get/pwd/{userid}")
-    public String getPassword(@PathVariable("userid") String userid) {
+    public ResponseEntity<String> getPassword(@PathVariable("userid") String userid) {
+        String password = memberInfoService.getPassword(userid);
 
-        return memberInfoService.getPassword(userid);
+        return ResponseEntity.ok(password);
     }
 
 }

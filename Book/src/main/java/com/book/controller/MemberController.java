@@ -8,6 +8,7 @@ import com.book.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -77,18 +78,18 @@ public class MemberController {
      * 사용자 상태 확인(로그인?)
     */
     @GetMapping("/user/states")
-    public boolean isLoggedin(HttpServletRequest request) {
+    public ResponseEntity<Boolean> isLoggedin(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-        return session != null;
+        return ResponseEntity.ok(session != null);
     }
 
     /**
      * 사용자 조회
      */
-    @GetMapping("/api/validID/{userid}")
-    public Member UserInformationQuery(@PathVariable("userId") String userid) {
+    @GetMapping("/validID/{userid}")
+    public ResponseEntity<Member> UserInformationQuery(@PathVariable("userId") String userid) {
         Optional<Member> member = memberService.findOne(userid);
-        return member.orElse(null);
+        return ResponseEntity.ok(member.orElse(null));
     }
 
 }
