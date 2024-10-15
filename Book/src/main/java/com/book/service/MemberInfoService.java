@@ -6,9 +6,11 @@ import com.book.DTO.UserInfoUpdateDTO;
 import com.book.domain.Member;
 import com.book.repository.MemberRepository;
 import com.book.repository.MemoryMemberRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class MemberInfoService {
 
     private final MemberRepository memberRepository = new MemoryMemberRepository();

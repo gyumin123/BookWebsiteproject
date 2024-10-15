@@ -64,7 +64,7 @@ public class MemberInfoController {
     /**
      * 사용자 비밀번호 가져오기
      */
-    @GetMapping("/get/pwd/${userid}")
+    @GetMapping("/get/pwd/{userid}")
     public String getPassword(@PathVariable("userid") String userid) {
 
         return memberInfoService.getPassword(userid);
