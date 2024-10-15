@@ -10,7 +10,7 @@ public class SupportComment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String author;
-    private String content;
+    private String comment;
 
     @OneToMany(mappedBy = "supportPost", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SupportComment> comments = new ArrayList<>();
@@ -31,12 +31,12 @@ public class SupportComment {
         this.author = author;
     }
 
-    public String getContent() {
-        return content;
+    public String getComment() {
+        return comment;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public List<SupportComment> getComments() {

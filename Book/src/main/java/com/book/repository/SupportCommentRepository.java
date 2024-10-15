@@ -11,6 +11,7 @@ public class SupportCommentRepository {
     private static long sequence = 0L;
 
     public SupportComment save(SupportComment comment) {
+        comment.setId(++sequence);
         store.put(comment.getId(), comment);
         return comment;
     }
@@ -24,5 +25,6 @@ public class SupportCommentRepository {
     }
 
     public void deleteById(Long commentId) {
+
     }
 }

@@ -1,6 +1,8 @@
 package com.book.service;
 
 
+import com.book.DTO.SupportCommentDTO;
+import com.book.DTO.SupportPostDTO;
 import com.book.domain.SupportComment;
 import com.book.domain.SupportPost;
 import com.book.repository.SupportCommentRepository;
@@ -31,7 +33,14 @@ public class SupportService {
     }
 
     // 글 쓰기
-    public SupportPost writePost(SupportPost post) {
+    public SupportPost writePost(SupportPostDTO postDTO) {
+        SupportPost post = new SupportPost();
+        post.setAuthor(postDTO.getAuthor());
+        post.setTitle(postDTO.getTitle());
+        post.setContent(postDTO.getContent());
+        post.setPublic(postDTO.getState());
+        post.setPassword(postDTO.getPassword());
+
         return postRepository.save(post);
     }
 
@@ -41,9 +50,15 @@ public class SupportService {
     }
 
     // 댓글 쓰기
-    public SupportComment writeComment(Long postId, SupportComment comment) {
+    public SupportComment writeComment(Long postId, SupportCommentDTO commentDTO) {
         SupportPost post = getPostById(postId);
+
+        SupportComment comment = new SupportComment();
+
         //comment.setSupportPost(post);
+        comment.setAuthor(commentDTO.getAuthor());
+        comment.setComment(commentDTO.getComment());
+
         return commentRepository.save(comment);
     }
 

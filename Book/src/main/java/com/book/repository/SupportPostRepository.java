@@ -1,6 +1,5 @@
 package com.book.repository;
 
-import com.book.domain.SupportComment;
 import com.book.domain.SupportPost;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +11,7 @@ public class SupportPostRepository {
     private static long sequence = 0L;
 
     public SupportPost save(SupportPost post) {
+        post.setId(++sequence);
         store.put(post.getId(), post);
         return post;
     }
