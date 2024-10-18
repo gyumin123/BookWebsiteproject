@@ -17,3 +17,6 @@ required를 사용시 "이 입력란을 작성하세요." 등의 경고메시지
 + [backend - 박규민 ] 2024.10.18 DB + mysql jdbc 연동 
 +  메이븐 의존성 업데이트 새로고침 
 
++ [backend - 박규민 ] 2024.10.19 member 등록 api
++ /api/member-entity/register 
++ memberJPA/MemberEntity.java에 SQL쿼리있습니다. 
