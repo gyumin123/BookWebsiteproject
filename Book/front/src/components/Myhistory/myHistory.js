@@ -9,6 +9,7 @@ const MyHistory = () => {
     //한 페이지당 5개씩 보여주기
     const perpage = 5;
 
+    //초기 페이지 -> 1
     const [logincurrentPageNumber,setloginPageNumber] = useState(1);
     const [logintotalPage,setLogintotalPage] = useState(null);
     const [loginHistory,SetLoginHistory] = useState([]);
@@ -24,9 +25,9 @@ const MyHistory = () => {
                 setLogintotalPage(parseInt(pages, 10)); // 문자열을 숫자로 변환하여 상태에 저장
             })
             .catch(error => console.error('Error fetching total pages:', error));
-    
-            // 현재 페이지 가져오기
-            fetch(`/api/user/myhistory/login/${logincurrentPageNumber}`, {
+            const start = (logincurrentPageNumber-1)*perpage;
+            // 현재 페이지 가져오기-> 해당 번호 부터 perpage개 만큼 가져오기
+            fetch(`/api/user/myhistory/login/${start}/${perpage}`, {
                 method: 'GET',
             })
             .then(response => response.json()) // JSON으로 변환

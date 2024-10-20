@@ -5,15 +5,15 @@ const SupportSearch = () =>{
     const [SupportPosts,SetSupportPosts] = useState([]);
     const [inputPasswords,setInputPasswords] = useState({});
     const [Supporttotalpage,SetSupporttotalpage] = useState(null);
-    const [search,SetSearch] = useState('');
+    const [supportCurrentPage,setsupportPage] = useState(1);
+    const [search,SetSearch] = useState("");
     
     //한 페이지당 5개씩 보여주기
-    const perpage = 5;
-    const totalPage = 10;
+    const perpage = 10;
 
     const navigate = useNavigate();
 
-    const [supportCurrentPage,setsupportPage] = useState(1);
+
     const inputRefs = useRef([]);
 
     {
@@ -28,13 +28,15 @@ const SupportSearch = () =>{
             })
             .catch(error => console.error('Error fetching total pages:', error));
     
-            // 현재 페이지 가져오기
-            fetch(`/api/user/support/${supportCurrentPage}`, {
+            // 현재 페이지 가져오기 (해당 번호 부터 (개수) 개 가져오기)
+            const start = (supportCurrentPage-1)*perpage;
+            fetch(`/api/user/support/${start}/${perpage}`, {
                 method: 'GET',
             })
             .then(response => response.json()) // JSON으로 변환
             .then(data => {
-                SetSupportPosts(data); // 상태에 로그인 게시물 저장
+                console.log(data);
+                SetSupportPosts(data);
             })
             .catch(error => console.error(error));
         }, [supportCurrentPage]); // logincurrentPageNumber가 변경될 때마다 실행
@@ -114,7 +116,7 @@ return(
                 </tbody>
             </table>
         </section>
-        {Array.from({ length: totalPage }, (_, index) => (
+        {Array.from({ length: Supporttotalpage }, (_, index) => (
                     <span
                         key={index + 1}
                         onClick={() => setsupportPage(index + 1)}
