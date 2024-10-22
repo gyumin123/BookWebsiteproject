@@ -11,7 +11,7 @@ const FindID = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        fetch(`/api/user/find/iD/${username,email}`, {
+        fetch(`/api/user/find/iD/${username}/${email}`, {
             method: 'GET',})
         .then(response=>response.text())
         .then(userid=>SetUserid(userid))
