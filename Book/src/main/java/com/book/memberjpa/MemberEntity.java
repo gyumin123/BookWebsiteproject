@@ -15,8 +15,17 @@ public class MemberEntity {
     private String phoneNumber;
     private String email;
     private int voucher;
+    private String profileImage; // 추가된 필드: 프로필 이미지 경로
 
     // Getters and Setters
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
+    }
+
     public String getId() {
         return id;
     }
