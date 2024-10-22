@@ -15,5 +15,15 @@ required를 사용시 "이 입력란을 작성하세요." 등의 경고메시지
 
 
 + [backend - 박규민 ] 2024.10.18 DB + mysql jdbc 연동 
-+  메이븐 의존성 업데이트 새로고침 
+메이븐 의존성 업데이트 새로고침 
 
++ [backend - 박규민 ] 2024.10.19 member 등록 api
+/api/member-entity/register 
+memberJPA/MemberEntity.java에 SQL쿼리있습니다. 
+
++ [backend - 박규민 ] 2024.10.23  
+ 기존 MembershipDTO바탕으로 sql 맵핑 api 생성
+사용자생성하기/ post : /api/user/create 추가
+사용자정보 재설정/put : /api/user/update 추가
+사용자프로필이미지 추가하기/post : /api/user/uploadImage
+사용자 프로필 이미지 가져오기 /get : /api/user/image/{userid} 
