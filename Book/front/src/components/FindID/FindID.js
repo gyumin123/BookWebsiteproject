@@ -23,7 +23,7 @@ const FindID = () => {
                 <h1>아이디 찾기</h1>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label htmlFo/api/user/find/iD/${username}/${email}r="username">닉네임</label>
+                        <label htmlFor="username">닉네임</label>
                         <input type="text" id="username" name="nickname" 
                         value={username} onChange={(e) =>SetUsername(e.target.value)}
                         required></input>
