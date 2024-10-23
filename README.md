@@ -13,6 +13,7 @@ required를 사용시 "이 입력란을 작성하세요." 등의 경고메시지
 + [fronted - 송유진 ] 2024.10.12 기본 웹 페이지 구성 js 완료
 + 다운 받아서 실행하려면 npm install 해주세요! 안될 시 npm init
 
++ [backend - 최효정 ] 2024.10.15 서버 기본 구성 생성
 
 + [backend - 박규민 ] 2024.10.18 DB + mysql jdbc 연동 
 메이븐 의존성 업데이트 새로고침 
@@ -26,4 +27,6 @@ memberJPA/MemberEntity.java에 SQL쿼리있습니다.
 사용자생성하기/ post : /api/user/create 추가
 사용자정보 재설정/put : /api/user/update 추가
 사용자프로필이미지 추가하기/post : /api/user/uploadImage
-사용자 프로필 이미지 가져오기 /get : /api/user/image/{userid} 
+사용자 프로필 이미지 가져오기 /get : /api/user/image/{userid}
+
++ [backend - 최효정 ] 2024.10.15 Controller 형식 수정 - js의 수정된 형태에 따라 반환값과 DTO 형식 일부 수정됨. 
