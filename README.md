@@ -29,4 +29,4 @@ memberJPA/MemberEntity.java에 SQL쿼리있습니다.
 사용자프로필이미지 추가하기/post : /api/user/uploadImage
 사용자 프로필 이미지 가져오기 /get : /api/user/image/{userid}
 
-+ [backend - 최효정 ] 2024.10.15 Controller 형식 수정 - js의 수정된 형태에 따라 반환값과 DTO 형식 일부 수정됨. 
++ [backend - 최효정 ] 2024.10.23 Controller 형식 수정 - js의 수정된 형태에 따라 반환값과 DTO 형식 일부 수정됨. 
