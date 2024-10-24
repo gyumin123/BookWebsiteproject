@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>장바구니</title>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- 장바구니 TOP 부분 -->
+        <div class="cart-top">
+            <h2>장바구니</h2>
+
+            <!-- 첫 번째 책 -->
+            <div class="cart-item">
+                <input type="checkbox" class="delete-checkbox">
+                <div class="cart-item-info">
+                    <h3>책1 제목</h3>
+                    <p>가격: 14,000원 | 수량: 1</p>
+                    <p>구매 분류: <strong>소장</strong></p> <!-- 소장 여부 -->
+                </div>
+            </div>
+
+            <!-- 두 번째 책 (대여) -->
+            <div class="cart-item">
+                <input type="checkbox" class="delete-checkbox">
+                <div class="cart-item-info">
+                    <h3>책2 제목</h3>
+                    <p>가격: 19,200원 | 수량: 1</p>
+                    <p>구매 분류: <strong>대여</strong> (대여 일수: 14일)</p> <!-- 대여 여부와 대여일수 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 장바구니 BOTTOM 부분 -->
+        <div class="cart-bottom">
+            <h3>선택한 상품</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>책 제목</th>
+                        <th>수량</th>
+                        <th>상품금액</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 첫 번째 책 -->
+                    <tr>
+                        <td>책1 제목</td>
+                        <td>1</td>
+                        <td>14,000원</td>
+                    </tr>
+                    <!-- 두 번째 책 -->
+                    <tr>
+                        <td>책2 제목</td>
+                        <td>1</td>
+                        <td>19,200원</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2">결제 예정 금액</td>
+                        <td>33,200원</td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <!-- 주문 버튼 -->
+            <div class="cart-actions">
+                <button type="button">주문하기</button>
+                <button type="button">장바구니 비우기</button>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
