@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>책 페이지</title>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- 상단 메뉴 -->
+        <nav class="menu">
+            <ul>
+                <li><a href="#" id="view-count">조회수별</a></li>
+                <li><a href="#" id="category">분야별</a></li>
+                <li><a href="#" id="theme">테마별</a></li>
+            </ul>
+        </nav>
+
+        <!-- 조회수별 책 섹션 (기본 화면) -->
+        <div class="category-section" id="category-popular">
+            <h2 class="category-title">조회수별 인기 책</h2>
+            <div class="product-grid">
+                <!-- 책 예시 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="product1.jpg" alt="책 1">
+                    </div>
+                    <h3 class="product-title">책 제목 1</h3>
+                    <div class="product-views">조회수: 1111</div>
+                    <div class="product-rating" data-rating="5.0"></div> <!-- 별점 동적 생성 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 분야별 책 섹션 -->
+        <div class="category-section" id="category-field" style="display: none;">
+            <h2 class="category-title">분야별 책</h2>
+            <div class="product-grid">
+                <!-- 책 예시 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="product2.jpg" alt="책 2">
+                    </div>
+                    <h3 class="product-title">책 제목 2</h3>
+                    <div class="product-views">조회수: 987</div>
+                    <div class="product-rating" data-rating="3.8"></div> <!-- 별점 동적 생성 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 테마별 책 섹션 -->
+        <div class="category-section" id="category-theme" style="display: none;">
+            <h2 class="category-title">테마별 책</h2>
+            <div class="product-grid">
+                <!-- 책 예시 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="product3.jpg" alt="책 3">
+                    </div>
+                    <h3 class="product-title">책 제목 3</h3>
+                    <div class="product-views">조회수: 765</div>
+                    <div class="product-rating" data-rating="4.0"></div> <!-- 별점 동적 생성 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 책 리스트 넘기기 -->
+        <div class="pagination">
+            <a href="#" class="active">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#">다음</a>
+        </div>
+    </div>
+
+    <script>
+        // 별점 생성 함수
+        function generateStars(element) {
+            const rating = parseFloat(element.dataset.rating);
+            const fullStars = Math.floor(rating);
+            const halfStar = rating % 1 >= 0.5 ? 1 : 0;
+            const emptyStars = 5 - fullStars - halfStar;
+
+            let starsHTML = '';
+
+            // 가득 찬 별
+            for (let i = 0; i < fullStars; i++) {
+                starsHTML += '<span class="star">★</span>';
+            }
+
+            // 반 별
+            if (halfStar) {
+                starsHTML += '<span class="star half">★</span>';
+            }
+
+            // 빈 별
+            for (let i = 0; i < emptyStars; i++) {
+                starsHTML += '<span class="star">☆</span>';
+            }
+            element.innerHTML = `<div class="stars">${starsHTML}</div>`;
+        }
+
+        // 모든 product-rating 요소에 대해 별점 생성
+        document.querySelectorAll('.product-rating').forEach(function (element) {
+            generateStars(element);
+        });
+    </script>
+
+</body>
+</html>
