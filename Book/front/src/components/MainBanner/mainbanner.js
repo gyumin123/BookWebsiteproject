@@ -5,7 +5,7 @@ import {Link,useNavigate} from "react-router-dom";
 
 const MainBanner = () => {
     const [inputValue,setInputValue] = useState('');
-    const [userid,setUserid] = useState(1234);
+    const [userid,setUserid] = useState(null);
     const [UserImg,setUserImg] = useState('');
     const navigate = useNavigate();
     const [isUsertapHoverd,setUsertapHovered] = useState(false);
@@ -13,33 +13,40 @@ const MainBanner = () => {
     //로그인 되었는지 안되었는지 체크
     const IsLogged = () => {
         useEffect(() => {
-            // fetch('/api/user/state', { method: 'GET' })  // 명시적으로 GET 요청
-            //     .then(response => response.text())   // 서버에서 이미지 경로를 텍스트로 받음
-            //     .then(userid=>{setUserid(userid);})    // 이미지 경로를 상태에 저장
-            //     .catch(setUserImg('image/icon_user.png'));
+             fetch('/api/user/state', { method: 'GET' })
+                 .then((response) => response.text()) // 서버에서 이미지 경로를 텍스트로 받음
+                 .then((userid)=>{
+                 if (userid != ''){
+                      setUserid(userid)
+                      GetImg(userid);
+                 }
+                 else
+                    setUserImg('image/icon_user.png')
+                 })
+                 //없다면 아이콘 저장
+                 .catch(error=>{console.log(error.message);});
             setUserImg('image/icon_user.png');
-        })
-    
+        },[])
 };
 //사용자 이미지 가져오기
 //사용자의 이미지가 없으면 시스템 기본 이미지 저장
     const GetImg = (userid) => {
         fetch('/api/user/image', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({userid})
+            method: 'GET',
         })
-        .then(response => response.blob())
-        .then(data => {setUserImg(URL.createObjectURL(data))})
-        .catch(setUserImg('img/background.'))
+        .then(response=>response.text())
+        .then(data => {
+        if (data == '')
+        //설정된 프로필이 없다면 기본 이미지 설정
+            setUserImg('image/background.png')
+        else
+            setUserImg(data);
+        })
+        .catch(error=>console.log(error))
     }
     const Logout = (userid) => {
             fetch(`/api/user/logout`, {method: 'POST' })
             .then(navigate('/'))
-
-        //현재 페이지 리다이렉트
-        navigate('/');
-        console.log("logout");
     }
 
     const handleChange = (e)=>{

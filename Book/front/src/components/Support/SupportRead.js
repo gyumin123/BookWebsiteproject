@@ -29,7 +29,8 @@ const SupportRead = () => {
         .then(navigate('mypage/support'))
     }
     const deleteComment = (event) => {
-        fetch(`/api/user/support/comment/${event.target.id}`, {
+        const id = event.target.id;
+        fetch(`/api/user/support/comment/${id}`, {
     method: 'Delete',
     })
     .catch(err=>console.log(err));
