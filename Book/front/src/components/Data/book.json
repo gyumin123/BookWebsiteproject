@@ -1,0 +1,644 @@
+[
+  {
+    "title": "1984",
+    "author": "George Orwell",
+    "description": "A dystopian novel set in a totalitarian society under constant surveillance.",
+    "rating": "4.2"
+  },
+  {
+    "title": "To Kill a Mockingbird",
+    "author": "Harper Lee",
+    "description": "A novel about racial injustice and moral growth in the Deep South.",
+    "rating": "4.3"
+  },
+  {
+    "title": "The Great Gatsby",
+    "author": "F. Scott Fitzgerald",
+    "description": "A critique of the American Dream set in the 1920s.",
+    "rating": "3.9"
+  },
+  {
+    "title": "Pride and Prejudice",
+    "author": "Jane Austen",
+    "description": "A romantic novel that critiques the British landed gentry at the end of the 18th century.",
+    "rating": "4.5"
+  },
+  {
+    "title": "Moby Dick",
+    "author": "Herman Melville",
+    "description": "A narrative of the adventures of Ishmael as he follows Captain Ahab in pursuit of a giant whale.",
+    "rating": "3.5"
+  },
+  {
+    "title": "The Catcher in the Rye",
+    "author": "J.D. Salinger",
+    "description": "A story about teenage angst and alienation.",
+    "rating": "3.8"
+  },
+  {
+    "title": "The Lord of the Rings",
+    "author": "J.R.R. Tolkien",
+    "description": "An epic high fantasy novel that follows the quest to destroy the One Ring.",
+    "rating": "4.7"
+  },
+  {
+    "title": "Brave New World",
+    "author": "Aldous Huxley",
+    "description": "A dystopian novel about a technologically advanced future society.",
+    "rating": "4.0"
+  },
+  {
+    "title": "Fahrenheit 451",
+    "author": "Ray Bradbury",
+    "description": "A novel set in a future where books are banned and 'firemen' burn any that are found.",
+    "rating": "4.1"
+  },
+  {
+    "title": "The Hobbit",
+    "author": "J.R.R. Tolkien",
+    "description": "A fantasy novel about the adventures of a hobbit named Bilbo Baggins.",
+    "rating": "4.6"
+  },
+  {
+    "title": "Animal Farm",
+    "author": "George Orwell",
+    "description": "A satirical allegory of the Russian Revolution and the rise of Stalinism.",
+    "rating": "4.2"
+  },
+  {
+    "title": "Wuthering Heights",
+    "author": "Emily Brontë",
+    "description": "A tale of passion and revenge set on the Yorkshire moors.",
+    "rating": "4.0"
+  },
+  {
+    "title": "Jane Eyre",
+    "author": "Charlotte Brontë",
+    "description": "A novel about a woman's moral and spiritual development.",
+    "rating": "4.5"
+  },
+  {
+    "title": "The Picture of Dorian Gray",
+    "author": "Oscar Wilde",
+    "description": "A philosophical novel about vanity, moral duplicity, and the nature of beauty.",
+    "rating": "3.9"
+  },
+  {
+    "title": "The Chronicles of Narnia",
+    "author": "C.S. Lewis",
+    "description": "A series of seven high fantasy novels set in the fictional world of Narnia.",
+    "rating": "4.8"
+  },
+  {
+    "title": "The Alchemist",
+    "author": "Paulo Coelho",
+    "description": "A novel about a shepherd's journey to discover his personal legend.",
+    "rating": "4.3"
+  },
+  {
+    "title": "The Kite Runner",
+    "author": "Khaled Hosseini",
+    "description": "A novel about friendship and redemption set in Afghanistan.",
+    "rating": "4.4"
+  },
+  {
+    "title": "The Fault in Our Stars",
+    "author": "John Green",
+    "description": "A love story between two teenagers who meet at a cancer support group.",
+    "rating": "4.5"
+  },
+  {
+    "title": "Harry Potter and the Sorcerer's Stone",
+    "author": "J.K. Rowling",
+    "description": "The first book in the Harry Potter series, detailing Harry's first year at Hogwarts.",
+    "rating": "4.8"
+  },
+  {
+    "title": "The Handmaid's Tale",
+    "author": "Margaret Atwood",
+    "description": "A dystopian novel set in a totalitarian society that treats women as property.",
+    "rating": "4.3"
+  },
+  {
+    "title": "The Bell Jar",
+    "author": "Sylvia Plath",
+    "description": "A semi-autobiographical novel about a woman's descent into mental illness.",
+    "rating": "4.0"
+  },
+  {
+    "title": "The Road",
+    "author": "Cormac McCarthy",
+    "description": "A post-apocalyptic novel following a father and son's journey through a barren landscape.",
+    "rating": "4.2"
+  },
+  {
+    "title": "Gone Girl",
+    "author": "Gillian Flynn",
+    "description": "A psychological thriller about a woman's disappearance and her husband's struggle to find her.",
+    "rating": "4.1"
+  },
+  {
+    "title": "The Great Alone",
+    "author": "Kristin Hannah",
+    "description": "A novel about a family trying to survive in the harsh Alaskan wilderness.",
+    "rating": "4.6"
+  },
+  {
+    "title": "Little Fires Everywhere",
+    "author": "Celeste Ng",
+    "description": "A novel that explores the intertwined lives of two families in suburban Ohio.",
+    "rating": "4.0"
+  },
+  {
+    "title": "The Night Circus",
+    "author": "Erin Morgenstern",
+    "description": "A fantasy novel about a magical competition between two young illusionists.",
+    "rating": "4.3"
+  },
+  {
+    "title": "The Seven Husbands of Evelyn Hugo",
+    "author": "Taylor Jenkins Reid",
+    "description": "A historical fiction novel about a reclusive Hollywood icon recounting her life story.",
+    "rating": "4.6"
+  },
+  {
+    "title": "Educated",
+    "author": "Tara Westover",
+    "description": "A memoir about a woman's quest for knowledge and self-discovery despite a strict upbringing.",
+    "rating": "4.5"
+  },
+  {
+    "title": "Where the Crawdads Sing",
+    "author": "Delia Owens",
+    "description": "A coming-of-age murder mystery set in the marshes of North Carolina.",
+    "rating": "4.6"
+  },
+  {
+    "title": "The Midnight Library",
+    "author": "Matt Haig",
+    "description": "A novel about a woman who discovers a library that allows her to explore alternate realities.",
+    "rating": "4.2"
+  },
+  {
+    "title": "A Man Called Ove",
+    "author": "Fredrik Backman",
+    "description": "A heartwarming story about a grumpy yet lovable man and the impact of community.",
+    "rating": "4.4"
+  },
+  {
+    "title": "Daisy Jones & The Six",
+    "author": "Taylor Jenkins Reid",
+    "description": "A fictional oral history of a 1970s rock band and their rise to fame.",
+    "rating": "4.4"
+  },
+  {
+    "title": "The Invisible Life of Addie LaRue",
+    "author": "V.E. Schwab",
+    "description": "A tale of a young woman who makes a Faustian bargain to live forever but is forgotten by everyone.",
+    "rating": "4.2"
+  },
+  {
+    "title": "The Vanishing Half",
+    "author": "Brit Bennett",
+    "description": "A multi-generational saga about twin sisters whose lives diverge when one decides to pass as white.",
+    "rating": "4.4"
+  },
+  {
+    "title": "The Song of Achilles",
+    "author": "Madeline Miller",
+    "description": "A retelling of the story of Achilles and Patroclus from Greek mythology.",
+    "rating": "4.4"
+  },
+  {
+    "title": "Circe",
+    "author": "Madeline Miller",
+    "description": "A retelling of the life of Circe, the daughter of Helios, and her journey of self-discovery.",
+    "rating": "4.4"
+  },
+  {
+    "title": "Normal People",
+    "author": "Sally Rooney",
+    "description": "A novel about the complex relationship between two Irish teenagers as they navigate adulthood.",
+    "rating": "4.1"
+  },
+  {
+    "title": "Anxious People",
+    "author": "Fredrik Backman",
+    "description": "A poignant comedy about a failed bank robber who takes a group of strangers hostage during an open house.",
+    "rating": "4.2"
+  },
+  {
+    "title": "The Guest List",
+    "author": "Lucy Foley",
+    "description": "A psychological thriller set at a wedding on a remote Irish island where tensions run high and secrets are revealed.",
+    "rating": "4.1"
+  },
+  {
+    "title": "Mexican Gothic",
+    "author": "Silvia Moreno-Garcia",
+    "description": "A horror novel about a young woman who travels to a remote house in Mexico to save her cousin from a mysterious doom.",
+    "rating": "4.0"
+  },
+  {
+    "title": "The City We Became",
+    "author": "N.K. Jemisin",
+    "description": "A fantasy novel where cities are alive, and New York City must defend itself from a mysterious threat.",
+    "rating": "4.2"
+  },
+  {
+    "title": "The House in the Cerulean Sea",
+    "author": "TJ Klune",
+    "description": "A heartwarming fantasy about a caseworker who discovers a magical orphanage.",
+    "rating": "4.5"
+  },
+  {
+    "title": "Crescent City: House of Earth and Blood",
+    "author": "Sarah J. Maas",
+    "description": "A fantasy novel that follows a half-fae, half-human woman as she investigates a murder in a city of magic.",
+    "rating": "4.3"
+  },
+  {
+    "title": "The Priory of the Orange Tree",
+    "author": "Samantha Shannon",
+    "description": "An epic fantasy about a world divided by religion and dragons.",
+    "rating": "4.5"
+  },
+  {
+    "title": "The Water Dancer",
+    "author": "Ta-Nehisi Coates",
+    "description": "A magical realism novel about slavery and the underground railroad.",
+    "rating": "4.0"
+  },
+  {
+    "title": "The Testaments",
+    "author": "Margaret Atwood",
+    "description": "A sequel to 'The Handmaid's Tale' that explores the regime of Gilead through new perspectives.",
+    "rating": "4.1"
+  },
+  {
+    "title": "The Overstory",
+    "author": "Richard Powers",
+    "description": "A Pulitzer Prize-winning novel that intertwines the lives of several characters with the life of trees.",
+    "rating": "4.2"
+  },
+  {
+    "title": "A Little Life",
+    "author": "Hanya Yanagihara",
+    "description": "A heartbreaking story about friendship and trauma among four college friends in New York.",
+    "rating": "4.4"
+  },
+  {
+    "title": "Before the Coffee Gets Cold",
+    "author": "Toshikazu Kawaguchi",
+    "description": "A tale about a cafe in Tokyo that allows patrons to travel back in time, but only for a short time.",
+    "rating": "4.1"
+  },
+  {
+    "title": "Pachinko",
+    "author": "Min Jin Lee",
+    "description": "A multi-generational saga about a Korean family in Japan.",
+    "rating": "4.4"
+  },
+  {
+    "title": "The Dutch House",
+    "author": "Ann Patchett",
+    "description": "A novel about a brother and sister's relationship and their childhood home, the Dutch House.",
+    "rating": "4.3"
+  },
+  {
+    "title": "The Light We Lost",
+    "author": "Jill Santopolo",
+    "description": "A romantic novel about love, loss, and the choices that shape our lives.",
+    "rating": "4.2"
+  },
+  {
+    "title": "The 5th Wave",
+    "author": "Rick Yancey",
+    "description": "A science fiction novel about an alien invasion that wipes out most of humanity.",
+    "rating": "4.0"
+  },
+  {
+    "title": "The Hate U Give",
+    "author": "Angie Thomas",
+    "description": "A powerful novel about a young girl who witnesses police violence against her friend.",
+    "rating": "4.5"
+  },
+  {
+    "title": "The Girl on the Train",
+    "author": "Paula Hawkins",
+    "description": "A psychological thriller about a woman who becomes involved in a missing person's investigation.",
+    "rating": "4.0"
+  },
+  {
+    "title": "Big Little Lies",
+    "author": "Liane Moriarty",
+    "description": "A novel about three women whose lives become intertwined through school and secrets.",
+    "rating": "4.1"
+  },
+  {
+    "title": "The Silent Patient",
+    "author": "Alex Michaelides",
+    "description": "A psychological thriller about a woman who stops speaking after committing a crime.",
+    "rating": "4.0"
+  },
+  {
+    "title": "Eleanor Oliphant Is Completely Fine",
+    "author": "Gail Honeyman",
+    "description": "A quirky novel about a socially awkward woman and her journey to find friendship.",
+    "rating": "4.2"
+  },
+  {
+    "title": "The Martian",
+    "author": "Andy Weir",
+    "description": "A gripping tale of survival on Mars as an astronaut struggles to stay alive.",
+    "rating": "4.7"
+  },
+  {
+    "title": "The Goldfinch",
+    "author": "Donna Tartt",
+    "description": "A Pulitzer Prize-winning novel about a young boy who survives a terrorist attack and steals a painting.",
+    "rating": "4.1"
+  },
+  {
+    "title": "The Girl with the Dragon Tattoo",
+    "author": "Stieg Larsson",
+    "description": "A thriller about a journalist and a hacker investigating a decades-old disappearance.",
+    "rating": "4.2"
+  },
+  {
+    "title": "The Nightingale",
+    "author": "Kristin Hannah",
+    "description": "A historical fiction novel about two sisters in France during World War II.",
+    "rating": "4.5"
+  },
+  {
+    "title": "Room",
+    "author": "Emma Donoghue",
+    "description": "A novel about a young boy and his mother held captive in a small room.",
+    "rating": "4.3"
+  },
+  {
+    "title": "The Immortalists",
+    "author": "Chloe Benjamin",
+    "description": "A novel that follows four siblings who learn the date of their deaths.",
+    "rating": "4.1"
+  },
+  {
+    "title": "A Court of Thorns and Roses",
+    "author": "Sarah J. Maas",
+    "description": "A fantasy series that blends beauty and the beast with fae mythology.",
+    "rating": "4.2"
+  },
+  {
+    "title": "It Ends with Us",
+    "author": "Colleen Hoover",
+    "description": "A novel about love, resilience, and the difficult choices that come with it.",
+    "rating": "4.4"
+  },
+  {
+    "title": "The Test",
+    "author": "Sophie McKenzie",
+    "description": "A psychological thriller that questions the nature of identity and truth.",
+    "rating": "4.1"
+  },
+  {
+    "title": "The Woman in the Window",
+    "author": "A.J. Finn",
+    "description": "A psychological thriller about an agoraphobic woman who believes she has witnessed a crime.",
+    "rating": "4.0"
+  },
+    {
+      "title": "The Great Gatsby",
+      "author": "F. Scott Fitzgerald",
+      "description": "A story about the American dream set in the 1920s.",
+      "rating": 4.5
+    },
+    {
+      "title": "To Kill a Mockingbird",
+      "author": "Harper Lee",
+      "description": "A novel about the serious issues of rape and racial inequality.",
+      "rating": 4.8
+    },
+    {
+      "title": "1984",
+      "author": "George Orwell",
+      "description": "A dystopian social science fiction novel and cautionary tale.",
+      "rating": 4.7
+    },
+    {
+      "title": "Pride and Prejudice",
+      "author": "Jane Austen",
+      "description": "A romantic novel that critiques the British landed gentry.",
+      "rating": 4.6
+    },
+    {
+      "title": "The Catcher in the Rye",
+      "author": "J.D. Salinger",
+      "description": "A story about teenage alienation and loss.",
+      "rating": 4.4
+    },
+    {
+      "title": "The Hobbit",
+      "author": "J.R.R. Tolkien",
+      "description": "A fantasy novel that follows the journey of Bilbo Baggins.",
+      "rating": 4.5
+    },
+    {
+      "title": "Fahrenheit 451",
+      "author": "Ray Bradbury",
+      "description": "A novel about a dystopian future where books are outlawed.",
+      "rating": 4.3
+    },
+    {
+      "title": "The Lord of the Rings",
+      "author": "J.R.R. Tolkien",
+      "description": "An epic fantasy novel about the struggle against Sauron.",
+      "rating": 4.9
+    },
+    {
+      "title": "Brave New World",
+      "author": "Aldous Huxley",
+      "description": "A dystopian novel set in a technologically advanced future.",
+      "rating": 4.2
+    },
+    {
+      "title": "The Alchemist",
+      "author": "Paulo Coelho",
+      "description": "A philosophical book about a shepherd's journey to find treasure.",
+      "rating": 4.6
+    },
+    {
+      "title": "The Picture of Dorian Gray",
+      "author": "Oscar Wilde",
+      "description": "A novel about a young man whose portrait ages while he stays young.",
+      "rating": 4.1
+    },
+    {
+      "title": "Moby Dick",
+      "author": "Herman Melville",
+      "description": "The narrative of Captain Ahab's obsessive quest for revenge on the white whale.",
+      "rating": 4.0
+    },
+    {
+      "title": "War and Peace",
+      "author": "Leo Tolstoy",
+      "description": "A historical novel that chronicles the French invasion of Russia.",
+      "rating": 4.5
+    },
+    {
+      "title": "The Brothers Karamazov",
+      "author": "Fyodor Dostoevsky",
+      "description": "A philosophical novel exploring faith, doubt, and morality.",
+      "rating": 4.4
+    },
+    {
+      "title": "Jane Eyre",
+      "author": "Charlotte Brontë",
+      "description": "A novel that follows the life of an orphaned girl and her love for Mr. Rochester.",
+      "rating": 4.7
+    },
+    {
+      "title": "The Grapes of Wrath",
+      "author": "John Steinbeck",
+      "description": "A novel about the struggles of an Oklahoma family during the Great Depression.",
+      "rating": 4.3
+    },
+    {
+      "title": "Catch-22",
+      "author": "Joseph Heller",
+      "description": "A satirical novel about the absurdities of war.",
+      "rating": 4.6
+    },
+    {
+      "title": "Animal Farm",
+      "author": "George Orwell",
+      "description": "A political allegory about a group of farm animals who revolt.",
+      "rating": 4.8
+    },
+    {
+      "title": "The Bell Jar",
+      "author": "Sylvia Plath",
+      "description": "A novel that explores themes of identity and mental illness.",
+      "rating": 4.5
+    },
+    {
+      "title": "The Fault in Our Stars",
+      "author": "John Green",
+      "description": "A novel about two teenagers who meet in a cancer support group.",
+      "rating": 4.4
+    },
+    {
+      "title": "Little Women",
+      "author": "Louisa May Alcott",
+      "description": "A coming-of-age story about four sisters during the Civil War.",
+      "rating": 4.6
+    },
+    {
+      "title": "The Handmaid's Tale",
+      "author": "Margaret Atwood",
+      "description": "A dystopian novel about a totalitarian society that subjugates women.",
+      "rating": 4.5
+    },
+    {
+      "title": "The Road",
+      "author": "Cormac McCarthy",
+      "description": "A post-apocalyptic novel about a father and son's journey.",
+      "rating": 4.3
+    },
+    {
+      "title": "The Color Purple",
+      "author": "Alice Walker",
+      "description": "A novel that explores the life of African American women in the early 20th century.",
+      "rating": 4.6
+    },
+    {
+      "title": "Gone with the Wind",
+      "author": "Margaret Mitchell",
+      "description": "A historical novel about love and loss during the Civil War.",
+      "rating": 4.4
+    },
+    {
+      "title": "A Tale of Two Cities",
+      "author": "Charles Dickens",
+      "description": "A historical novel set in London and Paris before and during the French Revolution.",
+      "rating": 4.3
+    },
+    {
+      "title": "The Catcher in the Rye",
+      "author": "J.D. Salinger",
+      "description": "A story about teenage alienation and rebellion.",
+      "rating": 4.2
+    },
+    {
+      "title": "The Road",
+      "author": "Cormac McCarthy",
+      "description": "A post-apocalyptic tale of survival and father-son bond.",
+      "rating": 4.5
+    },
+    {
+      "title": "The Hitchhiker's Guide to the Galaxy",
+      "author": "Douglas Adams",
+      "description": "A comedic science fiction series that follows Arthur Dent.",
+      "rating": 4.7
+    },
+    {
+      "title": "The Secret Garden",
+      "author": "Frances Hodgson Burnett",
+      "description": "A children's novel about a girl who discovers a hidden garden.",
+      "rating": 4.5
+    },
+    {
+      "title": "The Lovely Bones",
+      "author": "Alice Sebold",
+      "description": "A novel narrated by a young girl who has been murdered.",
+      "rating": 4.4
+    },
+    {
+      "title": "Dune",
+      "author": "Frank Herbert",
+      "description": "A science fiction novel set in a distant future amidst a huge interstellar empire.",
+      "rating": 4.6
+    },
+    {
+      "title": "A Brave New World",
+      "author": "Aldous Huxley",
+      "description": "A dystopian novel exploring themes of technology and society.",
+      "rating": 4.3
+    },
+    {
+      "title": "The Kite Runner",
+      "author": "Khaled Hosseini",
+      "description": "A story of friendship and redemption set against the backdrop of Afghanistan.",
+      "rating": 4.5
+    },
+    {
+      "title": "The Perks of Being a Wallflower",
+      "author": "Stephen Chbosky",
+      "description": "A coming-of-age novel about adolescence and mental health.",
+      "rating": 4.4
+    },
+    {
+      "title": "The Diary of a Young Girl",
+      "author": "Anne Frank",
+      "description": "A personal account of life in hiding during the Holocaust.",
+      "rating": 4.8
+    },
+    {
+      "title": "The Old Man and the Sea",
+      "author": "Ernest Hemingway",
+      "description": "A short novel about an aging fisherman and his battle with a giant marlin.",
+      "rating": 4.4
+    },
+    {
+      "title": "Life of Pi",
+      "author": "Yann Martel",
+      "description": "A novel about a young boy stranded on a lifeboat with a Bengal tiger.",
+      "rating": 4.5
+    },
+    {
+      "title": "The Giver",
+      "author": "Lois Lowry",
+      "description": "A dystopian novel about a society that has eliminated pain and suffering.",
+      "rating": 4.6
+    }
+  ]
