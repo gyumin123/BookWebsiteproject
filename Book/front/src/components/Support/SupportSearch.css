@@ -1,118 +1,33 @@
-
-body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #fafafa; 
-
-header {
-    text-align: center;
-    margin: 20px 0;
-}
-
-header h1 {
-    font-size: 28px;
-    color: #262626;
+#searchSection_2 {
+    position: relative;
+    top: -10px;
     margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
 }
 
-section h2 {
-    font-size: 20px;
-    color: #262626;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #dbdbdb; 
-    padding-bottom: 5px;
-    text-align: center;
+
+#postList {
+    position: relative;
+    top: -20px;
+    margin-bottom: 20px;
 }
 
-#searchSection {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-#searchSection input[type="text"] {
-    padding: 10px;
-    width: 250px;
-    font-size: 14px;
-    border: 1px solid #dbdbdb;
-    border-radius: 5px; 
-    background-color: #fafafa;
-    outline: none;
-}
-
-#searchSection button {
-    padding: 10px 20px;
-    background-color: #3897f0;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-left: 10px;
-}
-
-#searchSection button:hover {
-    background-color: #318be5; 
-}
-
-table {
+#postList table {
     width: 100%;
-    max-width: 800px;
-    margin: 0 auto 40px;
-    border-collapse: collapse; 
-    background-color: #fff;
-    border: 1px solid #dbdbdb; 
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-collapse: collapse;
 }
 
-thead th {
-    font-size: 14px;
-    color: #8e8e8e; 
-    font-weight: bold;
-    padding: 15px;
+#postList th, #postList td {
+    padding: 10px;
     text-align: left;
-    border-bottom: 1px solid #dbdbdb;
+    border-bottom: 1px solid #ddd;
 }
-
-tbody td {
-    font-size: 14px;
-    color: #262626;
-    padding: 15px;
-    border-bottom: 1px solid #dbdbdb;
-    text-align: center;
-}
-
 
 #postRegistration {
-    text-align: center;
-    margin-top: 30px;
-}
-
-#postRegistration button {
-    padding: 10px 20px;
-    background-color: #3897f0;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 10px;
-}
-
-#postRegistration button:hover {
-    background-color: #318be5; 
-}
-
-@media (max-width: 600px) {
-    table {
-        font-size: 12px;
-    }
-
-    thead th, tbody td {
-        padding: 10px;
-    }
-
-    #searchSection input[type="text"] {
-        width: 200px; 
-    }
-}
+    position: relative;
+    top: 0px;
+    margin-top: 0px;
 }
