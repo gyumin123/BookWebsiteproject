@@ -4,20 +4,34 @@ import Support from "../Support/Support";
 import SetPwd from "../SetPwd/setPwd";
 import MyHistory from "../Myhistory/myHistory";
 import PurchaseHistory from "../PurchaseHistory/purchaseHistory";
-// import './mypage.css'
+import './mypage.css'
 
 const Mypage = () => {
     const [username,SetUsername] = useState('');
     const [nameEdit,SetnameEdit] = useState(true);
-    const [searchParams] = useSearchParams();
-    const userid = searchParams.get('userid');
+    const [userid,setUserid] = useState(null);
     
     // 아직 구현 안함
     const [group,Setgroup] = useState('');
 
     const [ProfileImg,setUserImg] = useState('');
-
-
+    function GetUser(){
+        useEffect(() => {
+             fetch('/api/user/state', { method: 'GET' })
+                 .then((response) => response.text())
+                 .then((userid)=>{
+                 if (userid != ''){
+                      setUserid(null)
+                 }
+                 else
+                    setUserImg('image/icon_user.png')
+                 })
+                 //없다면 아이콘 저장
+                 .catch(error=>{console.log(error.message);});
+            setUserImg('image/icon_user.png');
+        },[])
+    };
+    GetUser();
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         if (file) {
