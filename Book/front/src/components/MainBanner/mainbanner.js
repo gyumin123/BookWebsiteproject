@@ -1,6 +1,6 @@
 import React , {useState,useEffect} from "react"
 import {Link,useNavigate} from "react-router-dom";
-// import './mainbanner.css';
+import './mainbanner.css';
 
 
 const MainBanner = () => {
@@ -17,7 +17,7 @@ const MainBanner = () => {
                  .then((response) => response.text()) // 서버에서 이미지 경로를 텍스트로 받음
                  .then((userid)=>{
                  if (userid != ''){
-                      setUserid(userid)
+                      setUserid(userid);
                       GetImg(userid);
                  }
                  else
@@ -104,9 +104,9 @@ const MainBanner = () => {
                             (
                             <div>
                                 <ul>
-                                    <li><Link to={`/mypage?userid=${userid}`}>마이페이지</Link></li>
-                                    {/* 아직 구현 안함 */}
-                                    <li><span type="text">이용권</span></li>
+                                    <li><Link to={`/mypage`}>마이페이지</Link></li>
+                                    <li><Link to={`/cart`}>장바구니</Link></li>
+                                    <li><Link to={`/subscribe`}>이용권</Link></li>
                                     <li><span type="text" style={{cursor:"pointer"}} onClick={Logout}>로그아웃</span></li>
                                 </ul>
                             </div>
@@ -117,9 +117,9 @@ const MainBanner = () => {
                 </div>
                     <div className="nav-bar">
                     {/* 아직 구현 안한 부분 */}
-                    <a href="#">분야별</a>
-                    <a href="#">테마별</a>
-                    <a href="#">인기</a>
+                    <a href="/classification?category=0">분야별</a>
+                    <a href="/classification?category=1">테마별</a>
+                    <a href="/classification?category=2">인기</a>
                     <a href="#">클럽</a>
                 </div>
             </header>
