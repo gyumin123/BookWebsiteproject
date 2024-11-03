@@ -1,7 +1,7 @@
 import React , {useState,useEffect} from "react"
 import {Link,Route,Routes,useSearchParams} from "react-router-dom";
 import BookData from '../Data/book.json';
-import './style.css'
+import './Classification.css'
 import {ContentCard} from '../Data/function';
 
 
