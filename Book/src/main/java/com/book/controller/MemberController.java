@@ -29,7 +29,7 @@ public class MemberController {
     /**
      * 사용자 아이디 찾기
      */
-    @GetMapping("/user/find/id/{username}/{email}")
+    @GetMapping("/member/find/id/{username}/{email}")
     public ResponseEntity<String> findUserId(@PathVariable("username") String username, @PathVariable("email") String email) {
         String userid = memberService.findUserId(username, email);
 
@@ -43,7 +43,7 @@ public class MemberController {
     /**
      * 사용자 비밀번호 찾기
      */
-    @GetMapping("/user/validID/{userid}")
+    @GetMapping("/member/validID/{userid}")
     public ResponseEntity<String> findPassword(@PathVariable String userid) {
         if(memberService.findOne(userid).isPresent()) {
             return ResponseEntity.ok("Valid ID");
@@ -51,7 +51,7 @@ public class MemberController {
         else return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Invalid ID");
     }
 
-    @PostMapping(value = "/user/find/pwd/{userid}")
+    @PostMapping(value = "/member/find/pwd/{userid}")
     public ResponseEntity<String> sendTempPassword(@PathVariable String userid) {
         boolean isUserFound = memberService.resetPassword(userid);
 
@@ -86,7 +86,7 @@ public class MemberController {
     /**
      * 회원가입
      */
-    @PostMapping(value = "/membership")
+    @PostMapping(value = "/usermembership")
     public ResponseEntity<String> membership(@RequestBody MembershipDTO membershipDTO) {
         // 입력받은 정보로 멤버 객체를 만들어 MemberService로 넘긴다.
         String userId = memberService.register(membershipDTO); // 회원가입 진행
@@ -95,7 +95,7 @@ public class MemberController {
         else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to create membership");
     }
 
-    @GetMapping("/validID/{userid}")
+    @GetMapping("/membervalidID/{userid}")
     public ResponseEntity<String> checkUserId(@PathVariable String userid) {
          if(memberService.findOne(userid).isPresent()) return ResponseEntity.ok("Valid ID");
          else return ResponseEntity.status(HttpStatus.CONFLICT).body("User ID already exists");
@@ -107,7 +107,7 @@ public class MemberController {
     /**
      * 비밀번호 조회
      */
-    @GetMapping("/user/get/pwd/{userid}")
+    @GetMapping("/member/get/pwd/{userid}")
     public ResponseEntity<String> getPassword(@PathVariable String userid) {
         String pw = memberService.getPassword(userid);
         if(pw != null) return ResponseEntity.ok(pw);
