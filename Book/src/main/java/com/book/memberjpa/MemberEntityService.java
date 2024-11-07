@@ -1,5 +1,6 @@
 package com.book.memberjpa;
 
+import com.book.DTO.LoginDTO;
 import com.book.DTO.MembershipDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -56,6 +57,50 @@ public class MemberEntityService {
         }
     }
 
+    // 로그인 인증 메서드
+    public boolean authenticateUser(LoginDTO loginDTO) {
+        Optional<MemberEntity> member = memberEntityRepository.findById(loginDTO.getUserid());
+        return member.isPresent() && member.get().getPassword().equals(loginDTO.getPassword());
+    }
+
+    // 로그인 상태 확인 (세션이나 토큰으로 구현 가능)
+    public boolean isUserLoggedIn() {
+        // 현재 로그인 상태를 확인하는 로직 필요 (세션이나 토큰을 이용해 확인)
+        return true; // 예시로 항상 true 반환
+    }
+
+    // 로그아웃 메서드
+    public void logoutUser() {
+        // 로그아웃 처리 로직 추가 (예: 세션 만료 또는 토큰 무효화)
+    }
+
+    // 아이디 찾기
+    public String findUserIdByUsernameAndEmail(String name, String email) {
+        Optional<MemberEntity> member = memberEntityRepository.findByNameAndEmail(name, email);
+        return member.map(MemberEntity::getId).orElse(null);
+    }
+
+    // 임시 비밀번호 전송 (임시 비밀번호 생성 후 이메일 발송 로직 추가 가능)
+    public boolean sendTemporaryPassword(String userid) {
+        Optional<MemberEntity> member = memberEntityRepository.findById(userid);
+        if (member.isPresent()) {
+            // 임시 비밀번호 생성 및 이메일 전송 로직 추가
+            return true;
+        }
+        return false;
+    }
+
+    // 비밀번호 가져오기 (비밀번호는 보안상 평문으로 가져오지 않는 것이 좋음)
+    public String getPassword(String userid) {
+        Optional<MemberEntity> member = memberEntityRepository.findById(userid);
+        return member.map(MemberEntity::getPassword).orElse(null);
+    }
+
+    // 아이디 중복 체크
+    public boolean isUserIdAvailable(String userid) {
+        return !memberEntityRepository.existsById(userid);
+    }
+
     // 사용자 이미지 저장 메서드
     public String saveUserImage(String userid, MultipartFile file) throws IOException {
         String fileName = userid + "_" + file.getOriginalFilename();
@@ -91,5 +136,4 @@ public class MemberEntityService {
             throw new RuntimeException("Image not found for user: " + userid);
         }
     }
-
 }

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Controller
-@RequestMapping("/api")
+@RequestMapping("/api/test")
 public class MemberController {
 
     private final MemberService memberService;
