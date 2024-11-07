@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/user/support")
+@RequestMapping("/api/member/support")
 public class SupportController {
 
     private final SupportService supportService;
