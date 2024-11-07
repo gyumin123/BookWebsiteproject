@@ -1,0 +1,124 @@
+
+.book-header {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+  }
+  
+  .book-image {
+    flex: 1;
+    max-width: 200px;
+  }
+  
+  .book-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .book-info {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .book-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .book-author {
+    font-size: 18px;
+    color: #777;
+  }
+  
+  .book-rating {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .rating-value {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ff8800;
+  }
+  
+  .book-meta {
+    color: #555;
+    font-size: 16px;
+    margin: 10px 0;
+  }
+  
+  .book-description {
+    font-size: 16px;
+    color: #333;
+    max-height: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .book-price {
+    font-size: 20px;
+    color: #333;
+    font-weight: bold;
+    margin-top: 15px;
+  }
+  
+  .book-actions {
+    margin-top: 15px;
+  }
+  
+  .open-button {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+  }
+  
+  .open-button:hover {
+    background-color: #444;
+  }
+  
+  .book-details {
+    padding: 20px;
+    background-color: #fff;
+  }
+  
+  .book-summary {
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .book-summary::before {
+    content: "\2022 ";
+    color: #ff8800;
+    font-weight: bold;
+  }
+  
+  /* Additional styling for better user experience */
+  .book-header, .book-details {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    border-radius: 10px;
+  }
+  
+  @media (max-width: 768px) {
+    .book-header {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .book-info {
+      text-align: center;
+    }
+  }
+  
