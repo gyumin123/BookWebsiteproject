@@ -1,11 +1,22 @@
 package com.book.memberjpa;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.Optional;
 
 public interface MemberEntityRepository extends JpaRepository<MemberEntity, String> {
-    // 필요한 경우 추가 쿼리 메서드를 정의할 수 있습니다.
+    // 'name'과 'email'을 사용해 사용자 찾기
+    Optional<MemberEntity> findByNameAndEmail(String name, String email);
 }
-/**       mysql  테이블 생성쿼리
+
+
+/**
+ * -- 스키마 생성
+ CREATE SCHEMA IF NOT EXISTS book;
+
+ -- 스키마 사용
+ USE book;
+
+ -- Member 테이블 생성
  CREATE TABLE Member (
  id VARCHAR(255) NOT NULL PRIMARY KEY,
  password VARCHAR(255) NOT NULL,
@@ -14,4 +25,5 @@ public interface MemberEntityRepository extends JpaRepository<MemberEntity, Stri
  email VARCHAR(255),
  voucher INT
  );
+
  */
