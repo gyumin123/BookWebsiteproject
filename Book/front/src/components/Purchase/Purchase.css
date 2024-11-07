@@ -1,0 +1,96 @@
+
+.section-title {
+    font-size: 18px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.payment-table th, .payment-table td {
+    padding: 10px;
+    border: 1px solid #444;
+    text-align: center;
+    color: #000000;
+}
+
+.payment-method {
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+label[for="card"] {
+    color: #000000;
+    margin-top: -25px;
+    margin-bottom : 15px ;
+}
+
+label[for="other"]{
+    color: #000000;
+    margin-top: -25px;
+    margin-bottom: 20px;
+}
+
+.checkbox-group label {
+    color: #000000;
+}
+
+.card-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 100px;
+    cursor: pointer;
+    border: 1px dashed #888;
+    margin-left: 125px;
+    border-radius: 10px;
+    color: #888;
+    margin-bottom: 30px;
+
+}
+
+.card-box:hover {
+    border-color: #0066cc;
+    color: #ffffff;
+}
+
+
+.card-register {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000000;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.cancel-button, .next-button {
+    padding: 10px 20px;
+    border: 1px solid #444;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cancel-button {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.cancel-button:hover {
+    background-color: #ffffff;
+}
+
+.next-button {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.next-button:hover {
+    background-color: #474747;
+}
+
+
+
