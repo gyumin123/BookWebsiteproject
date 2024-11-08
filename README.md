@@ -42,3 +42,5 @@ memberJPA/MemberEntity.java에 SQL쿼리있습니다.
 + [backend - 박규민] 2024.11.06 기존 맵매핑방식 api 경로 수정, 아래의 api 경로 까지 구현됨
 + 로그인 상태 확인 ,이미지 가져오기 ,이미지 올리기 ,회원정보 수정하기 ,아이디 중복 체크하기 ,회원가입하기 ,로그인 하기 ,로그아웃하기
 아이디 찾기 ,임시 비밀번호 전송 ,비밀번호  가져오기
+
++ [frontend - 방민승] 2024.11.07 BookDetail.css, Bookinfo.css, Classification.css, function.css, Purchase.css, ShoppingCart.css, Subcribe.css 추가
