@@ -26,4 +26,10 @@ public interface MemberEntityRepository extends JpaRepository<MemberEntity, Stri
  voucher INT
  );
 
+ CREATE TABLE login_history (
+ id BIGINT AUTO_INCREMENT PRIMARY KEY,
+ date VARCHAR(255),
+ ip VARCHAR(255)
+ );
+
  */
