@@ -3,64 +3,68 @@ import {Link,useNavigate} from "react-router-dom";
 import './mainbanner.css';
 
 
-const MainBanner = () => {
+const Header = () => {
     const [inputValue,setInputValue] = useState('');
     const [userid,setUserid] = useState(null);
     const [UserImg,setUserImg] = useState('');
     const navigate = useNavigate();
-    const [isUsertapHoverd,setUsertapHovered] = useState(false);
+    const [isUserTapHovered,setUserTapHovered] = useState(false);
 
+    IsLoggedIn();
     //로그인 되었는지 안되었는지 체크
-    const IsLogged = () => {
+    function IsLoggedIn()  {
         useEffect(() => {
-             fetch('/api/user/state', { method: 'GET' })
-                 .then((response) => response.text()) // 서버에서 이미지 경로를 텍스트로 받음
-                 .then((userid)=>{
-                 if (userid != ''){
-                      setUserid(userid);
-                      GetImg(userid);
-                 }
+             fetch('/api/user/states', { method: 'GET' })
+                 .then((response) => {
+                 if (response.ok)
+                    return response.text();
                  else
-                    setUserImg('image/icon_user.png')
+                    throw new Error(response.status);
                  })
+                 .then((userid)=>{setUserid(userid);getUserImage(userid)})
                  //없다면 아이콘 저장
-                 .catch(error=>{console.log(error.message);});
-            setUserImg('image/icon_user.png');
+                 .catch(error => setUserImg('/image/icon_user.png'));
+                 setUserid("root");
         },[])
+
 };
 //사용자 이미지 가져오기
+
 //사용자의 이미지가 없으면 시스템 기본 이미지 저장
-    const GetImg = (userid) => {
-        fetch('/api/user/image', {
+    const getUserImage = (userid) => {
+        fetch(`/api/user/image/${userid}`, {
             method: 'GET',
         })
-        .then(response=>response.text())
-        .then(data => {
-        if (data == '')
-        //설정된 프로필이 없다면 기본 이미지 설정
-            setUserImg('image/background.png')
-        else
-            setUserImg(data);
+        .then(response=>{
+            if(response.ok)
+                return response.blob();
+            else
+                throw new Error(response.status);
         })
-        .catch(error=>console.log(error))
+        .then(imageBlob => {
+        const imageUrl = URL.creteObjectURL(imageBlob);
+        setUserImg(imageUrl);
+        })
+        .catch(error=>setUserImg('/image/background.png'))
     }
-    const Logout = (userid) => {
+    function Logout(){
             fetch(`/api/user/logout`, {method: 'POST' })
             .then(navigate('/'))
+            setUserid(null);
     }
 
-    const handleChange = (e)=>{
+    function handleSearchSection(e){
         setInputValue(e.target.value);
     };
     // hover 되었을 때
-    const HoverEnter = () => {
-        setUsertapHovered(true);
+    function HoverEnter(){
+        setUserTapHovered(true);
     }
-    const HoverLeave = () => {
-        setUsertapHovered(false);
+    function HoverLeave(){
+        setUserTapHovered(false);
     }
     //함수 실행
-    IsLogged();
+
     return (
         <div className = "mainbannerbody">
             <header className = "mainbannerheader">
@@ -72,7 +76,7 @@ const MainBanner = () => {
                                 type="text" 
                                 placeholder="검색어 입력"
                                 value={inputValue}
-                                onChange={handleChange}
+                                onChange={handleSearchSection}
                             >
                             </input>
                             <button className="search-icon">
@@ -90,7 +94,7 @@ const MainBanner = () => {
                         <img src={UserImg} alt="User Icon"style={{height:20}}></img>
                     </button>
                     {
-                        isUsertapHoverd && 
+                        isUserTapHovered &&
                         <div className = "usertap">
                             {userid==null?(
                                 <div>
@@ -126,4 +130,4 @@ const MainBanner = () => {
         </div>
     );
 }
-export default MainBanner;
+export default Header;
