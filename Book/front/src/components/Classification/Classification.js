@@ -30,7 +30,7 @@ const Classification = () => {
             }
             else
                 SetTitle("인기");
-        },[])
+        },[themeOption,category])
     }
     Setting();
     GetBookData();

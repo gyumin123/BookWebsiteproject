@@ -4,6 +4,7 @@ import BookData from '../Data/book.json';
 import BookImg from '../Data/book.jpg';
 import {generateStars,Popup} from '../Data/function';
 import BookDetail from '../BookDetail/BookDetail'
+import './BookInfo.css'
 const BookInfo = () => {
 
     const { id } = useParams();
@@ -69,7 +70,7 @@ const BookInfo = () => {
             method: 'GET',
         })
         .then(response=>response.text())
-        .then(data => data==true?setSubscribe(true):setSubscribe(false))
+        .then(data => data=='true'?setSubscribe(true):setSubscribe(false))
         .catch(error=>console.log(error))
     }
 

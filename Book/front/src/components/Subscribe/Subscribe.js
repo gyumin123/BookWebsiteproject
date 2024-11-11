@@ -5,6 +5,7 @@ import BookImg from '../Data/book.jpg';
 import {generateStars,calPrice,Popup,totalPrice} from '../Data/function';
 import BookDetail from '../BookDetail/BookDetail'
 import Data from '../Data/cart.json';
+import './Subscribe.css'
 
 const Subscribe = () => {
     const navigate = useNavigate();
