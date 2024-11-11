@@ -1,6 +1,5 @@
 import React, { useState,useEffect } from "react"
 import {Link,Route,Routes,useSearchParams} from "react-router-dom";
-import Support from "../Support/Support";
 import SetPwd from "../SetPwd/setPwd";
 import MyHistory from "../Myhistory/myHistory";
 import PurchaseHistory from "../PurchaseHistory/purchaseHistory";
@@ -15,7 +14,8 @@ const Mypage = () => {
     const [group,Setgroup] = useState('');
 
     const [ProfileImg,setUserImg] = useState('');
-    function GetUser(){
+
+    function GetUserData(){
         useEffect(() => {
              fetch('/api/user/state', { method: 'GET' })
                  .then((response) => response.text())
@@ -31,7 +31,7 @@ const Mypage = () => {
             setUserImg('image/icon_user.png');
         },[])
     };
-    GetUser();
+    GetUserData();
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         if (file) {
@@ -105,13 +105,12 @@ const Mypage = () => {
                     <li><Link to={`/mypage?userid=${userid}`}>비밀번호 변경</Link></li>
                         <li><Link to={`/mypage/myhistory?userid=${userid}`}>나의 활동</Link></li>
                         <li><Link to={`/mypage/purchasehistory?userid=${userid}`}>구매/ 대여 내역</Link></li>
-                        <li><Link to={`/mypage/support?userid=${userid}`}>고객센터</Link></li>
+                        <li><Link to={`/support?userid=${userid}`}>고객센터</Link></li>
                     </ul>
                 </div>
                 <div className="box-panel">
                     {/* 박스 패널 안에 페이지를 띄움 */}
                     <Routes>
-                        <Route path="support/*" element={<Support/>}/>
                         <Route path="/" element={<SetPwd/>}/>
                         <Route path="myhistory" element={<MyHistory/>}/>
                         <Route path="purchasehistory" element={<PurchaseHistory/>}/>

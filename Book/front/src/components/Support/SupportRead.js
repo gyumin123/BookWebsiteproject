@@ -1,32 +1,39 @@
-import React, { useState } from "react"
+import React, { useState ,useEffect} from "react"
 import './SupportRead.css';
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const SupportRead = () => {
-    const [searchParams] = useSearchParams();
-    const postid = searchParams.get('postid');
-    const [comment,SetComment] = useState('');
+    const {id} = useParams();
+    const postid = parseInt(id);
+    const [comment,setComment] = useState('');
+    const [inputComment,setInputComment] = useState('');
     console.log(postid);
     const navigate = useNavigate();
-    const[Post,SetPost] = useState([]);
+    const[Post,SetPost] = useState(null);
         //글 가져오기
-        fetch(`/api/user/support/${postid}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-        })
-        .then((response)=>response.JSON())
-        .then(data=>SetPost(data));
-        //게시판 댓글 가져오기
-        fetch(`/api/user/support/comment`, {
-            method: 'POST',
-        })
-        .then((response)=>response.JSON())
-        .then(data=>SetComment(data));
-    const PostDelete = () =>{
+    GetPostData();
+    function GetPostData(){
+        useEffect(()=>{
+            console.log(postid);
+            fetch(`/api/user/support/${postid}`, {
+                method: 'Get'
+            })
+            .then((response)=>response.json())
+            .then(data=>{console.log(data);SetPost(data)});
+            //게시판 댓글 가져오기
+            fetch(`/api/user/comment/${postid}`, {
+                method: 'POST',
+            })
+            .then((response)=>response.json())
+            .then(data=>setComment(data));
+        },[postid])
+    }
+
+    function PostDelete(){
         fetch(`/api/user/support/${postid}`, {
             method: 'Delete'
         })
-        .then(navigate('mypage/support'))
+        .then(navigate('/support'))
     }
     const deleteComment = (event) => {
         const id = event.target.id;
@@ -36,28 +43,40 @@ const SupportRead = () => {
     .catch(err=>console.log(err));
     }
     const commentWrite = () => {
-                fetch(`/api/user/support/write/post`, {
+                fetch(`/api/user/comment/write`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     //num 페이지 count 개씩 가져오기
-    body: JSON.stringify({postid,comment})
+    body: JSON.stringify({comment,post_id:Post.id})
 })
     .then(navigate(`/support/read/${postid}`))
     }
     return(
-    <div>
+    <div>{
+    (Post!=null) && (
     <main>
-        <section id="post">
-            <h2>{Post[0].title}</h2>
-            <p>{Post[0].content}</p>
-            <button id="deletePost" onClink={()=>PostDelete()}>게시물 삭제</button> 
-        </section>
+        <table id="post" border="1">
+            <tr>
+                <th colspan="10">{Post.title}</th>
+            </tr>
+            <tr>
+                <th>작성자</th>
+                <th>{Post.author}</th>
+                <th>공개 여부</th>
+                <th>{Post.state==true?"공개":"비공개"}</th>
+            </tr>
+            <tr>
+                <th colspan = "10">{Post.content}</th>
+            </tr>
+        </table>
+        <button id="deletePost" onClink={()=>PostDelete()}>게시물 삭제</button>
+
         <div id="addComment">
             <h3>댓글 작성하기</h3>
             <textarea id="commentContent" rows="3" placeholder="댓글 내용을 입력하세요."
-            value={comment} onChange={(e)=>{SetComment(e.target.value)}}
+            value={inputComment} onChange={(e)=>{setInputComment(e.target.value)}}
             required></textarea>
-            <button id="submitComment">댓글 등록</button>
+            <button id="submitComment" onClick={()=>commentWrite()}>댓글 등록</button>
         </div>
         <section id="comments">
             <h2>댓글</h2>
@@ -72,6 +91,7 @@ const SupportRead = () => {
             <div id="commentList">
                 <div class="comment">                  
                     {
+                        (Comment.length > 0) &&
                         Comment.map((comment) => (
                             <tr key={comment.id}>
                                 <td>{comment.author}</td>
@@ -85,7 +105,8 @@ const SupportRead = () => {
             </tbldy>
             </table>
         </section>
-    </main>
+    </main>)}
+    <button onClick = {() => navigate(-1)}>이전</button>
 </div>)
 }
 export default SupportRead;

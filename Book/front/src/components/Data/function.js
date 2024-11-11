@@ -52,15 +52,19 @@ const generateStars = (rating) => {
     }
     return star;
 }
-function Popup({message,onConfirm,onCancel,buttonMessage}){
+function Popup({message,onClickFunction,buttonMessage}){
   return (
   <div style={styles.overlay}>
         <div class ="popup" style={styles.popup}>
         {
             <div class = "popup-data">
               <p>{message}</p>
-              <button onClick={onConfirm}>{buttonMessage[0]}</button>
-              <button onClick={onCancel}>{buttonMessage[1]}</button>
+              {
+                buttonMessage.map((buttonMessage,idx)=>
+                {
+                <button onClick={onClickFunction[0]}>{buttonMessage[0]}</button>
+                })
+              }
             </div>
         }
         </div>

@@ -8,20 +8,26 @@ const FindID = () => {
     const [userid,SetUserid] = useState(null);
     const navigate = useNavigate();
 
-    const handleSubmit = (event) => {
+    function onSubmitFindId (event) {
         event.preventDefault();
 
         fetch(`/api/user/find/iD/${username}/${email}`, {
             method: 'GET',})
-        .then(response=>response.text())
+        .then(response=>{
+        if (response.ok)
+            return response.text()
+        else
+            throw new Error(response.status);
+        })
         .then(userid=>SetUserid(userid))
+        .catch(error=>console.log("아이디 없음"));
     }
 
     return(
         <div>
             <main>
                 <h1>아이디 찾기</h1>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={onSubmitFindId}>
                     <div className="form-group">
                         <label htmlFor="username">닉네임</label>
                         <input type="text" id="username" name="nickname" 

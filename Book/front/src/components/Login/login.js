@@ -8,22 +8,27 @@ const Login = () =>
     const [error,SetError] = useState(false);
     const navigate = useNavigate();
 
-    const handleSubmit = (event) => {
+    const onSubmitLogin = (event) => {
         event.preventDefault();
         fetch('api/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({userid,password})
         })
-        .then(navigate('/'))
+        .then((response)=>{
+        if(response.ok)
+            navigate('/');
+        else
+            throw new Error(response.status);
+        })
         //로그인 정보가 올바르지 않으면 에러창 띄우기
-        .catch(SetError(true));
+        .catch(error=>{SetError(true)});
     }
 
     return(
         <div className="login-container">
             <h2>BookWeb</h2>
-            <form className="login-form" onSubmit={handleSubmit}>
+            <form className="login-form" onSubmit={onSubmitLogin}>
                 {
                     error?(
                         <div>

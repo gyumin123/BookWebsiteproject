@@ -11,18 +11,19 @@ const SetPwd = () => {
     const [searchParams] = useSearchParams();
     const userid = searchParams.get('userid');
 
-    // 비밀번호 가져오기
-    useEffect(() => {
-        fetch(`/api/user/get/pwd/${userid}`, {
-            method: 'GET',
-        })
-        .then(response => response.text())
-        .then(password => { SetOriginPwd(password) })
-        .catch(error => console.error(error));
-    }, [userid]); // userid가 변경될 때만 실행
-
-    const handleSubmit = (event) => {
+    function GetPassword(){
+        // 비밀번호 가져오기
+            fetch(`/api/user/get/pwd/${userid}`, {
+                method: 'GET',
+            })
+            .then(response => response.text())
+            .then(password => {SetOriginPwd(password) })
+            .catch(error => console.error(error));
+    }
+    function onSubmitSetPwd (event){
+        GetPassword();
         event.preventDefault();
+        console.log("제출:",originPwd,currentPwd,originPwd==currentPwd);
         if (originPwd !== currentPwd) {
             SetMsg("현재 비밀번호가 맞지 않습니다.");
         } else if (newPwd !== ConfirmPwd) {
@@ -30,9 +31,9 @@ const SetPwd = () => {
         } else {
             // 비밀번호 변경을 눌렀을 때
             fetch('/api/user/revise', {
-                method: 'POST',
+                method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ password: newPwd })
+                body: JSON.stringify({ userid,password: newPwd })
             })
             .then(response => {
                 if (response.ok) {
@@ -49,7 +50,7 @@ const SetPwd = () => {
         <div>
             <main>
                 <h1>BookWeb</h1>
-                <form id="resetPassword" onSubmit={handleSubmit}>
+                <form id="resetPassword" onSubmit={onSubmitSetPwd}>
                     <div className="form-group">
                         <label htmlFor="currentPassword">현재 비밀번호</label>
                         <input

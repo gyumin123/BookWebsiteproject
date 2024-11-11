@@ -3,6 +3,7 @@ import { Link,Route,Routes } from "react-router-dom";
 import SupportRead from "./SupportRead";
 import SupportWrite from "./SupportWrite";
 import SupportSearch from "./SupportSearch";
+
 const Support = () =>{
     return(
     <div>
@@ -10,7 +11,7 @@ const Support = () =>{
             <Routes>
                 <Route path = "/" element = {<SupportSearch/>}></Route>
                 <Route path = "/write" element = {<SupportWrite/>}></Route>
-                <Route path = "/read" element = {<SupportRead/>}></Route>
+                <Route path = "/read/:id" element = {<SupportRead/>}></Route>
             </Routes>
     </div>
 )}

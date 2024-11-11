@@ -4,32 +4,29 @@ import './FindID_PWD.css';
 
 const FindPWD = () => {
     const [userid,SetUserid] = useState('');
-    const [success,SetSuccess] = useState(null);
+    const [success,setSuccess] = useState(null);
     const navigate = useNavigate();
 
-    const handleSubmit = (event) => {
+    function isValidId(event){
         event.preventDefault();
         fetch(`/api/user/validID/${userid}`, {
             method: 'GET'
         })
-        .then(()=>{SendPwd();SetSuccess(true)})
-        .catch(()=>{SetSuccess(false);})
-        SetSuccess(true);
+        .then(()=>{sendPwd();setSuccess(true)})
+        .catch(()=>{setSuccess(false);})
     }
     //임시 비밀번호 보내기
-    const SendPwd = () => {
+    function sendPwd(){
         fetch(`/api/user/find/pwd/${userid}`, {
             method: 'POST',
         })
-        .then(()=>{})
-        .catch(()=>{})
     }
 
     return(
         <div>
             <main>
                 <h1>비밀번호 찾기</h1>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={isValidId}>
                     <div className="form-group">
                         <label htmlFor="userid">아이디</label>
                         <input type="text" id="userid" name="userid" 
