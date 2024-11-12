@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import java.util.Optional;
 
 @RestController
 public class MemberEntityController {
@@ -116,5 +117,18 @@ public class MemberEntityController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
+    }
+    // 구독 추가
+    @PostMapping("/api/subscribe/{userId}")
+    public ResponseEntity<Void> subscribe(@PathVariable String userId) {
+        memberEntityService.subscribe(userId);
+        return ResponseEntity.ok().build();
+    }
+
+    // 구독 정보 조회
+    @GetMapping("/api/subscribe/{userId}")
+    public ResponseEntity<Boolean> getSubscribeStatus(@PathVariable String userId) {
+        Optional<MemberEntity> member = memberEntityService.getMemberById(userId);
+        return member.map(m -> ResponseEntity.ok(m.getSubscribe())).orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
