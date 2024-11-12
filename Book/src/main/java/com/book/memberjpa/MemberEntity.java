@@ -1,31 +1,22 @@
 package com.book.memberjpa;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Member")
 public class MemberEntity {
-
     @Id
     private String id;
+
     private String password;
     private String name;
     private String phoneNumber;
     private String email;
     private int voucher;
-    private String profileImage; // 추가된 필드: 프로필 이미지 경로
+    private String profileImage;
+    private Boolean subscribe;
 
     // Getters and Setters
-    public String getProfileImage() {
-        return profileImage;
-    }
-
-    public void setProfileImage(String profileImage) {
-        this.profileImage = profileImage;
-    }
-
     public String getId() {
         return id;
     }
@@ -72,5 +63,21 @@ public class MemberEntity {
 
     public void setVoucher(int voucher) {
         this.voucher = voucher;
+    }
+
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
+    }
+
+    public Boolean getSubscribe() {
+        return subscribe;
+    }
+
+    public void setSubscribe(Boolean subscribe) {
+        this.subscribe = subscribe;
     }
 }

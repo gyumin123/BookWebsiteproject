@@ -136,4 +136,17 @@ public class MemberEntityService {
             throw new RuntimeException("Image not found for user: " + userid);
         }
     }
+    // 구독 추가
+    public void subscribe(String userId) {
+        Optional<MemberEntity> member = memberEntityRepository.findById(userId);
+        member.ifPresent(m -> {
+            m.setSubscribe(true);
+            memberEntityRepository.save(m);
+        });
+    }
+
+    // 회원 정보 조회
+    public Optional<MemberEntity> getMemberById(String userId) {
+        return memberEntityRepository.findById(userId);
+    }
 }
