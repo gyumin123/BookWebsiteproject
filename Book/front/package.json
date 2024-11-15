@@ -41,5 +41,5 @@
   "author": "",
   "license": "ISC",
   "description": "",
-  "proxy": "http://localhost:9091"
+  "proxy": "http://localhost:9090"
 }
