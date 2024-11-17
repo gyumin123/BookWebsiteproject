@@ -9,7 +9,8 @@ const Mypage = () => {
     const [username,setUserName] = useState('');
     const [nameEdit,setNameEdit] = useState(false);
 
-    const [profile_img,setUserImg] = useState('');
+    const [profile_img,setUserImg] = useState(null);
+
     useEffect(() => {
          fetch('/api/user/image', { method: 'GET' })
              .then((response) => {
@@ -18,7 +19,7 @@ const Mypage = () => {
              return response.json()
              })
              .then((data)=>{setUserImg(data.image)})
-             .catch((error)=>console.log(error));
+             .catch((error)=>{setUserImg('image/profile-basic.png')});
 
          fetch('/api/user/name', {method: 'GET',})
          .then(response => {

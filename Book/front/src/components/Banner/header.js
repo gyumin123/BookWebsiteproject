@@ -38,7 +38,7 @@ const Header = () => {
                 throw new Error(response.status);
         })
         .then(text=>setUserImg(text))
-        .catch(error=>setUserImg('/image/background.png'));
+        .catch(error=>setUserImg('/image/profile-basic.png'));
     }
     function Logout(){
             fetch(`/api/user/logout`, {method: 'POST' })
