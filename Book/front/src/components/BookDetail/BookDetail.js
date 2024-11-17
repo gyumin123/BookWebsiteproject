@@ -5,7 +5,7 @@ import './BookDetail.css'
 
 
 function BookDetail({id,price}){
-    const [purchaseType, setPurchaseType] = useState('대여'); // 'buy' 또는 'rent' 상태 관리
+    const [purchase_type, setPurchaseType] = useState('대여'); // 'buy' 또는 'rent' 상태 관리
     const [period,setPeriod] = useState('');
     const navigate = useNavigate();
     const [popupOpen,SetOpen] = useState(false);
@@ -26,7 +26,7 @@ function BookDetail({id,price}){
         fetch('/api/purchase', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify([{id,purchaseType,period,totalPrice}])
+            body: JSON.stringify([{id,period,price:totalPrice,purchase_type}])
         })
         .catch(error=>console.log(error))
         navigate('/purchase');
@@ -36,12 +36,12 @@ function BookDetail({id,price}){
     {
         let totalPrice = calPrice();
         //장바구니 옵션 보내기
-//        fetch('/api/cart', {
-//            method: 'POST',
-//            headers: { 'Content-Type': 'application/json' },
-//            body: JSON.stringify({id,purchaseType,period,totalPrice})
-//        })
-//        .catch(error=>console.log(error))
+        fetch('/api/cart', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({id,purchase_type,period,totalPrice})
+        })
+        .catch(error=>console.log(error))
         SetOpen(true);
         SetMessage("장바구니로 이동하시겠습니까?");
     }
@@ -52,23 +52,22 @@ return (
         popupOpen &&
         <Popup
             message={message}
+            onClickFunction={[()=>navigate('/cart'),()=>window.location.reload()]}
             buttonMessage={["이동","취소"]}
-            onConfirm={()=>{navigate('/cart');}}
-            onCancel={()=>{window.location.reload();}}
         />
     }
 
         <div class="purchase-type">
             <label for="purchase-option">구매 분류</label>
             <select id="purchase-option" name="purchase-option"
-            value = {purchaseType} onChange={handlePurchaseTypeChange}>
+            value = {purchase_type} onChange={handlePurchaseTypeChange}>
                 <option value='대여' selected>대여</option>
                 <option value='소장'>소장</option>
             </select>
         </div>
 
         {
-            purchaseType == '대여' &&(
+            purchase_type == '대여' &&(
             <div class="period" id="rental-period">
                 <label for="rental-days">대여 일수</label>
                 <select id="rental-days" name="rental-days"
@@ -81,7 +80,7 @@ return (
             </div>)
         }
         {
-            purchaseType == '소장' &&(
+            purchase_type == '소장' &&(
             <div class="period" id="rental-period">
                 <label for="buy-days">구매</label>
                 <select id = "buy-days" name="buy-days"
@@ -93,11 +92,11 @@ return (
             )
         }
         {
-            period != '' && purchaseType!='' &&
+            period != '' && purchase_type!='' &&
             <div class="total">
-                <label for="total-type">{purchaseType}</label>
+                <label for="total-type">{purchase_type}</label>
                 <label for="total-period">{period}</label>
-                <label for="total-price">{calPrice(purchaseType,price,period)}</label>
+                <label for="total-price">{calPrice(purchase_type,price,period)}</label>
                 <button class="init-data"
                 onClick = {()=>{setPeriod('');setPurchaseType('대여')}}>
                 삭제하기

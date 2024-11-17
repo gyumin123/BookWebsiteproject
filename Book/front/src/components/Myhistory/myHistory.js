@@ -9,36 +9,42 @@ const MyHistory = () => {
     const perpage = 5;
 
     //초기 페이지 -> 1
-    const [logincurrentPageNumber,setloginPageNumber] = useState(1);
-    const [logintotalPage,setLogintotalPage] = useState(null);
+    const [loginCurrentPageNumber,setLoginPageNumber] = useState(1);
+    const [loginTotalPage,setLoginTotalPage] = useState(null);
     const [loginHistory,SetLoginHistory] = useState([]);
-    
-    {
+
         useEffect(() => {
             // 총 페이지 수 가져오기
-            fetch('/api/user/myhistory/login/totalPage', {
+            fetch(`/api/user/history/login/totalPage`, {
                 method: 'GET',
             })
-            .then(response => response.text())
+            .then(response => {
+            if (!response.ok)
+                throw new Error(response.status);
+            else
+                return response.text();
+            })
             .then(pages => {
-                setLogintotalPage(parseInt(pages)); // 문자열을 숫자로 변환하여 상태에 저장
+                setLoginTotalPage(parseInt(pages)); // 문자열을 숫자로 변환하여 상태에 저장
             })
             .catch(error => console.error('Error fetching total pages:', error));
-            const start = (logincurrentPageNumber-1)*perpage;
-            // 현재 페이지 가져오기-> 해당 번호 부터 perpage개 만큼 가져오기
 
-            fetch(`/api/user/myhistory/login/${start}/${perpage}`, {
+            const start = (loginCurrentPageNumber-1)*perpage;
+
+            fetch(`/api/user/history/login/${start}`, {
                 method: 'GET',
             })
-            .then(response => response.json()) // JSON으로 변환
+            .then(response => {
+            if (!response.ok)
+                throw new Error(response.status)
+            else
+                return response.json()
+            })
             .then(data => {
-                SetLoginHistory(data); // 상태에 로그인 게시물 저장
+                SetLoginHistory(data.slice(0,perpage));
             })
             .catch(error => console.error(error));
-        }, [logincurrentPageNumber]); // logincurrentPageNumber가 변경될 때마다 실행
-    }
-
-
+        }, [loginCurrentPageNumber]);
     return (
         <div>
             <main>
@@ -56,8 +62,10 @@ const MyHistory = () => {
                 <tbody>
                     {
                         //로그인 내역 하나씩 가져오기
+                        loginHistory.length > 0 &&
                         loginHistory.map((post) => (
-                            <tr key={post.id}>
+                            <tr>
+                                <td>{post.id}></td>
                                 <td>{post.date}</td>
                                 <td>{post.ip}</td>
                             </tr>
@@ -66,12 +74,12 @@ const MyHistory = () => {
                 </tbody>
             </table>
             <div>
-                {Array.from({ length: logintotalPage }, (_, index) => (
+                {Array.from({ length: loginTotalPage }, (_, index) => (
                     <span
                         key={index + 1}
-                        onClick={() => setloginPageNumber(index + 1)}
+                        onClick={() => setLoginPageNumber(index + 1)}
                         style={{
-                            fontWeight: logincurrentPageNumber === index + 1 ? 'bold' : 'normal',
+                            fontWeight: loginCurrentPageNumber === index + 1 ? 'bold' : 'normal',
                             margin: '0 5px',
                             cursor:"pointer"
                         }}>

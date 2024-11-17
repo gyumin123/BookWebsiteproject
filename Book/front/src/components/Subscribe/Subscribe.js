@@ -1,21 +1,16 @@
-import React , {useState,useEffect} from "react"
-import {Link,useParams,useNavigate} from "react-router-dom";
-import BookData from '../Data/book.json';
-import BookImg from '../Data/book.jpg';
-import {generateStars,calPrice,Popup,totalPrice} from '../Data/function';
-import BookDetail from '../BookDetail/BookDetail'
-import Data from '../Data/cart.json';
+import {useNavigate} from "react-router-dom";
+import React from 'react'
 import './Subscribe.css'
 
 const Subscribe = () => {
     const navigate = useNavigate();
-    const purchaseData = [{id:"10000",purchaseType:"구독",period:"30",price:"10000"}];
+    const purchaseData = [{purchaseType:"구독",period:"30",price:"10000"}];
     function subscribe()
     {
         fetch(`/api/purchase`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(purchaseData)
+            body: JSON.stringify({purchaseData})
         })
         .catch(error=>console.log(error))
         navigate('/purchase');

@@ -1,40 +1,37 @@
 import React , {useState,useEffect} from "react"
-import {Link,useParams,useNavigate} from "react-router-dom";
-import BookData from '../Data/book.json';
-import BookImg from '../Data/book.jpg';
-import {generateStars,calPrice,Popup,totalPrice} from '../Data/function';
-import BookDetail from '../BookDetail/BookDetail'
-import Data from '../Data/cart.json';
+import {useNavigate} from "react-router-dom";
+import {Popup,totalPrice} from '../Data/function';
 import './Purchase.css'
 
 const Purchase = () => {
     const [PurchaseData,setPurchaseData] = useState([]);
     const [isPopupOpen,setPopupOpen] = useState(false);
     const navigate = useNavigate();
-    function GetPurChase()
-    //구매목록 가져오기
+
+    useEffect(()=>
     {
-        useEffect(()=>
-        {
-           //서버에서 할일 : 세션에 저장된 유저 아이디를 가져와 장바구니 정보를 가져오기
-            fetch(`/api/cart`, {
-                method: 'GET',
-            })
-            .then(response=>response.text())
-            .then(data => setPurchaseData(data))
-            .catch(error=>console.log(error))
-        },[])
-    }
+       //서버에서 할일 : 세션에 저장된 유저 아이디를 가져와 장바구니 정보를 가져오기
+        fetch(`/api/purchase`, {
+            method: 'GET',
+        })
+        .then(response=>{
+        if (!response.ok)
+            throw new Error(response.status)
+        else
+            return response.json()
+        })
+        .then(data => setPurchaseData(data))
+        .catch(error=>console.log(error))
+    },[])
     function Payment()
     {
-           //서버에서 할일 : 세션에 저장된 유저 아이디를 가져와 장바구니 정보를 가져오기
-            fetch(`/api/`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(Data)
-            })
-            .catch(error=>console.log(error))
-            setPopupOpen(true);
+        fetch(`/api/purchase/confirm`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(PurchaseData)
+        })
+        .catch(error=>console.log(error))
+        setPopupOpen(true);
     }
 
 return (
@@ -45,8 +42,7 @@ return (
             <Popup
                 message={"결제가 완료되었습니다."}
                 buttonMessage = {["홈으로 이동","결제 내역으로 이동"]}
-                onConfirm={()=>{navigate('/');}}
-                onCancel={()=>{navigate('/mypage')}}
+                onClickFunction={[()=>{navigate('/');},()=>navigate('/mypage')]}
             />
         }
         <div class="content-section">
@@ -62,7 +58,8 @@ return (
                     </thead>
                     <tbody class = "payment-item">
                     {
-                        Data.map((item,index)=>(
+                        Purchase.length > 0 &&
+                        PurchaseData.map((item,index)=>(
                             <tr class="selectedItem">
                                 <td>{item.title}</td>
                                 <td>{item.purchaseType}</td>
@@ -76,7 +73,7 @@ return (
                         <tr>
                             <td >결제 예정 금액</td>
                             <td></td><td></td>
-                            <td>{totalPrice(Data)}</td>
+                            <td>{totalPrice(PurchaseData)}</td>
                         </tr>
                     </tfoot>
                 </table>

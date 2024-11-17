@@ -24,12 +24,8 @@ const Header = () => {
                  .then((userid)=>{setUserid(userid);getUserImage(userid)})
                  //없다면 아이콘 저장
                  .catch(error => setUserImg('/image/icon_user.png'));
-                 setUserid("root");
         },[])
-
 };
-//사용자 이미지 가져오기
-
 //사용자의 이미지가 없으면 시스템 기본 이미지 저장
     const getUserImage = (userid) => {
         fetch(`/api/user/image/${userid}`, {
@@ -37,20 +33,16 @@ const Header = () => {
         })
         .then(response=>{
             if(response.ok)
-                return response.blob();
+                return response.text();
             else
                 throw new Error(response.status);
         })
-        .then(imageBlob => {
-        const imageUrl = URL.creteObjectURL(imageBlob);
-        setUserImg(imageUrl);
-        })
-        .catch(error=>setUserImg('/image/background.png'))
+        .then(text=>setUserImg(text))
+        .catch(error=>setUserImg('/image/background.png'));
     }
     function Logout(){
             fetch(`/api/user/logout`, {method: 'POST' })
             .then(navigate('/'))
-            setUserid(null);
     }
 
     function handleSearchSection(e){
@@ -80,7 +72,7 @@ const Header = () => {
                             >
                             </input>
                             <button className="search-icon">
-                                <img src='image/icon_search.png' salt="Search Icon" style={{height:20}}></img>
+                                <img src='image/icon_search.png' alt="Search Icon" style={{height:20}}></img>
                             </button>
                         </div>
                     </section>
@@ -108,9 +100,9 @@ const Header = () => {
                             (
                             <div>
                                 <ul>
-                                    <li><Link to={`/mypage`}>마이페이지</Link></li>
-                                    <li><Link to={`/cart`}>장바구니</Link></li>
-                                    <li><Link to={`/subscribe`}>이용권</Link></li>
+                                    <li><a href='/mypage'>마이페이지</a></li>
+                                    <li><a href='/cart'>장바구니</a></li>
+                                    <li><a href='/subscribe'>이용권</a></li>
                                     <li><span type="text" style={{cursor:"pointer"}} onClick={Logout}>로그아웃</span></li>
                                 </ul>
                             </div>
@@ -120,10 +112,9 @@ const Header = () => {
                     </div>
                 </div>
                     <div className="nav-bar">
-                    {/* 아직 구현 안한 부분 */}
-                    <a href="/classification?category=0">분야별</a>
-                    <a href="/classification?category=1">테마별</a>
-                    <a href="/classification?category=2">인기</a>
+                    <a href="/classification?category=1&sep=1">분야별</a>
+                    <a href="/classification?category=2&sep=1">테마별</a>
+                    <a href="/classification?category=3&sep=1">인기</a>
                     <a href="#">클럽</a>
                 </div>
             </header>

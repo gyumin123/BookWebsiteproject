@@ -1,17 +1,46 @@
-import React ,{useState }from "react"
-import { useSearchParams } from "react-router-dom";
+import React ,{useState,useEffect}from "react"
 import './purchaseHistory.css';
 
 const PurchaseHistory = () => {
-    const [searchParams] = useSearchParams();
-    const userid = searchParams.get('userid');
 
     //한 페이지당 5개씩 보여주기
     const perpage = 5;
-    const totalPage = 10;
 
-    const [purchasecurrentpageNumber,setcurrentpageNumber] = useState(1);
-    const [PurchaseHistory,SetPurchaseHistory] = useState([]);
+    const [purchaseTotalPage,setPurchaseTotalPage] = useState(0);
+    const [purchaseCurrentPageNumber,setCurrentPageNumber] = useState(1);
+    const [PurchaseHistory,setPurchaseHistory] = useState([]);
+        useEffect(() => {
+            // 총 페이지 수 가져오기
+            fetch(`/api/user/history/purchase/totalPage`, {
+                method: 'GET',
+            })
+            .then(response => {
+            if (!response.ok)
+                throw new Error(response.status);
+            else
+                return response.text();
+            })
+            .then(pages => {
+                setPurchaseTotalPage(parseInt(pages)); // 문자열을 숫자로 변환하여 상태에 저장
+            })
+            .catch(error => console.error('Error fetching total pages:', error));
+
+            const start = (purchaseCurrentPageNumber-1)*perpage;
+
+            fetch(`/api/user/history/purchase/${start}`, {
+                method: 'GET',
+            })
+            .then(response => {
+            if (!response.ok)
+                throw new Error(response.status)
+            else
+                return response.json()
+            })
+            .then(data => {
+                setPurchaseHistory(data.slice(0,perpage));
+            })
+            .catch(error => console.error(error));
+        }, [purchaseCurrentPageNumber]);
     
 
     return(
@@ -31,6 +60,7 @@ const PurchaseHistory = () => {
                 <tbody>
                     <tr>
                     {
+                        PurchaseHistory.length>0 &&
                         PurchaseHistory.map((post) => (
                             <tr key={post.bookname}>
                                 <td>{post.date}</td>
@@ -45,12 +75,12 @@ const PurchaseHistory = () => {
                     </tr>
                 </tbody>
             </table>
-                {Array.from({ length: totalPage }, (_, index) => (
+                {Array.from({ length: purchaseTotalPage }, (_, index) => (
                             <span
                                 key={index + 1}
-                                onClick={() => setcurrentpageNumber(index + 1)}
+                                onClick={() => setCurrentPageNumber(index + 1)}
                                 style={{
-                                    fontWeight: purchasecurrentpageNumber === index + 1 ? 'bold' : 'normal',
+                                    fontWeight: setCurrentPageNumber === index + 1 ? 'bold' : 'normal',
                                     margin: '0 5px',
                                     cursor:"pointer"
                                 }}>

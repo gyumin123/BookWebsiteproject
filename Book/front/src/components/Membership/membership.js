@@ -27,7 +27,8 @@ const Membership = () => {
         fetch('/api/user/membership', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({userid,password,phoneNumber,email,name})
+            body: JSON.stringify({userid,password,phoneNumber,email,name,
+            profile_img:"image/profile/profile-basic.png"})
         })
         .then(navigate('/'))
         .catch(error=>console.error(error))

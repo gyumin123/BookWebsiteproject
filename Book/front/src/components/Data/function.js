@@ -1,22 +1,19 @@
 import React , {useState,useEffect} from "react"
 import {Link,Route,Routes,useSearchParams,useNavigate} from "react-router-dom";
-import img from './book.jpg'
 
 
-const ContentCard = ({rank,title, author,rating,description}) =>  {
+const ContentCard = ({rank,title,image,author,rating,description}) =>  {
   const [hovered, setHovered] = useState(false);
   const navigate = useNavigate();
-
-
   return (
     <div
       className="product-card"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      onClick = {() => navigate(`/book/${rank-1}`)}
+      onClick = {() => navigate(`/book?id=${rank-1}`)}
     >
       <h2 class="product-rank">{rank}</h2>
-      <img src={img} alt={title} className="product-image" />
+      <img src={image} alt={title} className="product-image" />
       <h3 class="product-title">{title}</h3>
       <div class="product-author">저자 : {author}</div>
       <div class="product-rating">{generateStars(rating)}</div>
@@ -53,6 +50,7 @@ const generateStars = (rating) => {
     return star;
 }
 function Popup({message,onClickFunction,buttonMessage}){
+console.log(buttonMessage);
   return (
   <div style={styles.overlay}>
         <div class ="popup" style={styles.popup}>
@@ -60,10 +58,10 @@ function Popup({message,onClickFunction,buttonMessage}){
             <div class = "popup-data">
               <p>{message}</p>
               {
-                buttonMessage.map((buttonMessage,idx)=>
-                {
-                <button onClick={onClickFunction[0]}>{buttonMessage[0]}</button>
-                })
+                buttonMessage.map((text,idx)=>
+                (
+                <button onClick={()=>onClickFunction[idx]()}>{text}</button>
+                ))
               }
             </div>
         }

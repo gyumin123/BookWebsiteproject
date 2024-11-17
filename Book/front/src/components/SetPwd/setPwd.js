@@ -1,48 +1,50 @@
-import React, { useState, useEffect } from "react";
-import { useSearchParams } from 'react-router-dom';
+import React, { useState } from "react";
 import './setPwd.css';
 
 const SetPwd = () => {
-    const [currentPwd, SetcurrentPwd] = useState('');
-    const [newPwd, SetnewPwd] = useState('');
-    const [ConfirmPwd, SetcofirmPwd] = useState('');
+    const [originPwd, setOriginPwd] = useState('');
+    const [currentPwd, setCurrentPwd] = useState('');
+    const [newPwd, setNewPwd] = useState('');
+    const [ConfirmPwd, setConfirmPwd] = useState('');
     const [msg, SetMsg] = useState('');
-    const [originPwd, SetOriginPwd] = useState('');
-    const [searchParams] = useSearchParams();
-    const userid = searchParams.get('userid');
+
 
     function GetPassword(){
         // 비밀번호 가져오기
-            fetch(`/api/user/get/pwd/${userid}`, {
+            fetch(`/api/user/get/pwd/`, {
                 method: 'GET',
             })
-            .then(response => response.text())
-            .then(password => {SetOriginPwd(password) })
+            .then(response =>{
+            if (!response.ok)
+                throw new Error(response.status);
+            else
+                return response.text();
+            })
+            .then(password => setOriginPwd(password))
             .catch(error => console.error(error));
     }
     function onSubmitSetPwd (event){
         GetPassword();
         event.preventDefault();
-        console.log("제출:",originPwd,currentPwd,originPwd==currentPwd);
         if (originPwd !== currentPwd) {
             SetMsg("현재 비밀번호가 맞지 않습니다.");
         } else if (newPwd !== ConfirmPwd) {
             SetMsg("변경할 비밀번호가 동일하지 않습니다.");
         } else {
             // 비밀번호 변경을 눌렀을 때
-            fetch('/api/user/revise', {
+            fetch('/api/user/password', {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ userid,password: newPwd })
+                body: JSON.stringify({ password: newPwd })
             })
             .then(response => {
                 if (response.ok) {
                     SetMsg("비밀번호가 성공적으로 변경되었습니다.");
                 } else {
-                    SetMsg("비밀번호 변경에 실패했습니다.");
+                    throw new Error(response.status)
                 }
             })
-            .catch(error => console.error(error));
+            .catch(error => SetMsg(error + " 비밀번호 변경에 실패했습니다."));
         }
     };
 
@@ -58,7 +60,7 @@ const SetPwd = () => {
                             id="currentPassword"
                             name="currentPassword"
                             value={currentPwd}
-                            onChange={(e) => { SetcurrentPwd(e.target.value) }}
+                            onChange={(e) => { setCurrentPwd(e.target.value) }}
                             required
                         />
                     </div>
@@ -69,7 +71,7 @@ const SetPwd = () => {
                             id="NewPassword"
                             name="NewPassword"
                             value={newPwd}
-                            onChange={(e) => { SetnewPwd(e.target.value) }}
+                            onChange={(e) => { setNewPwd(e.target.value) }}
                             required
                         />
                     </div>
@@ -80,7 +82,7 @@ const SetPwd = () => {
                             id="confirmNewPassword"
                             name="confirmNewPassword"
                             value={ConfirmPwd}
-                            onChange={(e) => SetcofirmPwd(e.target.value)}
+                            onChange={(e) => setConfirmPwd(e.target.value)}
                             required
                         />
                     </div>

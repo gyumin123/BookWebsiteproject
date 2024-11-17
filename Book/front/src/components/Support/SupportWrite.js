@@ -3,33 +3,38 @@ import './SupportWrite.css';
 import { useNavigate } from "react-router-dom";
 import {Popup} from "../Data/function.js"
 const SupportWrite=()=>{
-    const [author,setAuthor] = useState('');
-    const [title,setTitle] = useState('');
-    const [content,setContent] = useState('');
+
+    const [author,setAuthor] = useState(null);
+    const [title,setTitle] = useState(null);
+    const [content,setContent] = useState(null);
     const [IsPublic,setPublic] = useState(true);
     const [password,setPassword] = useState(null);
     const navigate = useNavigate();
-    const [popupOpen,setPopupOpen] = useState(false);
-    const [userid,setUserid] = useState(null);
 
-    function GetUser(){
-    //작성자 조회
+    const [popupOpen,setPopupOpen] = useState(false);
+    const [message,setMessage] = useState(null);
+    const [buttonMessage,setButtonMessage] = useState([]);
+    const [onClickFunction,setOnclickFunction] = useState([]);
+
     useEffect(()=>{
-         fetch('/api/user/states', { method: 'GET' })
+         fetch('/api/user/name', { method: 'GET' })
              .then((response) => {
              if (response.ok)
                 return response.text();
              else
                 throw new Error(response.status);
              })
-             .then((userid)=>{setUserid(userid)})
-             //없다면 아이콘 저장
+             .then((name)=>{setAuthor(name)})
              .catch(error => console.log(error));
-         setUserid("root");
-         setAuthor(userid);
-    })
-    }
-    GetUser();
+
+         if (author == null)
+         {
+            setPopupOpen(true);
+            setMessage("글쓰기 권한이 없습니다.");
+            setButtonMessage(["확인"]);
+            setOnclickFunction([()=>navigate(-1)]);
+         }
+    },[author,navigate])
 
     function handlePublic(event){
         setPublic((event.target.value==="public")?true:false);
@@ -42,6 +47,14 @@ const SupportWrite=()=>{
         body: JSON.stringify({author,title,content,state:IsPublic,password})
     })
     .then(navigate('/support'))
+    .catch(error=>console.log(error));
+    }
+    function Back()
+    {
+        setPopupOpen(true);
+        setMessage("작성중인 글이 삭제됩니다. 이동하시겠습니까?")
+        setButtonMessage(["계속 작성하기","취소하기"]);
+        setOnclickFunction([()=>{setPopupOpen(false)},()=>{navigate(-1)}])
     }
     return(
 
@@ -49,10 +62,7 @@ const SupportWrite=()=>{
         {
             popupOpen &&
             <Popup
-                message={"작성중인 글이 삭제됩니다. 취소하겠습니까?"}
-                buttonMessage={["계속 작성하기","취소하기"]}
-                onConfirm={()=>{setPopupOpen(false)}}
-                onCancel={()=>{navigate(-1)}}
+                message={message} buttonMessage = {buttonMessage} onClickFunction = {onClickFunction}
             />
         }
             <main>
@@ -62,8 +72,8 @@ const SupportWrite=()=>{
                 {/* <!-- 작성자 입력 --> */}
                 <div id="authorSection">
                     <label htmlFor="author">작성자:</label>
-                    <input type="text" id="author" disabled={userid!=null?true:false}
-                    value={author} onChange={(e)=>setAuthor(e.target.value)} required/>
+                    <input type="text" id="author"
+                    value={author}/>
                 </div>
 
                 {/* <!-- 글 제목 입력 --> */}
@@ -104,7 +114,7 @@ const SupportWrite=()=>{
                 {/* <!-- 제출 버튼 --> */}
                 <button type="submit">등록하기</button>
             </form>
-            <button onClick = {()=>setPopupOpen(true)}>취소</button>
+            <button onClick = {Back}>취소</button>
         </section>
     </main>
 

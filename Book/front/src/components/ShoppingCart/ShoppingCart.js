@@ -1,43 +1,37 @@
 import React , {useState,useEffect} from "react"
-import {Link,useParams,useNavigate} from "react-router-dom";
-import BookData from '../Data/book.json';
-import BookImg from '../Data/book.jpg';
-import {generateStars,calPrice,Popup,totalPrice} from '../Data/function';
-import BookDetail from '../BookDetail/BookDetail'
-import Data from '../Data/cart.json';
+import {useNavigate} from "react-router-dom";
+import {totalPrice} from '../Data/function';
 
 const ShoppingCart = () => {
     const [CartData,setCartData] = useState([]);
-    const [message,setMessage] = useState('');
-    const [popupOpen,setPopupOpen] = useState(false);
     const [SelectItem,setSelectItem] = useState([]);
 
     const navigate = useNavigate();
-    const [CheckedState,setCheckedState] = useState(new Array(Data.length+1).fill(false));
+    const [CheckedState,setCheckedState] = useState([]);
 
 
-    GetCart();
-    function GetCart()
+    useEffect(()=>
     {
-        useEffect(()=>
-        {
-           //서버에서 할일 : 세션에 저장된 유저 아이디를 가져와 장바구니 정보를 가져오기
-            fetch(`/api/cart`, {
-                method: 'GET',
-            })
-            .then(response=>response.text())
-            .then(data => setCartData(Data))
-            .catch(error=>console.log(error))
-        },[])
-    }
-    function onSubmitPurchase(items)
+       //서버에서 할일 : 세션에 저장된 유저 아이디를 가져와 장바구니 정보를 가져오기
+        fetch(`/api/cart`, {
+            method: 'GET',
+        })
+        .then(response=>{
+        if(!response.ok)
+            throw new Error(response.status);
+        else
+            return response.json()
+        })
+        .then(data => {setCartData(data);setCheckedState(new Array(data.length+1).fill(false))})
+        .catch(error=>console.log(error))
+    },[])
+
+    function onSubmitPurchase(item)
     {
-        let totalPrice = calPrice();
-    //구매 옵션 보내기
         fetch('/api/purchase', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(items)
+            body: JSON.stringify(item)
         })
         .catch(error=>console.log(error))
         navigate('/purchase');
@@ -63,24 +57,16 @@ const ShoppingCart = () => {
         else
         {
             setSelectItem(
-            prevItems=>prevItems.filter((item) => item != book))
+            prevItems=>prevItems.filter((item) => item !== book))
         }
         setCheckedState(newChecked);
     }
     function isChecked(index)
-      {return CheckedState[index];}
-     function TotalPrice()
-     {
-        let total = 0;
-        if (SelectItem.length != 0)
-            total =  SelectItem.reduce((price,item)=>price+item.price,0)
-        return total;
-     }
+     {return CheckedState[index];}
+
      function itemDelete(item)
      {
-        let totalPrice = calPrice();
-
-        fetch('/api/cart/delete', {
+        fetch('/api/cart', {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(item)

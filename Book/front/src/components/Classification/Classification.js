@@ -1,66 +1,83 @@
 import React , {useState,useEffect} from "react"
-import {Link,Route,Routes,useSearchParams} from "react-router-dom";
-import BookData from '../Data/book.json';
+import {useSearchParams} from "react-router-dom";
 import './Classification.css'
 import {ContentCard} from '../Data/function';
 
 
 const Classification = () => {
+
     const [Params] = useSearchParams();
+
     const category = Params.get('category');
-    let sep = Params.get('sep');
+    const sep = Params.get('sep');
+    const optionIdx = Params.get('option');
+
     const [title,SetTitle] = useState('');
-    const [options,SetOptions] = useState([]);
-    const [data,SetData] = useState([]);
+
+    const [optionList,SetOptionList] = useState([]);
+
+    const [option,SetOption] = useState(null);
+
+
+
+    const [bookData,SetData] = useState([]);
+
     const themeOption = ["스릴러/호러","로맨스","무협","고전","사회","자기 계발","여행"];
     const SubjectOption = ["소설","시","역사","잡지","자격증"];
-    const Setting = () => {
-        if (sep == null)
-            sep = 1;
+
         useEffect(() => {
-          if (category == 0)
+          if (category === 1)
             {
                 SetTitle("분야별");
-                SetOptions(SubjectOption);
+                SetOptionList(SubjectOption);
+                if(option == null)
+                    SetOption(optionList[0]);
+                else
+                    SetOption(optionList[option]);
             }
-            else if (category == 1)
+            else if (category === 2)
             {
                 SetTitle("테마별");
-                SetOptions(themeOption);
+                SetOptionList(themeOption);
+                if(option == null)
+                    SetOption(optionList[0]);
+                else
+                    SetOption(optionList[optionIdx]);
             }
             else
                 SetTitle("인기");
-        },[themeOption,category])
-    }
-    Setting();
-    GetBookData();
-    function GetBookData(title,sep,option){
-    //예를 들어 title = 분야별, sep = 1 페이지 option = 무협
-    //문자열 그대로 보냄
-        fetch('/api/books', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({title,sep,option})
-        })
-        .then(response=>response.text())
-        .then(data => SetData(data))
-        .catch(error=>console.log(error))
-    }
+            fetch('/api/books', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({title,sep,option})
+            })
+            .then(response=>{
+            if (!response.ok)
+                throw new Error(response.status)
+            else
+                return response.json();
+            })
+            .then(data => SetData(data))
+            .catch(error=>console.log(error))
+        },[])
+
 
 return (
 
 <div class="container">
     <div class="category-section" id="category-theme">
         <h2 class="category-title">{title}</h2>
-        <div class = "category-option">
-          {options.map((option, index) => (
-            <span key={index}>{option}</span>
-          ))}
+        <div class = "pagination">
+            {optionList.map ((option,index)=>(
+                    <a href = {`/classification?category=${category}&sep=${sep}&option=${index}`}>{option}</a>
+                    ))}
          </div>
         <div class="product-grid">
         {
-            BookData.slice((sep-1)*25,sep*25).map((book,index) => (
+            bookData.length > 0 &&
+            bookData.map((book,index) => (
             <ContentCard
+            image = {book.image}
             rank = {(sep-1)*25+index+1}
             title = {book.title}
             author = {book.author}
@@ -73,12 +90,11 @@ return (
         </div>
     </div>
     <div class="pagination">
-
-        <a href ={`/classification?category=${category}&sep=1`} class="active">1</a>
-        <a href={`/classification?category=${category}&sep=2`}>2</a>
-        <a href={`/classification?category=${category}&sep=3`}>3</a>
-        <a href={`/classification?category=${category}&sep=4`}>4</a>
-        <a href={`/classification?category=${category}&sep=5`}>5</a>
+        <a href ={`/classification?category=${category}&sep=1&option=${optionIdx}`} class="active">1</a>
+        <a href={`/classification?category=${category}&sep=2&option=${optionIdx}`}>2</a>
+        <a href={`/classification?category=${category}&sep=3&option=${optionIdx}`}>3</a>
+        <a href={`/classification?category=${category}&sep=4&option=${optionIdx}`}>4</a>
+        <a href={`/classification?category=${category}&sep=5&option=${optionIdx}`}>5</a>
     </div>
     </div>
 );

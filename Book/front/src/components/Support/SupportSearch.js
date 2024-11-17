@@ -1,4 +1,4 @@
-import React,{useRef, useState,useEffect} from "react"
+import React,{useState,useEffect} from "react"
 import { Link, useNavigate,useSearchParams} from "react-router-dom";
 import './SupportSearch.css';
 const SupportSearch = () =>{
@@ -24,7 +24,6 @@ const SupportSearch = () =>{
     const perpage = 10;
 
     const navigate = useNavigate();
-    const inputRefs = useRef([]);
 
     function GetSupportData()
     {
@@ -33,29 +32,40 @@ const SupportSearch = () =>{
             fetch(`/api/user/support/totalSupportpage/${search}`, {
                 method: 'GET',
             })
-            .then(response => response.text())
+            .then(response => {
+            if (!response.ok)
+                throw new Error(response.status)
+            else
+                return response.text();
+            })
             .then(pages => {
                 setSupportTotalPage(parseInt(pages, 10)); // 문자열을 숫자로 변환하여 상태에 저장
             })
-            .catch(error => console.error('Error fetching total pages:', error));
+            .catch(error => console.error(error));
     
             // 현재 페이지 가져오기 (해당 번호 부터 (개수) 개 가져오기)
             const start = (supportCurrentPage-1)*perpage;
 
-            fetch(`/api/user/support/${start}/${perpage}`, {
+            fetch(`/api/user/support/${search}/${start}`, {
                 method: 'GET',
             })
-            .then(response => response.json()) // JSON으로 변환
+            .then(response => {
+            if (!response.ok)
+                throw new Error(response.status)
+            else
+                return response.json()
+            })
             .then(data => {
-                SetSupportPosts(data);
+                SetSupportPosts(data.slice(0,perpage));
             })
             .catch(error => console.error(error));
-        }, [supportCurrentPage]); // logincurrentPageNumber가 변경될 때마다 실행
+
+        }, []);
     }
     GetSupportData();
 
     function handleRead (post) {
-        if (post.state==true || checkPassword(parseInt(post)))
+        if (post.state===true || checkPassword(parseInt(post)))
             navigate(`/support/read/${post.id}`)
         else
             alert('잘못된 암호')
@@ -102,7 +112,7 @@ return(
                                 <td id = {post.id} onClick={()=>handleRead(post)} style={{cursor:"pointer"}}>{post.title}</td>
                                 <td>{post.author}</td>
                                 <td>{post.date}</td>
-                                <td>{post.state==true?"공개":"비공개"}
+                                <td>{post.state===true?"공개":"비공개"}
                                     {
                                         post.state===false &&
                                         <input

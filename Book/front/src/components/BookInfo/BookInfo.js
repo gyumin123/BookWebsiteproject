@@ -1,15 +1,17 @@
 import React , {useState,useEffect} from "react"
-import {Link,useParams,useNavigate} from "react-router-dom";
-import BookData from '../Data/book.json';
-import BookImg from '../Data/book.jpg';
+import {Link,useParams,useNavigate,useLocation} from "react-router-dom";
 import {generateStars,Popup} from '../Data/function';
 import BookDetail from '../BookDetail/BookDetail'
 import './BookInfo.css'
 const BookInfo = () => {
 
-    const { id } = useParams();
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const id = parseInt(searchParams.get("id"));
+
     const [Book,setBook] = useState({});
     const navigate = useNavigate();
+
     const [Clicked, setClicked] = useState(false);
     const [buttonText,setButtonText] = useState("구매하기");
     const [popupOpen,setPopupOpen] = useState(false);
@@ -48,22 +50,22 @@ const BookInfo = () => {
             setClicked(false);
          }
     }
-    function GetBookDetail()
+    useEffect(()=>
     {
-        useEffect(()=>
-        {
-        // 가져 와야 될 것 : 제목,평점,짧은 설명,줄거리,구매 수,찜한 횟수,장바구니에 담긴 횟수
-            setBook(BookData[id]);
-//            fetch('/api/book/${id}', {
-//                method: 'GET',
-//            })
-//            .then(response=>response.text())
-//            .then(data => SetBook(data))
-//            .catch(error=>console.log(error))
-        },[])
+    // 가져 와야 될 것 : 제목,평점,짧은 설명,줄거리,구매 수,찜한 횟수,책 이미지,장바구니에 담긴 횟수
 
-    }
-    GetBookDetail();
+        fetch(`/api/book/${id}`, {
+            method: 'GET',
+        })
+        .then(response=>{
+        if (!response.ok)
+            throw new Error(response.status)
+        else
+            return response.json();
+        })
+        .then(data => setBook(data))
+        .catch(error=>console.log(error))
+    },[])
     function GetSubscribe(id)
     {
         fetch(`/api/subscribe/${id}`, {
@@ -73,21 +75,19 @@ const BookInfo = () => {
         .then(data => data=='true'?setSubscribe(true):setSubscribe(false))
         .catch(error=>console.log(error))
     }
-
     return (
         <div class="container">
         {
             popupOpen &&
             <Popup
-                message={message}
-                buttonMessage={["이동","취소"]}
-                onConfirm={()=>{navigate('/login');}}
-                onCancel={()=>{window.location.reload();}}
+                message={"로그인 먼저 해주세요"}
+                buttonMessage={["이동,취소"]}
+                onClickFunction={[()=>{navigate('/login');},()=>{window.location.reload();}]}
             />
         }
             <div class="book-header">
                 <div class="book-image">
-                    <img src={BookImg} alt="책 제목"></img>
+                    <img src={Book.image} alt="책 제목"></img>
                 </div>
                 <div class="book-info">
                     <h2 class="book-title">{Book.title}</h2>
