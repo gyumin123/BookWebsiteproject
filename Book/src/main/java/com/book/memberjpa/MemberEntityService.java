@@ -1,5 +1,6 @@
 package com.book.memberjpa;
 
+import com.book.DTO.ChangePasswordDTO;
 import com.book.DTO.LoginDTO;
 import com.book.DTO.MembershipDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,6 +97,40 @@ public class MemberEntityService {
         return member.map(MemberEntity::getPassword).orElse(null);
     }
 
+    @Transactional
+    public boolean changePassword(ChangePasswordDTO changePasswordDTO) {
+        Optional<MemberEntity> optionalMember = memberEntityRepository.findById(changePasswordDTO.getUserid());
+        if (optionalMember.isPresent()) {
+            MemberEntity member = optionalMember.get();
+            if (member.getPassword().equals(changePasswordDTO.getOldPassword())) {
+                member.setPassword(changePasswordDTO.getNewPassword());
+                memberEntityRepository.save(member);
+                return true;
+            }
+        }
+        return false;
+    }
+    @Transactional
+    public boolean changeNickname(String userid, String newNickname) {
+        // 사용자를 조회
+        Optional<MemberEntity> optionalMember = memberEntityRepository.findById(userid);
+        if (optionalMember.isPresent()) {
+            // 닉네임 변경
+            MemberEntity member = optionalMember.get();
+            member.setName(newNickname); // 새로운 닉네임 설정
+            memberEntityRepository.save(member); // 변경 사항 저장
+            return true;
+        }
+        return false; // 사용자가 없는 경우
+    }
+
+
+    // 닉네임 조회 로직 추가
+    public String getNickname(String userid) {
+        Optional<MemberEntity> optionalMember = memberEntityRepository.findById(userid);
+        return optionalMember.map(MemberEntity::getName).orElse(null);
+    }
+
     // 아이디 중복 체크
     public boolean isUserIdAvailable(String userid) {
         return !memberEntityRepository.existsById(userid);
@@ -120,6 +155,7 @@ public class MemberEntityService {
             member.setProfileImage(fileName); // 이미지 경로를 엔티티에 저장 (절대 경로 대신 파일 이름)
             memberEntityRepository.save(member);
         }
+
 
         return filePath.toString();
     }
@@ -150,3 +186,4 @@ public class MemberEntityService {
         return memberEntityRepository.findById(userId);
     }
 }
+

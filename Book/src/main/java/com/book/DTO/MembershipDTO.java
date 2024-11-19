@@ -8,6 +8,9 @@ public class MembershipDTO {
     private String email;
     private String name;
 
+    // ChangePasswordDTO 멤버 변수 추가
+    private ChangePasswordDTO changePasswordDTO;
+
     public String getUserid() {
         return userid;
     }
@@ -46,5 +49,14 @@ public class MembershipDTO {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    // ChangePasswordDTO getter와 setter 추가
+    public ChangePasswordDTO getChangePasswordDTO() {
+        return changePasswordDTO;
+    }
+
+    public void setChangePasswordDTO(ChangePasswordDTO changePasswordDTO) {
+        this.changePasswordDTO = changePasswordDTO;
     }
 }

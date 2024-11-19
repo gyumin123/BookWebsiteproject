@@ -28,7 +28,7 @@ public class CommentController {
     }
 
     // 댓글 조회
-    @GetMapping("/{postid}")
+    @GetMapping("/{commentid}")
     public ResponseEntity<List<Comment>> getCommentsByPost(@PathVariable Long postid) {
         Optional<SupportPost> post = postService.getPostById(postid);
         return post.map(value -> ResponseEntity.ok(commentService.getCommentsByPost(value)))
