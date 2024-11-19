@@ -12,7 +12,7 @@ public class SupportPostController {
     private SupportPostService supportPostService;
 
     // 게시글 작성
-    @PostMapping("/write/post")
+    @PostMapping("/post")
     public ResponseEntity<SupportPost> createPost(@RequestBody SupportPost post) {
         return ResponseEntity.ok(supportPostService.createPost(post));
     }

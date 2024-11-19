@@ -1,5 +1,6 @@
 package com.book.memberjpa;
 
+import com.book.DTO.ChangePasswordDTO;
 import com.book.DTO.MembershipDTO;
 import com.book.DTO.LoginDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -94,6 +97,41 @@ public class MemberEntityController {
     public String reviseUser(@RequestBody MembershipDTO membershipDTO) {
         return memberEntityService.reviseUser(membershipDTO);
     }
+    // 비밀번호 변경 API 추가
+    @PutMapping("/api/user/password")
+    public ResponseEntity<String> changePassword(@RequestBody ChangePasswordDTO changePasswordDTO) {
+        boolean result = memberEntityService.changePassword(changePasswordDTO);
+        if (result) {
+            return ResponseEntity.ok("Password changed successfully!");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found or old password does not match!");
+        }
+    }
+    @PutMapping("/api/user/name")
+    public ResponseEntity<String> changeNickname(@RequestBody Map<String, String> request) {
+        String userid = request.get("userid");
+        String newNickname = request.get("newNickname");
+
+        boolean isUpdated = memberEntityService.changeNickname(userid, newNickname);
+        if (isUpdated) {
+            return ResponseEntity.ok("Nickname changed successfully!");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found!");
+        }
+    }
+
+
+    // 닉네임 조회 API 추가
+    @GetMapping("/api/user/name/{userid}")
+    public ResponseEntity<String> getNickname(@PathVariable String userid) {
+        String nickname = memberEntityService.getNickname(userid);
+        if (nickname != null) {
+            return ResponseEntity.ok(nickname);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found!");
+        }
+    }
+
 
     // 이미지 업로드 (POST: /api/user/uploadImage)
     @PostMapping("/api/user/uploadImage")
@@ -105,6 +143,8 @@ public class MemberEntityController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Image upload failed!");
         }
     }
+
+
 
     // 이미지 조회 (GET: /api/user/image/{userid})
     @GetMapping("/api/user/image/{userid}")
