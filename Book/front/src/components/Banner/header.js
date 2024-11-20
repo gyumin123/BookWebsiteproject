@@ -30,7 +30,7 @@ const Header = () => {
     }
     useEffect(()=>{
         getImg();
-    });
+    },[userid]);
 
     function Logout(){
             fetch(`/api/user/logout`, {method: 'POST' })

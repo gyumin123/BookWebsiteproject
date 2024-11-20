@@ -1,5 +1,7 @@
 import React, { useState,useEffect} from "react"
 import './SupportWrite.css';
+import {UserContext} from '../../UserContext';
+import {useContext} from 'react';
 import { useNavigate } from "react-router-dom";
 import {Popup} from "../Data/function.js"
 const SupportWrite=()=>{
@@ -15,26 +17,32 @@ const SupportWrite=()=>{
     const [message,setMessage] = useState(null);
     const [buttonMessage,setButtonMessage] = useState([]);
     const [onClickFunction,setOnclickFunction] = useState([]);
+    const {userid} = useContext(UserContext);
 
-    useEffect(()=>{
-         fetch('/api/user/name', { method: 'GET' })
-             .then((response) => {
-             if (response.ok)
-                return response.text();
-             else
-                throw new Error(response.status);
-             })
-             .then((name)=>{setAuthor(name)})
-             .catch(error => console.log(error));
+useEffect(() => {
+  const fetchAuthor = async () => {
+    try {
+      // 비동기 호출로 사용자 이름 가져오기
+      const response = await fetch(`/api/user/name/${userid}`, { method: 'GET' });
+      if (response.ok) {
+        const name = await response.text();
+        setAuthor(name);
+        if (!name)
+            throw new Error();
+      } else {
+        throw new Error(response.status);
+      }
+    } catch (error) {
+          setPopupOpen(true);
+          setMessage("글쓰기 권한이 없습니다.");
+          setButtonMessage(["확인"]);
+          setOnclickFunction([() => navigate(-1)]);
+    }
+  };
+  fetchAuthor();
+  console.log(author);
+}, [userid]);
 
-         if (author == null)
-         {
-            setPopupOpen(true);
-            setMessage("글쓰기 권한이 없습니다.");
-            setButtonMessage(["확인"]);
-            setOnclickFunction([()=>navigate(-1)]);
-         }
-    },[author,navigate])
 
     function handlePublic(event){
         setPublic((event.target.value==="public")?true:false);

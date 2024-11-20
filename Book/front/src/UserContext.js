@@ -12,6 +12,7 @@ export function UserProvider({ children }) {
               if (response.ok) {
                 const userid = await response.text();
                 setUserid(userid); // userid 대신 testuser로 설정
+                console.log(userid);
               } else {
                 throw new Error(response.status);
               }
@@ -19,9 +20,8 @@ export function UserProvider({ children }) {
               console.log(error);
             }
           };
-
           fetchData(); // 비동기 함수 호출
-        });
+        },[userid]);
 
 
   return (
