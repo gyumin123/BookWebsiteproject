@@ -24,7 +24,7 @@ public class CartController {
         return ResponseEntity.ok(cartService.getCartItemsByUserId(userId));
     }
 
-    // 장바구니에서 책 삭제
+    // 장바구니에서 유저아이디와 책아이디로 삭제
     @DeleteMapping("/{userId}/{itemId}")
     public ResponseEntity<Void> removeBookFromCart(@PathVariable String userId, @PathVariable Long itemId) {
         cartService.removeBookFromCart(userId, itemId);

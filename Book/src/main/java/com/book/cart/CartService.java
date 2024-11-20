@@ -25,7 +25,7 @@ public class CartService {
         return cartRepository.findByUserid(userid);
     }
 
-    // 장바구니에서 책 삭제
+    // 장바구니에서 책 삭제방법
     public void removeBookFromCart(String userId, Long itemId) {
         CartItem cartItem = cartRepository.findById(itemId).orElse(null);
         if (cartItem != null && cartItem.getUserid().equals(userId)) {
