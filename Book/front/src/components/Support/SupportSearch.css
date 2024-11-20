@@ -1,0 +1,31 @@
+#searchSection_2 {
+    position: relative;
+    margin-bottom: 30px;
+    align-items: center;
+}
+
+#searchSection_2 h2 {
+    margin-bottom: 10px;
+}
+
+#postList {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+#postList table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#postList th, #postList td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+#postRegistration {
+    position: relative;
+    top: 0px;
+    margin-top: 0px;
+}

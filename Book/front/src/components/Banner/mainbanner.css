@@ -1,0 +1,146 @@
+
+  .mainbannerheader {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px;
+    background-color: #efd9b1;
+  }
+  
+  .header-left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .header-left h2 {
+  margin-top: 20px; 
+  }  
+
+  #searchSection {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    background-color: #efd9b1;
+  }
+  
+  .search-container {
+    display: flex;
+    height: 40px;
+    align-items: center;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 25px;
+    background-color: #ffffff;
+    padding: 10px;
+  }
+  
+  .search-container input[type="text"] {
+    padding: 5px;
+    border-width: 0;
+    outline: none;
+    font-size: 1rem;
+    border-radius: 25px;
+    margin-top: 15px;
+  }
+  
+  .search-icon {
+    border: none;
+    background: none;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+
+  } 
+  .search-icon:hover {
+    border: none;
+    background: none;
+  }
+  
+  .header-icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-left: auto;
+  }
+  
+  .icon {
+    cursor: pointer;
+    border: none;
+    background: none;
+    position: relative;
+    width: 100%;
+    margin-right: 10px;
+  }
+  .icon:hover {
+    border: none;
+    background: none;
+  }
+
+  .usertap {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    padding: 10px;
+    vertical-align: middle;
+    width: 120px
+  }
+  
+  .usertap ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .usertap li {
+    margin-bottom: 10px;
+    display: block;
+    align-items: center;
+  }
+  
+  .usertap a {
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .nav-bar {
+    display: flex;
+    justify-content: space-around;
+    background-color: #efd9b1;
+    font-size: 20px;
+    
+  }
+  
+  .nav-bar a {
+    text-decoration: none;
+    color: #c08354;
+    padding: 5px 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .nav-bar a:hover {
+    background-color: #efc885;
+    border-radius: 4px;
+    font-display: flex;
+  }
+  .footer a {
+    display: inline-block;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 14px;
+    color: black;
+    text-decoration: none;
+    background-color: #e6b566;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+    margin-top: 5px;
+}
+
+.footer a:hover {
+    background-color: #d19f4c;
+}

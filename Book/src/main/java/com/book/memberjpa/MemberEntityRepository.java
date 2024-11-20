@@ -1,15 +1,13 @@
-package com.book;
+package com.book.memberjpa;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.Optional;
 
-
-@SpringBootApplication
-public class BookApplication {
-	public static void main(String[] args) {
-		SpringApplication.run(BookApplication.class, args);
-	}
+public interface MemberEntityRepository extends JpaRepository<MemberEntity, String> {
+    // 'name'과 'email'을 사용해 사용자 찾기
+    Optional<MemberEntity> findByNameAndEmail(String name, String email);
 }
+
 
 /**
  * -- 스키마 생성

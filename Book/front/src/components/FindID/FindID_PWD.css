@@ -1,0 +1,51 @@
+
+header h1 {
+    font-size: 24px;
+    color: #262626;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    color: #8e8e8e;
+    margin-bottom: 5px;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #3897f0; 
+    color: #fff;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #318be5; 
+}
+
+.navigate-options {
+    margin-top: 20px;
+}
+
+.navigate-options a {
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #0095f6;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navigate a:hover {
+    text-decoration: underline;
+}

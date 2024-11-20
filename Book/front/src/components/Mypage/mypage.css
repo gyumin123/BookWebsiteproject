@@ -1,0 +1,119 @@
+
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 25px;
+}
+
+.profile-section {
+    display: flex;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+}
+
+.profile-pic {
+    position: relative;
+    margin-right: 20px;
+}
+
+.profile-pic img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+}
+
+.profile-pic .edit-icon {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.nick-name, .group {
+    margin-bottom: 15px;
+}
+
+.nick-name input, .group input {
+    margin-left: 10px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.nick-name .edit-icon, .group .house-icon {
+    margin-left: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.sidebar {
+    width: 30%;
+    margin-right:5px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.sidebar ul li {
+    border-bottom: 1px solid #ddd;
+}
+
+.sidebar ul li:last-child {
+    border-bottom: none;
+}
+
+.sidebar ul li a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #007bff;
+}
+
+.sidebar ul li a:hover {
+    background-color: #f8f8f8;
+}
+
+.box-panel {
+    margin-left: 200px;
+    margin-top: -185px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.profile-section {
+    flex-direction: row;
+}
+
+.sidebar, .box-panel {
+    display: inline-block;
+    vertical-align: top;
+}
