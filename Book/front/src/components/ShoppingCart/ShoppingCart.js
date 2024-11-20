@@ -2,6 +2,7 @@ import React , {useState,useEffect,useContext} from "react"
 import {useNavigate} from "react-router-dom";
 import {totalPrice} from '../Data/function';
 import {UserContext} from '../../UserContext'
+import './ShoppingCart.css';
 
 const ShoppingCart = () => {
     const [CartData,setCartData] = useState([]);

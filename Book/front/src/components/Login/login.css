@@ -1,41 +1,42 @@
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f3f3f3;
-}
+
 .login-container {
     background-color: #ffffff;
     padding: 40px;
     border: 1px solid #ddd;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 350px;
+    width: 100%;
     text-align: center;
 }
+
 .login-container h2 {
     font-size: 24px;
     margin-bottom: 20px;
+    font-weight: normal;
 }
+
 .login-form {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
+
 .login-form label {
     text-align: left;
     font-size: 14px;
     color: #333;
+    margin-top: 10px;
 }
+
 .login-form input {
     padding: 10px;
     font-size: 14px;
     border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 3px;
+    background-color: #fafafa;
+    outline: none;
 }
+
 .login-form button {
     background-color: #0095f6;
     color: #ffffff;
@@ -45,39 +46,55 @@ body {
     border-radius: 5px;
     cursor: pointer;
     margin-top: 10px;
-    width: 350px;
+    font-weight: bold;
 }
+
 .login-form button:hover {
     background-color: #007bb5;
 }
-.login-options {
-    margin-top: 20px;
+
+.error-message {
+    color: #d93025;
+    margin-bottom: 10px;
 }
-.login-options a {
-    display: block;
-    margin-top: 10px;
-    font-size: 14px;
-    color: #0095f6;
-    text-decoration: none;
-}
-.login-options a:hover {
-    text-decoration: underline;
-}
+
 .separator {
     display: flex;
     align-items: center;
     text-align: center;
     margin: 20px 0;
+    font-size: 14px;
+    color: #8e8e8e;
 }
+
 .separator::before,
 .separator::after {
     content: "";
     flex: 1;
     border-bottom: 1px solid #ddd;
 }
+
 .separator:not(:empty)::before {
     margin-right: .25em;
 }
+
 .separator:not(:empty)::after {
     margin-left: .25em;
+}
+
+.login-options {
+    margin-top: 20px;
+}
+
+.login-options a {
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #0095f6;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-options a:hover {
+    text-decoration: underline;
 }
