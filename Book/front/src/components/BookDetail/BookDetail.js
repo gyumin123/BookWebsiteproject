@@ -37,7 +37,7 @@ function BookDetail({id,price}){
     {
         let totalPrice = calPrice();
         //장바구니 옵션 보내기
-        fetch('/api/cart/add', {
+        fetch('/api/user/cart/add', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({id,userid,purchaseType,period,totalPrice})
