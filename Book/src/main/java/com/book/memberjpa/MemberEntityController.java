@@ -49,17 +49,28 @@ public class MemberEntityController {
 
     // 로그인 상태 확인 (GET: /api/user/states)
     @GetMapping("/api/user/states")
-    public ResponseEntity<String> getLoginStatus() {
+    public ResponseEntity<String> getLoginStatus(HttpServletRequest request) {
+
         boolean isLoggedIn = memberEntityService.isUserLoggedIn();
-        return isLoggedIn ?
-                ResponseEntity.ok("User is logged in") :
-                ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not logged in");
+        HttpSession session = request.getSession(false);
+        if(session != null) {
+            return ResponseEntity.ok("User is logged in");
+        }
+        else
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not logged in");
+//        return isLoggedIn ?
+//                ResponseEntity.ok("User is logged in") :
+//                ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not logged in");
     }
 
     // 로그아웃 (POST: /api/user/logout)
     @PostMapping("/api/user/logout")
-    public ResponseEntity<String> logout() {
+    public ResponseEntity<String> logout(HttpServletRequest request) {
         memberEntityService.logoutUser();
+        HttpSession session = request.getSession(false);
+        if(session != null) {
+            session.invalidate();
+        }
         return ResponseEntity.ok("User logged out successfully!");
     }
 
