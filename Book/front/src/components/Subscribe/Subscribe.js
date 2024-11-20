@@ -1,10 +1,13 @@
 import {useNavigate} from "react-router-dom";
+import {useContext} from 'react'
 import React from 'react'
 import './Subscribe.css'
+import {UserContext} from '../../UserContext';
 
 const Subscribe = () => {
     const navigate = useNavigate();
-    const purchaseData = [{purchaseType:"구독",period:"30",price:"10000"}];
+    const {userid} = useContext(UserContext);
+    const purchaseData = [{id:100000,userid,purchaseType:"구독",period:"30",price:"10000"}];
     function subscribe()
     {
         fetch(`/api/purchase`, {

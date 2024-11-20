@@ -40,6 +40,7 @@ const SupportSearch = () =>{
             })
             .then(pages => {
                 setSupportTotalPage(parseInt(pages, 10)); // 문자열을 숫자로 변환하여 상태에 저장
+                console.log(SupportTotalPage);
             })
             .catch(error => console.error(error));
     
@@ -56,7 +57,7 @@ const SupportSearch = () =>{
                 return response.json()
             })
             .then(data => {
-                SetSupportPosts(data.slice(0,perpage));
+                SetSupportPosts(data);
             })
             .catch(error => console.error(error));
 

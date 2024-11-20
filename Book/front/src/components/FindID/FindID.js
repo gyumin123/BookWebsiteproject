@@ -5,7 +5,7 @@ import './FindID_PWD.css';
 const FindID = () => {
     const [username,SetUsername] = useState('');
     const [email,SetEmail] = useState('');
-    const [userid,SetUserid] = useState(null);
+    const [message,setMessage] = useState('');
     const navigate = useNavigate();
 
     function onSubmitFindId (event) {
@@ -19,8 +19,8 @@ const FindID = () => {
         else
             throw new Error(response.status);
         })
-        .then(userid=>SetUserid(userid))
-        .catch(error=>console.log("아이디 없음"));
+        .then(userid=>setMessage("아이디 : " + userid))
+        .catch(error=>setMessage("사용자가 없습니다."));
     }
 
     return(
@@ -42,14 +42,7 @@ const FindID = () => {
                 </form>
                 <h3>조회 결과</h3>
                 <div id="resultContainer">
-                    {
-                        userid!=null&&userid!=''&&
-                        <div>아이디 : {userid}</div>
-                    }
-                    {
-                        userid!=null&&userid==''&&
-                        <div>존재하지 않는 정보입니다.</div>
-                    }
+                    {message}
                 </div>
                 <div className='navigate-options'>
 

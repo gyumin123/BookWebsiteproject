@@ -1,16 +1,17 @@
-import React , {useState,useEffect} from "react"
+import React , {useState,useEffect,useContext} from "react"
 import {useNavigate} from "react-router-dom";
 import {Popup,totalPrice} from '../Data/function';
 import './Purchase.css'
+import {UserContext} from '../../UserContext';
 
 const Purchase = () => {
     const [PurchaseData,setPurchaseData] = useState([]);
     const [isPopupOpen,setPopupOpen] = useState(false);
     const navigate = useNavigate();
+    const {userid} = useContext(UserContext);
 
     useEffect(()=>
     {
-       //서버에서 할일 : 세션에 저장된 유저 아이디를 가져와 장바구니 정보를 가져오기
         fetch(`/api/purchase`, {
             method: 'GET',
         })

@@ -41,7 +41,7 @@ const SupportWrite=()=>{
     }
     function onSubmitSupportWrite(event)
     {
-    fetch('/api/user/support/write/post', {
+    fetch('/api/user/support/post', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({author,title,content,state:IsPublic,password})

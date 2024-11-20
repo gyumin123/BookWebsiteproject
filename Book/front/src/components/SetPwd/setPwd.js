@@ -1,41 +1,27 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
+import {UserContext} from '../../UserContext'
 import './setPwd.css';
 
 const SetPwd = () => {
     const [originPwd, setOriginPwd] = useState('');
-    const [currentPwd, setCurrentPwd] = useState('');
-    const [newPwd, setNewPwd] = useState('');
+    const [oldPassword, setCurrentPwd] = useState('');
+    const [newPassword, setNewPwd] = useState('');
     const [ConfirmPwd, setConfirmPwd] = useState('');
     const [msg, SetMsg] = useState('');
+    const { userid } = useContext(UserContext);
 
+    console.log(userid);
 
-    function GetPassword(){
-        // 비밀번호 가져오기
-            fetch(`/api/user/get/pwd/`, {
-                method: 'GET',
-            })
-            .then(response =>{
-            if (!response.ok)
-                throw new Error(response.status);
-            else
-                return response.text();
-            })
-            .then(password => setOriginPwd(password))
-            .catch(error => console.error(error));
-    }
     function onSubmitSetPwd (event){
-        GetPassword();
         event.preventDefault();
-        if (originPwd !== currentPwd) {
-            SetMsg("현재 비밀번호가 맞지 않습니다.");
-        } else if (newPwd !== ConfirmPwd) {
+        if (newPassword !== ConfirmPwd) {
             SetMsg("변경할 비밀번호가 동일하지 않습니다.");
         } else {
             // 비밀번호 변경을 눌렀을 때
             fetch('/api/user/password', {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ password: newPwd })
+                body: JSON.stringify({userid,oldPassword,newPassword})
             })
             .then(response => {
                 if (response.ok) {
@@ -59,7 +45,7 @@ const SetPwd = () => {
                             type="password"
                             id="currentPassword"
                             name="currentPassword"
-                            value={currentPwd}
+                            value={oldPassword}
                             onChange={(e) => { setCurrentPwd(e.target.value) }}
                             required
                         />
@@ -70,7 +56,7 @@ const SetPwd = () => {
                             type="password"
                             id="NewPassword"
                             name="NewPassword"
-                            value={newPwd}
+                            value={newPassword}
                             onChange={(e) => { setNewPwd(e.target.value) }}
                             required
                         />
