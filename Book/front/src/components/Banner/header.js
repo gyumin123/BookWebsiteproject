@@ -72,7 +72,7 @@ const Header = () => {
                     </Link>
                     <div className="icon" onMouseEnter={HoverEnter} onMouseLeave={HoverLeave}>
                     <button className="icon">
-                        <img src={UserImg} alt="User Icon"style={{height:20}}></img>
+                        <img src={UserImg} alt="User Icon"style={{height:30}}></img>
                     </button>
                     {
                         isUserTapHovered &&
