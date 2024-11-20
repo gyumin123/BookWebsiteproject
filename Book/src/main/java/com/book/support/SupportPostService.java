@@ -38,11 +38,12 @@ public class SupportPostService {
     }
     // 게시글 일부 가져오기
     public List<SupportPost> getPostsByStart(int start) {
-        List<SupportPost> postList = getAllPosts();
+        List<SupportPost> postList;
+        postList = supportRepository.findAll();
         return postList.subList(start, postList.size());
     }
     // 총 페이지 수
     public int getPostsTotalPages() {
-        return supportRepository.findAll().size() % 10 + 1;
+        return (int) Math.ceil((double) supportRepository.findAll().size() / 10);
     }
 }
