@@ -11,7 +11,7 @@ export function UserProvider({ children }) {
               const response = await fetch('/api/user/states', { method: 'GET' });
               if (response.ok) {
                 const userid = await response.text();
-                setUserid('testuser'); // userid 대신 testuser로 설정
+                setUserid(userid); // userid 대신 testuser로 설정
               } else {
                 throw new Error(response.status);
               }
