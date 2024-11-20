@@ -2,10 +2,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 100vh;
+    height: 150vh;
     background-size: cover;
     margin: 0;
     overflow: hidden;
+    background-color: #F4D7A4;
+    border-radius: 20px;
   }
   
   .homemain {
@@ -13,6 +15,7 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
   }
   
   .book-grid {
@@ -20,42 +23,36 @@
     justify-content: space-between;
     align-items: center;
     width: 150%;
-    max-width: 1200px;
   }
   
   .side-book {
-    width: 200px;
+    width: 60px;
     height: 200px;
     border: 2px solid black;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 24px;
-    background: white;
+    background-color: white;
+    border-radius: 10px;    
   }
   
-  .side-book.left {
-    margin-left: 10px;
-    width: 200px;
-    height: 100px;
-  }
-  
-  .side-book.right {
-    margin-right: 10px;
-    width: 200px;
+  .side-book.left .side-book.right{
+    margin-left: 100px;
+    width: 5px;
     height: 100px;
   }
   
   .book-item {
-    width: 400px;
-    height: 300px;
+    width: 200px;
+    height: 250px;
     border: 2px solid black;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 24px;
-    background: white;
-    margin: 0 20px;
+    background-color: white;
+    border-radius: 10px;
   }
   
   .arrow-icon {
@@ -64,12 +61,4 @@
     user-select: none;
     width: 48px;
     height: 48px;
-  }
-  
-  .arrow-left {
-    margin-right: 20px;
-  }
-  
-  .arrow-right {
-    margin-left: 20px;
   }
