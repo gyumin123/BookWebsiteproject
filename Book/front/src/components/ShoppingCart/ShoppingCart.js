@@ -89,6 +89,7 @@ const ShoppingCart = () => {
         for (let index=0;index< CartData.length;index++)
             if (CheckedState[index])
                 itemDelete(CartData[index]);
+        window.location.reload();
      }
      function AllDelete()
      {
