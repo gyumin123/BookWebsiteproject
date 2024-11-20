@@ -1,17 +1,15 @@
 #searchSection_2 {
     position: relative;
-    top: -10px;
-    margin-bottom: 10px;
-    display: flex;
+    margin-bottom: 30px;
     align-items: center;
-    gap: 5px;
-    white-space: nowrap;
 }
 
+#searchSection_2 h2 {
+    margin-bottom: 10px;
+}
 
 #postList {
     position: relative;
-    top: -20px;
     margin-bottom: 20px;
 }
 
@@ -22,7 +20,7 @@
 
 #postList th, #postList td {
     padding: 10px;
-    text-align: left;
+    text-align: center;
     border-bottom: 1px solid #ddd;
 }
 
