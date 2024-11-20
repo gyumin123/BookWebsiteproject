@@ -33,7 +33,7 @@ public class MemberEntityController {
     @PostMapping("/api/login")
     public ResponseEntity<String> login(@RequestBody LoginDTO loginDTO, HttpServletRequest request) {
         boolean isAuthenticated = memberEntityService.authenticateUser(loginDTO);
-        if(isAuthenticated) {
+        if (isAuthenticated) {
             //  request에 세션이 있으면 세션을 반환하고, 없으면 신규 세션을 생성하여 HttpSession session에 담는다.
             HttpSession session = request.getSession();
             // ip주소 가져오기
@@ -41,10 +41,8 @@ public class MemberEntityController {
             session.setAttribute("member", loginDTO.getUserid());
             // 로그인 히스토리 저장
             loginhistoryService.saveHistory(loginDTO.getUserid(), ipAddr);
-        }
-        return isAuthenticated ?
-                ResponseEntity.ok("Login successful!") :
-                ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login failed!");
+            return ResponseEntity.ok(session.getAttribute("member").toString());
+        } else return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login failed!");
     }
 
     // 로그인 상태 확인 (GET: /api/user/states)

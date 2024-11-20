@@ -1,7 +1,7 @@
 package com.book.support;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import com.book.memberjpa.MemberEntity;
 import java.util.List;
 
 @Entity
@@ -19,6 +19,7 @@ public class SupportPost {
 
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Comment> comments;
 
     // Getters and Setters
