@@ -14,24 +14,28 @@ const Header = () => {
     //로그인 되었는지 안되었는지 체크
 //사용자의 이미지가 없으면 시스템 기본 이미지 저장
     function getImg(){
-         fetch(`/api/user/image/${userid}`, { method: 'GET' })
-             .then((response) => {
-             if (!response.ok)
-                throw new Error(response.status)
-             return response.blob()
-             })
-             .then((blob)=>{setUserImg(URL.createObjectURL(blob))})
-             .catch((error)=>{setUserImg('image/profile-basic.png')});
+        if (userid == null)
+            setUserImg('image/icon_user.png')
+        else
+        {
+             fetch(`/api/user/image/${userid}`, { method: 'GET' })
+                 .then((response) => {
+                 if (!response.ok)
+                    throw new Error(response.status)
+                 return response.blob()
+                 })
+                 .then((blob)=>{setUserImg(URL.createObjectURL(blob))})
+                 .catch((error)=>{setUserImg('image/profile-basic.png')});
+        }
     }
     useEffect(()=>{
-    if (userid!=null)
         getImg();
-    else
-        setUserImg('image/icon_user.png')})
+    });
 
     function Logout(){
             fetch(`/api/user/logout`, {method: 'POST' })
-            .then(navigate('/'))
+            .then(()=>window.location.reload())
+            .catch((error)=>console.error(error));
     }
 
     function handleSearchSection(e){
