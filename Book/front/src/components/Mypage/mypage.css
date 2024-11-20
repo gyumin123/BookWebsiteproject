@@ -6,6 +6,8 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+    background-color: #fff;
+    border-radius: 25px;
 }
 
 .profile-section {
@@ -99,18 +101,12 @@
 }
 
 .box-panel {
-    width: 70%;
     margin-left: 200px;
-    margin-top: -170px;
+    margin-top: -185px;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
     background-color: #fff;
-}
-
-.container {
-    display: flex;
-    flex-direction: column;
 }
 
 .profile-section {
@@ -121,4 +117,3 @@
     display: inline-block;
     vertical-align: top;
 }
-
