@@ -26,7 +26,10 @@ public class CartService {
     }
 
     // 장바구니에서 책 삭제
-    public void removeBookFromCart(Long itemId) {
-        cartRepository.deleteById(itemId);
+    public void removeBookFromCart(String userId, Long itemId) {
+        CartItem cartItem = cartRepository.findById(itemId).orElse(null);
+        if (cartItem != null && cartItem.getUserid().equals(userId)) {
+            cartRepository.deleteById(itemId);
+        }
     }
 }

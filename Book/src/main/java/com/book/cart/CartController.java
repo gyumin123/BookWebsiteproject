@@ -25,9 +25,9 @@ public class CartController {
     }
 
     // 장바구니에서 책 삭제
-    @DeleteMapping("/{itemId}")
-    public ResponseEntity<Void> removeBookFromCart(@PathVariable Long itemId) {
-        cartService.removeBookFromCart(itemId);
+    @DeleteMapping("/{userId}/{itemId}")
+    public ResponseEntity<Void> removeBookFromCart(@PathVariable String userId, @PathVariable Long itemId) {
+        cartService.removeBookFromCart(userId, itemId);
         return ResponseEntity.ok().build();
     }
 }
