@@ -11,6 +11,7 @@ import java.util.List;
 public class LoginhistoryService {
 
     private final LoginhistoryRepository loginhistoryRepository;
+    private static long sequence = 0L;
 
     @Autowired
     public LoginhistoryService(LoginhistoryRepository loginhistoryRepository) {
@@ -39,6 +40,7 @@ public class LoginhistoryService {
         Loginhistory loginhistory = new Loginhistory();
         LocalDate now = LocalDate.now();
 
+        loginhistory.setId(++sequence);
         loginhistory.setDate(now);
         loginhistory.setIp(ipAddr);
 
