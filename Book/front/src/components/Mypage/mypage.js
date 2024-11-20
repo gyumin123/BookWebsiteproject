@@ -1,75 +1,89 @@
-import React, { useState,useEffect } from "react"
-import {Route,Routes} from "react-router-dom";
+import React, { useState,useEffect,useContext} from "react"
+import {Route,Routes,useNavigate} from "react-router-dom";
 import SetPwd from "../SetPwd/setPwd";
 import MyHistory from "../Myhistory/myHistory";
 import PurchaseHistory from "../PurchaseHistory/purchaseHistory";
 import './mypage.css'
+import {UserContext} from '../../UserContext';
 
 const Mypage = () => {
-    const [username,setUserName] = useState('');
+    const { userid } = useContext(UserContext);
+    const [newNickname,setUserName] = useState('');
     const [nameEdit,setNameEdit] = useState(false);
+    const [userImg,setUserImg] = useState(null);
+    const navigate = useNavigate();
 
-    const [profile_img,setUserImg] = useState(null);
-
-    useEffect(() => {
-         fetch('/api/user/image', { method: 'GET' })
+    const [file,setFile] = useState(null);
+    function GetImg()
+    {
+         fetch(`/api/user/image/${userid}`, { method: 'GET' })
              .then((response) => {
              if (!response.ok)
                 throw new Error(response.status)
-             return response.json()
+             return response.blob()
              })
-             .then((data)=>{setUserImg(data.image)})
+             .then((blob)=>{console.log(blob);setUserImg(URL.createObjectURL(blob))})
              .catch((error)=>{setUserImg('image/profile-basic.png')});
+    }
 
-         fetch('/api/user/name', {method: 'GET',})
+    function GetName(){
+         fetch(`/api/user/name/${userid}`, {method: 'GET',})
          .then(response => {
          if (response.ok)
             return response.text();
          else
             throw new Error(response.status);
          })
-         .then((text)=>{setUserName(text)})
+         .then((text)=>{setUserName(text);console.log(text)})
          .catch((error)=>console.log(error));
-    },[])
+    }
+    useEffect(() => {
+         GetImg();GetName();
+    })
 
-    function UploadImage(){
-        fetch('/api/user/image', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({profile_img})
-        })
-        .then((response)=>{
-        if (!response.ok)
-            throw new Error(response)})
-        .catch(error=>console.log(error));
+    async function UploadImage(file){
+        const formData= new FormData();
+
+        formData.append('userid',userid)
+        formData.append('file',file);
+        console.log(file);
+
+          try {
+            const response = await fetch('/api/user/uploadImage', {
+              method: 'POST',
+              body: formData,
+            });
+
+            if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            console.log(response); // 성공한 응답 출력
+            GetImg();
+          } catch (error) {
+            console.error('Error:', error); // 오류 처리
+          }
     }
 
     function UploadName(){
       fetch('/api/user/name', {
-          method: 'POST',
+          method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({name:username})
+          body: JSON.stringify({userid,newNickname})
       })
+      .then(response=>GetName())
       .catch(error=>console.log(error));
     }
       function FileUpload(event){
-        const file = event.target.files[0];
-        if (file) {
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            // 파일을 Base64로 인코딩하여 상태에 저장
-            setUserImg(reader.result);
-          };
-          reader.readAsDataURL(file);
+             const selectedFile = event.target.files[0];
+             UploadImage(selectedFile);
         }
-        UploadImage();
-      };
 
     return (
             <div className="container">
                 <div className="profile-section">
                     <div className="profile-pic">
-                        <img src= {profile_img} alt="프로필 사진"></img>
+                        <img src= {userImg} alt="프로필 사진"></img>
                         <input id="fileInput" type="file"
                         style={{display:"none"}} onChange={FileUpload}/>
                         <label htmlFor="fileInput" className="edit-icon">선택하기</label>
@@ -78,7 +92,7 @@ const Mypage = () => {
                     <div className="profile-info">
                         <div className="nick-name">
                             닉네임 :
-                            <input type="text" value = {username} onChange = {(e)=>setUserName(e.target.value)} disabled = {nameEdit===false}></input>
+                            <input type="text" value = {newNickname} onChange = {(e)=>setUserName(e.target.value)} disabled = {nameEdit===false}></input>
                             <button className="edit-icon pen-icon" 
                             onClick={()=>{UploadName();setNameEdit(!nameEdit)}}
                             >

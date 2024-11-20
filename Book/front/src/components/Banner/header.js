@@ -1,45 +1,34 @@
-import React , {useState,useEffect} from "react"
+import React , {useState,useEffect,useContext} from "react"
 import {Link,useNavigate} from "react-router-dom";
 import './mainbanner.css';
+import {UserContext} from '../../UserContext';
 
 
 const Header = () => {
     const [inputValue,setInputValue] = useState('');
-    const [userid,setUserid] = useState(null);
     const [UserImg,setUserImg] = useState('');
     const navigate = useNavigate();
     const [isUserTapHovered,setUserTapHovered] = useState(false);
+    const { userid } = useContext(UserContext);
 
-    IsLoggedIn();
     //로그인 되었는지 안되었는지 체크
-    function IsLoggedIn()  {
-        useEffect(() => {
-             fetch('/api/user/states', { method: 'GET' })
-                 .then((response) => {
-                 if (response.ok)
-                    return response.text();
-                 else
-                    throw new Error(response.status);
-                 })
-                 .then((userid)=>{setUserid(userid);getUserImage(userid)})
-                 //없다면 아이콘 저장
-                 .catch(error => setUserImg('/image/icon_user.png'));
-        },[])
-};
 //사용자의 이미지가 없으면 시스템 기본 이미지 저장
-    const getUserImage = (userid) => {
-        fetch(`/api/user/image/${userid}`, {
-            method: 'GET',
-        })
-        .then(response=>{
-            if(response.ok)
-                return response.text();
-            else
-                throw new Error(response.status);
-        })
-        .then(text=>setUserImg(text))
-        .catch(error=>setUserImg('/image/profile-basic.png'));
+    function getImg(){
+         fetch(`/api/user/image/${userid}`, { method: 'GET' })
+             .then((response) => {
+             if (!response.ok)
+                throw new Error(response.status)
+             return response.blob()
+             })
+             .then((blob)=>{setUserImg(URL.createObjectURL(blob))})
+             .catch((error)=>{setUserImg('image/profile-basic.png')});
     }
+    useEffect(()=>{
+    if (userid!=null)
+        getImg();
+    else
+        setUserImg('image/icon_user.png')})
+
     function Logout(){
             fetch(`/api/user/logout`, {method: 'POST' })
             .then(navigate('/'))
