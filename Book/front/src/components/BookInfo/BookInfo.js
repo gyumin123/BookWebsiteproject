@@ -76,7 +76,7 @@ const BookInfo = () => {
         .catch(error=>console.log(error))
     }
     return (
-        <div class="container">
+        <div class="container_2">
         {
             popupOpen &&
             <Popup

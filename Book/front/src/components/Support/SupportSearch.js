@@ -103,7 +103,7 @@ return(
     }
     <main>
         {/* <!-- 글 검색 섹션 --> */}
-        <section id="searchSection">
+        <section id="searchSection_2">
             <h2>글 검색</h2>
             <input type="text" placeholder="검색어 입력"
             value={search} onChange={(e)=>setSearch(e.target.value)}></input>

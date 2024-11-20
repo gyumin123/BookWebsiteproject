@@ -5,28 +5,50 @@
     text-align: center;
 }
 
-.payment-table th, .payment-table td {
-    padding: 10px;
-    border: 1px solid #444;
-    text-align: center;
-    color: #000000;
+.payment-table {
+    width: 100%; 
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
-.payment-method {
-    margin-bottom: 10px;
+.payment-table th,
+.payment-table td {
     padding: 10px;
+    text-align: center;
+    border: none;
 }
+
+.payment-table thead {
+    background-color: #f5f5f5;
+}
+
+.payment-table tr {
+    border-bottom: 1px solid #ddd;
+}
+
+.payment-table tfoot td {
+    font-weight: bold;
+    text-align: center;
+}
+.selectedItem {
+    text-align: center;
+}
+
 
 label[for="card"] {
     color: #000000;
-    margin-top: -25px;
+    margin-top: -20px;
+    margin-left: 22px;
     margin-bottom : 15px ;
 }
 
 label[for="other"]{
     color: #000000;
-    margin-top: -25px;
+    margin-top: -20px;
     margin-bottom: 20px;
+    margin-left: 22px;
 }
 
 .checkbox-group label {
@@ -41,7 +63,7 @@ label[for="other"]{
     height: 100px;
     cursor: pointer;
     border: 1px dashed #888;
-    margin-left: 125px;
+    margin-left: 140px;
     border-radius: 10px;
     color: #888;
     margin-bottom: 30px;
@@ -91,6 +113,3 @@ label[for="other"]{
 .next-button:hover {
     background-color: #474747;
 }
-
-
-

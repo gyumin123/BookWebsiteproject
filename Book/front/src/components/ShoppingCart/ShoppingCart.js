@@ -2,6 +2,7 @@ import React , {useState,useEffect,useContext} from "react"
 import {useNavigate} from "react-router-dom";
 import {totalPrice} from '../Data/function';
 import {UserContext} from '../../UserContext'
+import './ShoppingCart.css';
 
 const ShoppingCart = () => {
     const [CartData,setCartData] = useState([]);
@@ -12,20 +13,29 @@ const ShoppingCart = () => {
     const {userid} = useContext(UserContext);
 
 
-    useEffect(()=>
-    {
-        fetch(`/api/cart/items/{userid}`, {
-            method: 'GET',
-        })
-        .then(response=>{
-        if(!response.ok)
-            throw new Error(response.status);
-        else
-            return response.json()
-        })
-        .then(data => {setCartData(data);setCheckedState(new Array(data.length+1).fill(false))})
-        .catch(error=>console.log(error))
-    },[])
+    useEffect(() => {
+        const fetchCartData = async () => {
+            try {
+                console.log("가져옴!");
+                const response = await fetch(`/api/user/cart/items/${userid}`, {
+                    method: 'GET',
+                });
+
+                if (!response.ok) {
+                    throw new Error(response.status);
+                }
+
+                const data = await response.json();
+                setCartData(data);
+                setCheckedState(new Array(data.length + 1).fill(false));
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+    fetchCartData();
+}, [userid]);
+
 
     function onSubmitPurchase(item)
     {
