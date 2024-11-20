@@ -8,7 +8,8 @@ import {UserContext} from '../../UserContext';
 
 const Mypage = () => {
     const { userid } = useContext(UserContext);
-    const [newNickname,setUserName] = useState('');
+    const [nickname,setNickname] = useState('');
+    const [newNickname,setNewNickname] = useState('');
     const [nameEdit,setNameEdit] = useState(false);
     const [userImg,setUserImg] = useState(null);
     const navigate = useNavigate();
@@ -25,6 +26,9 @@ const Mypage = () => {
              .then((blob)=>{console.log(blob);setUserImg(URL.createObjectURL(blob))})
              .catch((error)=>{setUserImg('image/profile-basic.png')});
     }
+    useEffect(()=>{
+    GetName();GetImg();
+    })
 
     function GetName(){
          fetch(`/api/user/name/${userid}`, {method: 'GET',})
@@ -34,12 +38,9 @@ const Mypage = () => {
          else
             throw new Error(response.status);
          })
-         .then((text)=>{setUserName(text);console.log(text)})
+         .then((text)=>{setNickname(text);console.log(text)})
          .catch((error)=>console.log(error));
     }
-    useEffect(() => {
-         GetImg();GetName();
-    })
 
     async function UploadImage(file){
         const formData= new FormData();
@@ -57,7 +58,6 @@ const Mypage = () => {
             if (!response.ok) {
               throw new Error(`HTTP error! Status: ${response.status}`);
             }
-
             console.log(response); // 성공한 응답 출력
             GetImg();
           } catch (error) {
@@ -65,14 +65,21 @@ const Mypage = () => {
           }
     }
 
-    function UploadName(){
-      fetch('/api/user/name', {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({userid,newNickname})
-      })
-      .then(response=>GetName())
-      .catch(error=>console.log(error));
+    async function UploadName(){
+          try {
+            const response = await fetch('/api/user/name', {
+              method: 'PUT',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({userid,newNickname})
+            });
+
+            if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            GetName();
+          } catch (error) {
+            console.error('Error:', error); // 오류 처리
+          }
     }
       function FileUpload(event){
              const selectedFile = event.target.files[0];
@@ -92,9 +99,9 @@ const Mypage = () => {
                     <div className="profile-info">
                         <div className="nick-name">
                             닉네임 :
-                            <input type="text" value = {newNickname} onChange = {(e)=>setUserName(e.target.value)} disabled = {nameEdit===false}></input>
+                            <input type="text" value = {nameEdit === false ?nickname:newNickname} onChange = {(e)=>{setNewNickname(e.target.value)}} disabled = {nameEdit===false}></input>
                             <button className="edit-icon pen-icon" 
-                            onClick={()=>{UploadName();setNameEdit(!nameEdit)}}
+                            onClick={()=>{UploadName();setNewNickname(nickname);setNameEdit(!nameEdit)}}
                             >
                                 {nameEdit === false && <div>✏️</div>}
                                 {nameEdit === true && <div>완료</div>}
