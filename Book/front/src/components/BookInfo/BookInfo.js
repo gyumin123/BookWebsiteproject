@@ -1,13 +1,18 @@
-import React , {useState,useEffect} from "react"
+import React , {useState,useEffect,useContext} from "react"
 import {Link,useParams,useNavigate,useLocation} from "react-router-dom";
 import {generateStars,Popup} from '../Data/function';
+import BookData from '../Data/book.json';
 import BookDetail from '../BookDetail/BookDetail'
 import './BookInfo.css'
+import {UserContext} from '../../UserContext'
+import BookImg from '../Data/book.jpg'
+
 const BookInfo = () => {
 
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const id = parseInt(searchParams.get("id"));
+    const {userid} = useContext(UserContext);
 
     const [Book,setBook] = useState({});
     const navigate = useNavigate();
@@ -23,11 +28,7 @@ const BookInfo = () => {
     {
          if (buttonText == "구매하기")
          {
-            //로그인 된 상태가 아니라면 먼저 로그인 할 수 있게 함
-             fetch('/api/user/state', { method: 'GET' })
-                 .then((response) => response.text())
-                 .then((id)=>{
-                 if (id == '')
+                 if (userid == null)
                  //아이디가 없을 경우
                  {
                     setMessage("로그인 먼저 해주세요!");
@@ -35,12 +36,11 @@ const BookInfo = () => {
                  }
                  else
                  {
-                 GetSubscribe(id);
+                 GetSubscribe(userid);
                  if (isSubscribed)
                     //아직 구현 안함
                     navigate('/read');
                  }
-                  });
             setButtonText("닫기");
             setClicked(true);
          }
@@ -63,12 +63,12 @@ const BookInfo = () => {
         else
             return response.json();
         })
-        .then(data => setBook(data))
-        .catch(error=>console.log(error))
+        .then(data => setBook(BookData[id]))
+        .catch(error=>setBook(BookData[id]))
     },[])
-    function GetSubscribe(id)
+    function GetSubscribe(userid)
     {
-        fetch(`/api/subscribe/${id}`, {
+        fetch(`/api/subscribe/${userid}`, {
             method: 'GET',
         })
         .then(response=>response.text())
@@ -87,7 +87,7 @@ const BookInfo = () => {
         }
             <div class="book-header">
                 <div class="book-image">
-                    <img src={Book.image} alt="책 제목"></img>
+                    <img src={BookImg} alt="책 제목"></img>
                 </div>
                 <div class="book-info">
                     <h2 class="book-title">{Book.title}</h2>

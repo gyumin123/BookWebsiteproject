@@ -2,6 +2,8 @@ import React , {useState,useEffect} from "react"
 import {useSearchParams} from "react-router-dom";
 import './Classification.css'
 import {ContentCard} from '../Data/function';
+import BookData from '../Data/book.json'
+import BookImg from '../Data/book.jpg'
 
 
 const Classification = () => {
@@ -26,7 +28,7 @@ const Classification = () => {
     const SubjectOption = ["소설","시","역사","잡지","자격증"];
 
         useEffect(() => {
-          if (category === 1)
+          if (category === '1')
             {
                 SetTitle("분야별");
                 SetOptionList(SubjectOption);
@@ -35,7 +37,7 @@ const Classification = () => {
                 else
                     SetOption(optionList[option]);
             }
-            else if (category === 2)
+            else if (category === '2')
             {
                 SetTitle("테마별");
                 SetOptionList(themeOption);
@@ -57,8 +59,8 @@ const Classification = () => {
             else
                 return response.json();
             })
-            .then(data => SetData(data))
-            .catch(error=>console.log(error))
+            .then(data => {SetData(data)})
+            .catch(error=>console.log(SetData(BookData)))
         },[])
 
 
@@ -75,9 +77,9 @@ return (
         <div class="product-grid">
         {
             bookData.length > 0 &&
-            bookData.map((book,index) => (
+            bookData.slice((sep-1)*25,sep*25).map((book,index) => (
             <ContentCard
-            image = {book.image}
+            image = {BookImg}
             rank = {(sep-1)*25+index+1}
             title = {book.title}
             author = {book.author}

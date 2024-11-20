@@ -11,13 +11,15 @@ import FindPWD from './components/FindID/FindPWD';
 import BookDetail from './components/BookDetail/BookDetail';
 import Classification from './components/Classification/Classification';
 import BookInfo from './components/BookInfo/BookInfo';
-import ShoppingCart from './components/ShoppingCart/ShoppingCart'
-import Purchase from './components/Purchase/Purchase'
-import Subscribe from './components/Subscribe/Subscribe'
-import Support from './components/Support/Support'
+import ShoppingCart from './components/ShoppingCart/ShoppingCart';
+import Purchase from './components/Purchase/Purchase';
+import Subscribe from './components/Subscribe/Subscribe';
+import Support from './components/Support/Support';
+import {UserProvider} from './UserContext';
 
 const App = () => {
 return(
+    <UserProvider>
         <Router>
             <Header />
             <Routes>
@@ -37,6 +39,7 @@ return(
             </Routes>
             <Footer />
         </Router>
+    </UserProvider>
     );
 };
 

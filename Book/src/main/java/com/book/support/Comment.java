@@ -1,5 +1,6 @@
 package com.book.support;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -14,6 +15,7 @@ public class Comment {
 
     @ManyToOne
     @JoinColumn(name = "post_id", referencedColumnName = "id", nullable = false)
+    @JsonBackReference
     private SupportPost post;
 
     // Getters and Setters

@@ -3,6 +3,9 @@ package com.book.memberjpa;
 import com.book.DTO.ChangePasswordDTO;
 import com.book.DTO.MembershipDTO;
 import com.book.DTO.LoginDTO;
+import com.book.history.LoginhistoryService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
@@ -18,34 +21,54 @@ import java.util.Optional;
 public class MemberEntityController {
 
     private final MemberEntityService memberEntityService;
+    private final LoginhistoryService loginhistoryService;
 
     @Autowired
-    public MemberEntityController(MemberEntityService memberEntityService) {
+    public MemberEntityController(MemberEntityService memberEntityService, LoginhistoryService loginhistoryService) {
         this.memberEntityService = memberEntityService;
+        this.loginhistoryService = loginhistoryService;
     }
 
     // 로그인 (POST: /api/login)
     @PostMapping("/api/login")
-    public ResponseEntity<String> login(@RequestBody LoginDTO loginDTO) {
+    public ResponseEntity<String> login(@RequestBody LoginDTO loginDTO, HttpServletRequest request) {
         boolean isAuthenticated = memberEntityService.authenticateUser(loginDTO);
-        return isAuthenticated ?
-                ResponseEntity.ok("Login successful!") :
-                ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login failed!");
+        if (isAuthenticated) {
+            //  request에 세션이 있으면 세션을 반환하고, 없으면 신규 세션을 생성하여 HttpSession session에 담는다.
+            HttpSession session = request.getSession();
+            // ip주소 가져오기
+            String ipAddr = request.getRemoteAddr();
+            session.setAttribute("member", loginDTO.getUserid());
+            // 로그인 히스토리 저장
+            loginhistoryService.saveHistory(loginDTO.getUserid(), ipAddr);
+            return ResponseEntity.ok(session.getAttribute("member").toString());
+        } else return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login failed!");
     }
 
     // 로그인 상태 확인 (GET: /api/user/states)
     @GetMapping("/api/user/states")
-    public ResponseEntity<String> getLoginStatus() {
+    public ResponseEntity<String> getLoginStatus(HttpServletRequest request) {
+
         boolean isLoggedIn = memberEntityService.isUserLoggedIn();
-        return isLoggedIn ?
-                ResponseEntity.ok("User is logged in") :
-                ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not logged in");
+        HttpSession session = request.getSession(false);
+        if(session != null) {
+            return ResponseEntity.ok(session.getAttribute("member").toString());
+        }
+        else
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not logged in");
+//        return isLoggedIn ?
+//                ResponseEntity.ok("User is logged in") :
+//                ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not logged in");
     }
 
     // 로그아웃 (POST: /api/user/logout)
     @PostMapping("/api/user/logout")
-    public ResponseEntity<String> logout() {
+    public ResponseEntity<String> logout(HttpServletRequest request) {
         memberEntityService.logoutUser();
+        HttpSession session = request.getSession(false);
+        if(session != null) {
+            session.invalidate();
+        }
         return ResponseEntity.ok("User logged out successfully!");
     }
 

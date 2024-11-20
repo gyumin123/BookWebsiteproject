@@ -1,23 +1,32 @@
-import React,{useState,useEffect} from "react"
+import React,{useState,useEffect,useContext} from "react"
 import { Link,useNavigate } from "react-router-dom";
 import './login.css';
+import {UserContext} from '../../UserContext';
 const Login = () => 
 {
-    const [userid, SetUserid] = useState('');
+    const {userid} = useContext(UserContext);
+    const [inputUserid,setUserid] = useState(null);
     const [password, SetPassword] = useState('');
     const [error,SetError] = useState(false);
     const navigate = useNavigate();
+
+    useEffect(()=>{
+        if (userid != null)
+            navigate("/");
+    })
 
     const onSubmitLogin = (event) => {
         event.preventDefault();
         fetch('api/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({userid,password})
+            body: JSON.stringify({userid:inputUserid,password})
         })
         .then((response)=>{
         if(response.ok)
-            navigate('/');
+        {
+            window.location.reload();
+        }
         else
             throw new Error(response.status);
         })
@@ -40,7 +49,7 @@ const Login = () =>
                         <div>
                             <label htmlFor="username">id</label>
                             <input type="text" id="username" name="username" placeholder="아이디를 입력하세요" required
-                            value={userid} onChange={(e)=>SetUserid(e.target.value)}></input>
+                            value={inputUserid} onChange={(e)=>setUserid(e.target.value)}></input>
 
                             <label htmlFor="password">Password</label>
                             <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요" required

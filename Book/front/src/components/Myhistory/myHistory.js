@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState,useContext } from "react"
 import './myHistory.css'
 import { useSearchParams } from "react-router-dom";
+import {UserContext} from "../../UserContext"
 
 const MyHistory = () => {
-    const [searchParams] = useSearchParams();
+    const {userid} = useContext(UserContext);
 
     //한 페이지당 5개씩 보여주기
     const perpage = 5;
@@ -15,7 +16,7 @@ const MyHistory = () => {
 
         useEffect(() => {
             // 총 페이지 수 가져오기
-            fetch(`/api/user/history/login/totalPage`, {
+            fetch(`/api/user/history/login/totalPage/${userid}`, {
                 method: 'GET',
             })
             .then(response => {
@@ -31,7 +32,7 @@ const MyHistory = () => {
 
             const start = (loginCurrentPageNumber-1)*perpage;
 
-            fetch(`/api/user/history/login/${start}`, {
+            fetch(`/api/user/history/login/${userid}/${start}`, {
                 method: 'GET',
             })
             .then(response => {
