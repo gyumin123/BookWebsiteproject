@@ -1,6 +1,7 @@
-import React , {useState,useEffect} from "react"
+import React , {useState,useEffect,useContext} from "react"
 import {useNavigate} from "react-router-dom";
 import {totalPrice} from '../Data/function';
+import {UserContext} from '../../UserContext'
 
 const ShoppingCart = () => {
     const [CartData,setCartData] = useState([]);
@@ -8,12 +9,12 @@ const ShoppingCart = () => {
 
     const navigate = useNavigate();
     const [CheckedState,setCheckedState] = useState([]);
+    const {userid} = useContext(UserContext);
 
 
     useEffect(()=>
     {
-       //서버에서 할일 : 세션에 저장된 유저 아이디를 가져와 장바구니 정보를 가져오기
-        fetch(`/api/cart`, {
+        fetch(`/api/cart/items/{userid}`, {
             method: 'GET',
         })
         .then(response=>{
@@ -66,10 +67,9 @@ const ShoppingCart = () => {
 
      function itemDelete(item)
      {
-        fetch('/api/cart', {
+        const itemid = item.id;
+        fetch(`/api/cart/${userid}/${itemid}`, {
             method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(item)
         })
         .catch(error=>console.log(error))
 

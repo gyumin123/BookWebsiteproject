@@ -1,6 +1,8 @@
 import React,{useState,useEffect} from "react"
 import { Link, useNavigate,useSearchParams} from "react-router-dom";
 import './SupportSearch.css';
+import {Popup} from "../Data/function.js"
+
 const SupportSearch = () =>{
 
     //포스트 데이터
@@ -19,6 +21,11 @@ const SupportSearch = () =>{
 
     const [searchParams] = useSearchParams();
     const [search,setSearch] = useState(searchParams.get('search'));
+
+    const [popupOpen,setPopupOpen] = useState(false);
+    const [message,setMessage] = useState(null);
+    const [buttonMessage,setButtonMessage] = useState([]);
+    const [onClickFunction,setOnclickFunction] = useState([]);
 
     //한 페이지당 5개씩 보여주기
     const perpage = 10;
@@ -40,6 +47,7 @@ const SupportSearch = () =>{
             })
             .then(pages => {
                 setSupportTotalPage(parseInt(pages, 10)); // 문자열을 숫자로 변환하여 상태에 저장
+                console.log(SupportTotalPage);
             })
             .catch(error => console.error(error));
     
@@ -56,7 +64,7 @@ const SupportSearch = () =>{
                 return response.json()
             })
             .then(data => {
-                SetSupportPosts(data.slice(0,perpage));
+                SetSupportPosts(data);
             })
             .catch(error => console.error(error));
 
@@ -65,23 +73,34 @@ const SupportSearch = () =>{
     GetSupportData();
 
     function handleRead (post) {
-        if (post.state===true || checkPassword(parseInt(post)))
+        console.log(post.state,post.password);
+        if (post.state=== true || checkPassword(post))
             navigate(`/support/read/${post.id}`)
         else
-            alert('잘못된 암호')
+        {
+              setPopupOpen(true);
+              setMessage("열람 권한이 없습니다(암호 오류)");
+              setButtonMessage(["확인"]);
+              setOnclickFunction([() => window.location.reload()]);
+        }
     }
     function handleInputPassword(postId,event){
         inputPasswords[postId] = event.target.value;
     }
     function checkPassword(post){
+        console.log(post.password,inputPasswords[post.id])
         if (post.password === inputPasswords[post.id])
             return true;
-        else
-            return false;
     }
 return(
 
     <div>
+    {
+        popupOpen &&
+        <Popup
+            message={message} buttonMessage = {buttonMessage} onClickFunction = {onClickFunction}
+        />
+    }
     <main>
         {/* <!-- 글 검색 섹션 --> */}
         <section id="searchSection">

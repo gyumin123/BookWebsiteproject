@@ -1,5 +1,6 @@
-import React ,{useState,useEffect}from "react"
+import React ,{useState,useEffect,useContext}from "react"
 import './purchaseHistory.css';
+import {UserContext} from '../../UserContext'
 
 const PurchaseHistory = () => {
 
@@ -9,9 +10,10 @@ const PurchaseHistory = () => {
     const [purchaseTotalPage,setPurchaseTotalPage] = useState(0);
     const [purchaseCurrentPageNumber,setCurrentPageNumber] = useState(1);
     const [PurchaseHistory,setPurchaseHistory] = useState([]);
+    const {userid} = useContext(UserContext)
         useEffect(() => {
             // 총 페이지 수 가져오기
-            fetch(`/api/user/history/purchase/totalPage`, {
+            fetch(`/api/user/history/purchase/totalPage/${userid}`, {
                 method: 'GET',
             })
             .then(response => {
@@ -27,7 +29,7 @@ const PurchaseHistory = () => {
 
             const start = (purchaseCurrentPageNumber-1)*perpage;
 
-            fetch(`/api/user/history/purchase/${start}`, {
+            fetch(`/api/user/history/purchase/${userid}/${start}`, {
                 method: 'GET',
             })
             .then(response => {

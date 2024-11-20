@@ -9,10 +9,15 @@ const FindPWD = () => {
 
     function isValidId(event){
         event.preventDefault();
-        fetch(`/api/user/validID/${userid}`, {
+        fetch(`/api/validID/${userid}`, {
             method: 'GET'
         })
-        .then(()=>{sendPwd();setSuccess(true)})
+        .then((response)=>{
+        if (response.ok)
+            throw new Error('없는 아이디');
+        else
+            setSuccess(true);
+        })
         .catch(()=>{setSuccess(false);})
     }
     //임시 비밀번호 보내기
@@ -30,7 +35,7 @@ const FindPWD = () => {
                     <div className="form-group">
                         <label htmlFor="userid">아이디</label>
                         <input type="text" id="userid" name="userid" 
-                        value={userid} onChange={(e) =>SetUserid(e.target.value)}
+                        value={userid} onChange={(e) =>{setSuccess(null);SetUserid(e.target.value)}}
                         required></input>
                     </div>
                     <button type="submit">조회</button>

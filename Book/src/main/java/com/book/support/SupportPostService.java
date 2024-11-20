@@ -2,6 +2,8 @@ package com.book.support;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,5 +28,22 @@ public class SupportPostService {
     // 게시글 조회
     public Optional<SupportPost> getPostById(Long postId) {
         return supportRepository.findById(postId);
+    }
+
+
+
+    // 게시글 모두 가져오기
+    public List<SupportPost> getAllPosts() {
+        return supportRepository.findAll();
+    }
+    // 게시글 일부 가져오기
+    public List<SupportPost> getPostsByStart(int start) {
+        List<SupportPost> postList;
+        postList = supportRepository.findAll();
+        return postList.subList(start, postList.size());
+    }
+    // 총 페이지 수
+    public int getPostsTotalPages() {
+        return (int) Math.ceil((double) supportRepository.findAll().size() / 10);
     }
 }

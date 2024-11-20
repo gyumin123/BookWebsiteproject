@@ -1,4 +1,4 @@
-package com.book.domain;
+package com.book.testclass.domain;
 
 
 public class LoginHistory {
