@@ -54,7 +54,7 @@ public class MemberEntityController {
         boolean isLoggedIn = memberEntityService.isUserLoggedIn();
         HttpSession session = request.getSession(false);
         if(session != null) {
-            return ResponseEntity.ok("User is logged in");
+            return ResponseEntity.ok(session.getAttribute("member").toString());
         }
         else
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not logged in");
