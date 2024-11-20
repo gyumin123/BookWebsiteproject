@@ -1,12 +1,4 @@
 
-body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #fafafa; 
-}
-
-
 header {
     text-align: center;
     margin: 20px 0;
@@ -18,7 +10,6 @@ header h1 {
     margin-bottom: 10px;
 }
 
-
 section h2 {
     font-size: 20px;
     color: #262626;
@@ -27,7 +18,6 @@ section h2 {
     padding-bottom: 5px;
     text-align: center;
 }
-
 
 table {
     width: 100%;
@@ -40,7 +30,6 @@ table {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
 }
 
-
 thead th {
     font-size: 14px;
     color: #8e8e8e; 
@@ -50,7 +39,6 @@ thead th {
     border-bottom: 1px solid #dbdbdb;
 }
 
-
 tbody td {
     font-size: 14px;
     color: #262626; 
@@ -58,11 +46,9 @@ tbody td {
     border-bottom: 1px solid #dbdbdb;
 }
 
-
 tbody tr:hover {
     background-color: #fafafa; 
 }
-
 
 @media (max-width: 600px) {
     table {
