@@ -18,10 +18,10 @@ public class CartController {
         return ResponseEntity.ok(cartService.addBookToCart(cartItem));
     }
 
-    // 장바구니 조회
-    @GetMapping("/items")
-    public ResponseEntity<List<CartItem>> getCartItems() {
-        return ResponseEntity.ok(cartService.getCartItems());
+    // 특정 유저의 장바구니 조회
+    @GetMapping("/items/{userId}")
+    public ResponseEntity<List<CartItem>> getCartItemsByUserid(@PathVariable String userId) {
+        return ResponseEntity.ok(cartService.getCartItemsByUserId(userId));
     }
 
     // 장바구니에서 책 삭제

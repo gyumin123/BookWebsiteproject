@@ -1,9 +1,10 @@
+
 package com.book.cart;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class CartService {
@@ -19,9 +20,9 @@ public class CartService {
         return cartRepository.save(cartItem);
     }
 
-    // 장바구니 조회
-    public List<CartItem> getCartItems() {
-        return cartRepository.findAll();
+    // 특정 유저의 장바구니 조회
+    public List<CartItem> getCartItemsByUserId(String userid) {
+        return cartRepository.findByUserid(userid);
     }
 
     // 장바구니에서 책 삭제
