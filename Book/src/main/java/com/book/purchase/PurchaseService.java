@@ -19,13 +19,16 @@ public class PurchaseService {
         return purchaseRepository.save(purchaseItem);
     }
 
-    // 구매 정보 조회
-    public List<PurchaseItem> getPurchaseItems() {
-        return purchaseRepository.findAll();
+    // 책 아이디와 유저 정보로 구매 정보 조회
+    public Optional<PurchaseItem> getPurchaseItemByIdAndUser(Long id, String userid) {
+        return purchaseRepository.findByIdAndUserid(id, userid);
     }
 
     // 구매 정보 삭제
-    public void removePurchaseItem(Long itemId) {
-        purchaseRepository.deleteById(itemId);
+    public void removePurchaseItem(String userid, Long itemId) {
+        PurchaseItem purchaseItem = purchaseRepository.findById(itemId).orElse(null);
+        if (purchaseItem != null && purchaseItem.getUserid().equals(userid)) {
+            purchaseRepository.deleteById(itemId);
+        }
     }
 }

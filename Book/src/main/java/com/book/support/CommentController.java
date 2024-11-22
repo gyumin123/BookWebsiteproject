@@ -3,6 +3,7 @@ package com.book.support;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +12,7 @@ import java.util.Optional;
 public class CommentController {
     @Autowired
     private CommentService commentService;
+
     @Autowired
     private SupportPostService postService;
 
@@ -28,10 +30,9 @@ public class CommentController {
     }
 
     // 댓글 조회
-    @GetMapping("/{commentid}")
-    public ResponseEntity<List<Comment>> getCommentsByPost(@PathVariable Long postid) {
+    @GetMapping("/{postid}/{userid}")
+    public ResponseEntity<List<Comment>> getCommentsByPost(@PathVariable Long postid, @PathVariable Long userid) {
         Optional<SupportPost> post = postService.getPostById(postid);
-        return post.map(value -> ResponseEntity.ok(commentService.getCommentsByPost(value)))
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        return post.map(value -> ResponseEntity.ok(commentService.getCommentsByPostAndUser(value, userid))).orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
