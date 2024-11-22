@@ -75,6 +75,7 @@ const SupportRead = () => {
     }
     async function commentWrite(){
         const commentData = {
+                              userid,
                               author: name,
                               content: inputComment,
                               post: {
@@ -152,7 +153,7 @@ const SupportRead = () => {
                                 <td>{c.author}</td>
                                 <td>{c.content}</td>
                                 {
-                                    name === c.author &&
+                                    userid === c.userid &&
                                     <button class="deleteComment" onClick={()=>deleteComment(c.id)}>댓글 삭제</button>
                                 }
 
