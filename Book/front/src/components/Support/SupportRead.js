@@ -1,14 +1,16 @@
-import React, { useState ,useEffect} from "react"
+import React, { useState ,useEffect,useContext} from "react"
 import './SupportRead.css';
 import { useNavigate, useParams } from "react-router-dom";
+import {UserContext} from '../../UserContext'
 
 const SupportRead = () => {
-
     const {id} = useParams();
+    const {userid} = useContext(UserContext);
     const post_id = parseInt(id);
-    const [comment,setComment] = useState('');
+    const [comment,setComment] = useState(null);
     const [inputComment,setInputComment] = useState('');
     const [name,setName] = useState(null);
+    const [effectstate,setEffectState] = useState(false);
 
     const navigate = useNavigate();
     const[Post,setPost] = useState(null);
@@ -24,7 +26,7 @@ const SupportRead = () => {
             return response.json();
         })
         .then(data=>setPost(data));
-         fetch('/api/user/name', { method: 'GET' })
+         fetch(`/api/user/name/${userid}`, { method: 'GET' })
 
              .then((response) => {
              if (response.ok)
@@ -32,7 +34,7 @@ const SupportRead = () => {
              else
                 throw new Error(response.status);
              })
-             .then((name)=>{setName(name)})
+             .then((name)=>{setName(name);console.log(name)})
              //없다면 아이콘 저장
              .catch(error => console.log(error));
 
@@ -41,6 +43,7 @@ const SupportRead = () => {
             method: 'GET',
         })
         .then((response)=>{
+        console.log("실행");
         if (!response.ok)
             throw new Error(response.status);
         else
@@ -48,7 +51,7 @@ const SupportRead = () => {
         })
         .then(data=>setComment(data))
         .catch(error=>console.log(error));
-    },[post_id])
+    },[userid,effectstate])
 
     function PostDelete(){
         fetch(`/api/user/support/${post_id}`, {
@@ -57,20 +60,43 @@ const SupportRead = () => {
         .then(navigate(`/support/read/${post_id}`))
         .catch(error=>console.log(error));
     }
-    function deleteComment(id,comment_author){
-        fetch(`/api/user/support/comment/${id}`, {method: 'Delete'})
-        .then()
-        .catch(error=>console.log(error));
+    async function deleteComment(id){
+        try{
+            const response = await fetch(`/api/user/comment/${id}`, {method: 'Delete'})
+            if (response.ok)
+                setEffectState(!effectstate);
+            else
+                throw new Error(response.status);
+        }
+        catch(e)
+        {
+            console.log(e);
+        }
     }
-    function commentWrite(){
-        fetch(`/api/user/comment/write`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        //num 페이지 count 개씩 가져오기
-        body: JSON.stringify({author:name,comment,post_id})
-        })
-        .then(navigate(`/support/read/${post_id}`))
-        .catch(error=>console.log(error));
+    async function commentWrite(){
+        const commentData = {
+                              author: name,
+                              content: inputComment,
+                              post: {
+                                "id": post_id
+                              }
+                            };
+                            console.log(name);
+        try{
+            const response = await fetch(`/api/user/comment/write`, {
+                                           method: 'POST',
+                                           headers: { 'Content-Type': 'application/json' },
+                                           body: JSON.stringify(commentData)
+                                           });
+            if (response.ok)
+                setEffectState(!effectstate);
+            else
+                throw new Error(response.status);
+        }
+        catch(e)
+        {
+            console.log(e);
+        }
     }
     return(
     <div>{
@@ -120,14 +146,14 @@ const SupportRead = () => {
             <div id="commentList">
                 <div class="comment">                  
                     {
-                        (Comment.length > 0) &&
-                        Comment.map((comment) => (
-                            <tr key={comment.id}>
-                                <td>{comment.author}</td>
-                                <td>{comment.content}</td>
+                        (comment!=null) &&
+                        comment.map((c) => (
+                            <tr key={c.id}>
+                                <td>{c.author}</td>
+                                <td>{c.content}</td>
                                 {
-                                    name === comment.author &&
-                                    <button class="deleteComment" onClick={()=>deleteComment(comment.id,comment.author)}>댓글 삭제</button>
+                                    name === c.author &&
+                                    <button class="deleteComment" onClick={()=>deleteComment(c.id)}>댓글 삭제</button>
                                 }
 
                             </tr>
