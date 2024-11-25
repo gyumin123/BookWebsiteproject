@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .task-board {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+          }
+          
+          .task-column {
+            flex: 1;
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          }
+          
+          .task-column h2 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #333;
+          }
+          
+          details {
+            margin-bottom: 10px;
+            cursor: pointer;
+          }
+          
+          summary {
+            font-weight: bold;
+            font-size: 1rem;
+            color: #555;
+            padding: 5px;
+            border-radius: 4px;
+            transition: background 0.3s;
+          }
+          
+          summary:hover {
+            background-color: #f0f0f0;
+          }
+          
+          ul {
+            margin: 10px 0 0 20px;
+            padding: 0;
+            list-style: disc;
+          }
+          
+          li {
+            margin-bottom: 5px;
+            color: #666;
+          }
+          
+    </style>
+</head>
+<body>
+    <div class="task-board">
+        <div class="task-column">
+          <h2>시작 전</h2>
+          <details>
+            <summary>할 일 1</summary>
+            <ul>
+              <li>세부 작업 1</li>
+              <li>세부 작업 2</li>
+            </ul>
+          </details>
+          <details>
+            <summary>할 일 2</summary>
+            <ul>
+              <li>세부 작업 1</li>
+            </ul>
+          </details>
+        </div>
+      
+        <div class="task-column">
+          <h2>진행 중</h2>
+          <details>
+            <summary>작업 1</summary>
+            <ul>
+              <li>세부 작업 1</li>
+              <li>세부 작업 2</li>
+            </ul>
+          </details>
+        </div>
+      
+        <div class="task-column">
+          <h2>완료</h2>
+          <details>
+            <summary>완료된 작업 1</summary>
+            <ul>
+              <li>세부 작업 1</li>
+            </ul>
+          </details>
+        </div>
+      </div>
+      
+</body>
+</html>
