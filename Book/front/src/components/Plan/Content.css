@@ -1,0 +1,22 @@
+.content-container{
+    display: flex;
+    justify-content: space-between;
+}
+.content{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    gap:5px;
+}
+.contents{
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+}
+#author{
+    font-size: 1.3rem;
+}
+#content-create{
+    display: flex;
+    cursor: pointer;
+}

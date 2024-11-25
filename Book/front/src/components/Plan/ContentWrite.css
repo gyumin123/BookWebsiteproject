@@ -1,0 +1,22 @@
+.write-container{
+    display: flex;
+    flex-direction: column;
+}
+.content-data{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border:1px solid black;
+    max-width: 200px;
+}
+.content-write{
+    border:1px solid black;
+    padding: 20px;
+}
+.content-write textarea{
+    width:500px;
+    height: 500px;
+}
+.write-body{
+    display: flex;
+}
