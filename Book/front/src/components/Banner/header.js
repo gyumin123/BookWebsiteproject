@@ -108,7 +108,7 @@ const Header = () => {
                     <a href="/classification?category=1&sep=1">분야별</a>
                     <a href="/classification?category=2&sep=1">테마별</a>
                     <a href="/classification?category=3&sep=1">인기</a>
-                    <a href="#">클럽</a>
+                    <a href="/group">클럽</a>
                 </div>
             </header>
         </div>
