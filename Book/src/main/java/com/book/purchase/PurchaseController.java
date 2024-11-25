@@ -13,21 +13,22 @@ public class PurchaseController {
     private PurchaseService purchaseService;
 
     // 구매 정보 추가
-    @PostMapping("/add")
+    @PostMapping("/confirm")
     public ResponseEntity<PurchaseItem> addPurchaseItem(@RequestBody PurchaseItem purchaseItem) {
         return ResponseEntity.ok(purchaseService.addPurchaseItem(purchaseItem));
     }
 
-    // 구매 정보 조회
-    @GetMapping("/items")
-    public ResponseEntity<List<PurchaseItem>> getPurchaseItems() {
-        return ResponseEntity.ok(purchaseService.getPurchaseItems());
+    // 책 아이디와 유저 정보로 구매 정보 조회
+    @GetMapping("/{id}/{userid}")
+    public ResponseEntity<PurchaseItem> getPurchaseItemByIdAndUser(@PathVariable Long id, @PathVariable String userid) {
+        Optional<PurchaseItem> purchaseItem = purchaseService.getPurchaseItemByIdAndUser(id, userid);
+        return purchaseItem.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     // 구매 정보 삭제
-    @DeleteMapping("/{itemId}")
-    public ResponseEntity<Void> removePurchaseItem(@PathVariable Long itemId) {
-        purchaseService.removePurchaseItem(itemId);
+    @DeleteMapping("/{userid}/{itemId}")
+    public ResponseEntity<Void> removePurchaseItem(@PathVariable String userid, @PathVariable Long itemId) {
+        purchaseService.removePurchaseItem(userid, itemId);
         return ResponseEntity.ok().build();
     }
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.book.support.CommentRepository;
 import com.book.support.SupportPost;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +28,7 @@ public class CommentService {
     }
 
     // 댓글 조회
-    public List<Comment> getCommentsByPost(SupportPost post) {
-        return commentRepository.findAllByPost(post);
+    public List<Comment> getCommentsByPostAndUser(SupportPost post, Long userid) {
+        return commentRepository.findAllByPostAndUserid(post, userid);
     }
 }

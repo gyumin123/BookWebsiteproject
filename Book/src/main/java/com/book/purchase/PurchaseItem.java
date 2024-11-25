@@ -1,3 +1,4 @@
+
 package com.book.purchase;
 
 import jakarta.persistence.*;
@@ -6,12 +7,12 @@ import jakarta.persistence.*;
 @Table(name = "purchase")
 public class PurchaseItem {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id; // 책 아이디
 
-    private String purchaseType;
-    private Integer period;
-    private Double price;
+    private String userid; // 유저 아이디
+    private String purchaseType; // 대여/소장
+    private Integer period; // 기간
+    private Double price; // 총 가격
 
     // Getters and Setters
     public Long getId() {
@@ -20,6 +21,14 @@ public class PurchaseItem {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
     }
 
     public String getPurchaseType() {
