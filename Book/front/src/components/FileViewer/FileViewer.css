@@ -1,0 +1,18 @@
+.icons-bar {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 10px;
+  }
+
+  .icon-button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  .icon-button:hover {
+    color: red; /* Adjust hover color as needed */
+  }

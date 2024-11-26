@@ -114,6 +114,7 @@ const BookInfo = () => {
                             price = {Book.rating*10000}
                             />
                         }
+                        <button class="open-button" onClick={()=>navigate('/view')}>책 읽기</button>
                         <button class="open-button" onClick = {()=>{onHandleAction()}}>{buttonText}</button>
                     </div>
                 </div>
