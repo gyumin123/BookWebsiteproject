@@ -28,7 +28,7 @@ const Mypage = () => {
     }
     useEffect(()=>{
     GetName();GetImg();
-    })
+    },[userid])
 
     function GetName(){
          fetch(`/api/user/name/${userid}`, {method: 'GET',})

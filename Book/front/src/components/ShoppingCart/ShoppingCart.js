@@ -78,7 +78,7 @@ const ShoppingCart = () => {
      function itemDelete(item)
      {
         const itemid = item.id;
-        fetch(`/api/cart/${userid}/${itemid}`, {
+        fetch(`/api/user/cart/${userid}/${itemid}`, {
             method: 'DELETE',
         })
         .catch(error=>console.log(error))

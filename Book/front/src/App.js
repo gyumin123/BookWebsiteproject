@@ -16,6 +16,8 @@ import Purchase from './components/Purchase/Purchase';
 import Subscribe from './components/Subscribe/Subscribe';
 import Support from './components/Support/Support';
 import {UserProvider} from './UserContext';
+import GroupMain from './components/Group/GroupMain';
+import FileViewer from './components/FileViewer/FileViewer'
 
 const App = () => {
 return(
@@ -36,6 +38,8 @@ return(
                 <Route path="/purchase" element={<Purchase />} />
                 <Route path="/subscribe" element={<Subscribe />} />
                 <Route path="/support/*" element={<Support />} />
+                <Route path="/group/*" element={<GroupMain />} />
+                <Route path="/view/*" element={<FileViewer/>}/>
             </Routes>
             <Footer />
         </Router>
