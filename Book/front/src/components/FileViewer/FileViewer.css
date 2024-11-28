@@ -1,7 +1,13 @@
-/* Container 스타일 */
+:root {
+    --bg-color: #fff;
+    --text-color: #000;
+    --font-size: 16px;
+    --line-height: 32px;
+}
+
 .container {
-    background-color: var(--bg-color, #fff);
-    color: var(--text-color, #000);
+    background-color: var(--bg-color);
+    color: var(--text-color);
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -9,7 +15,6 @@
     padding: 10px;
 }
 
-/* 텍스트 출력 영역 스타일 */
 .text-viewer {
     margin: 0 auto;
     width: 90%;
@@ -32,8 +37,8 @@
 .page-column {
     flex: 1;
     padding: 20px;
-    font-size: var(--font-size, 16px);
-    line-height: var(--line-height, 32px);
+    font-size: var(--font-size);
+    line-height: var(--line-height);
     text-align: justify;
 }
 
@@ -42,7 +47,6 @@
     background-color: #ddd;
 }
 
-/* 페이지 네비게이션 */
 .pagination {
     text-align: center;
     margin: 10px 0;
@@ -52,7 +56,6 @@
     margin: 0 10px;
 }
 
-/* 사용자 메뉴 버튼 */
 .menu-button {
     position: fixed;
     bottom: 20px;
@@ -66,7 +69,6 @@
     cursor: pointer;
 }
 
-/* 사용자 메뉴 */
 .user-menu {
     position: fixed;
     bottom: 20px;
