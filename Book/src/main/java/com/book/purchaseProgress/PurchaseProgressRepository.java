@@ -1,6 +1,5 @@
 package com.book.purchaseProgress;
 
-import com.book.DTO.PurchaseDTO;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
