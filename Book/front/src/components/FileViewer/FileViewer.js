@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, useContext} from "react";
 import './FileViewer.css';
+import {UserContext} from "../../UserContext";
+import {useParams} from "react-router-dom";
 
 const FileViewer = () => {
     const [pages, setPages] = useState([]);
@@ -15,6 +17,11 @@ const FileViewer = () => {
     const [userComment, setUserComment] = useState("");
     const [pageComment, setPageComment] = useState("");
 
+
+    //유저, 책 아이디
+    const {userid} = useContext(UserContext);
+    const {bookId} = useParams();
+
     const lineHeight = 32;
     const linesPerPage = 20;
 
@@ -25,7 +32,7 @@ const FileViewer = () => {
         document.documentElement.style.setProperty('--text-color', darkMode ? '#fff' : '#000');
     }, [fontSize, darkMode]);
 
-    useEffect(() => {
+    useEffect(() => async function(){
         fetch("/book.txt")
             .then((response) => response.text())
             .then((text) => {
@@ -38,7 +45,30 @@ const FileViewer = () => {
                 }
                 setPages(paginatedContent);
             });
+        // 페이지 열람 기록 가져오기
+        try{
+            const response = await fetch(`/api/read/page/user`,{method:'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({userId:0,bookId:0})});
+            if(!response.ok)
+                throw new Error(response.status);
+            const page = await response.text();
+            setCurrentPage(page);
+        }
+        catch(error)
+        {
+            setCurrentPage(0);
+        }
     }, []);
+
+    //페이지 바뀔 때마다 페이지 저장
+
+    useEffect(()=>{
+        fetch(`/api/read/page/save`,{method:'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({userId:userid,bookId,page:currentPage})})
+        .catch((error)=>console.log(error));
+    },[currentPage])
 
     const renderHighlightedText = (text, keyword) => {
         if (!keyword) return text;
@@ -91,7 +121,8 @@ const FileViewer = () => {
             {menuOpen && (
                 <div className="user-menu">
                     <button className="menu-close-button" onClick={() => setMenuOpen(false)}>✖</button>
-                    {/* 메뉴 옵션 추가 */}
+                    <div className="menu-bar">
+                    </div>
                 </div>
             )}
         </div>
