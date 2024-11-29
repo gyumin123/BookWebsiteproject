@@ -8,5 +8,6 @@ import lombok.Setter;
 public class PageHistoryDTO {
     private Long bookid;
     private String userid;
+    private Long groupid;
     private int page;
 }

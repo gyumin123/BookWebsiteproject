@@ -17,22 +17,22 @@ public class PageHistoryController {
     }
 
     //해당 책의 열람기록 저장하기
-    @PostMapping("/api/read/page")
+    @PostMapping("/api/read/save")
     public ResponseEntity<String> setPageHistory(@RequestBody PageHistoryDTO dto) {
         pageHistoryService.setPage(dto);
         return ResponseEntity.ok("Success");
     }
 
     //해당 책의 열람 기록 가져오기(개별)
-    @GetMapping("/api/read/page/{userid}/{bookid}")
-    public ResponseEntity<Integer> getPageHistory(@PathVariable String userid, @PathVariable Long bookid) {
-        return ResponseEntity.ok(pageHistoryService.getPage(userid, bookid));
+    @PostMapping("/api/read/page")
+    public ResponseEntity<Integer> getPageHistory(@RequestBody PageHistoryDTO dto) {
+        return ResponseEntity.ok(pageHistoryService.getPage(dto.getUserid(), dto.getBookid()));
     }
 
     //해당 책의 열람 기록 가져오기(그룹)
-    @GetMapping("/api/read/page/group/{groupid}/{bookid}")
-    public ResponseEntity<List<GroupHistoryDTO>> getPageHistoryGroup(@PathVariable("groupid") Long groupid, @PathVariable("bookid") Long bookid) {
-        return ResponseEntity.ok(pageHistoryService.getPageGroup(groupid, bookid));
+    @PostMapping("/api/read/page/group")
+    public ResponseEntity<List<GroupHistoryDTO>> getPageHistoryGroup(@RequestBody PageHistoryDTO dto) {
+        return ResponseEntity.ok(pageHistoryService.getPageGroup(dto.getGroupid(), dto.getBookid()));
     }
 
 }
