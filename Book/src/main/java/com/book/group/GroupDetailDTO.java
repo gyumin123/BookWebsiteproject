@@ -16,6 +16,7 @@ public class GroupDetailDTO {
     private Integer state;
     private List<MemberEntity> participants;
     private String leaderId;
+    private String authority;
 
     public GroupDetailDTO(GroupEntity group, List<MemberEntity> members) {
         this.groupId = group.getGroupId();
@@ -26,5 +27,6 @@ public class GroupDetailDTO {
         this.state = group.getState();
         this.participants = members;
         this.leaderId = group.getLeaderId();
+        this.authority = group.getAuthority();
     }
 }

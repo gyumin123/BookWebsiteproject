@@ -10,6 +10,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor // 기본 생성자를 생성하기 위해 추가
 public class GroupDTO {
+    private Long groupId;
     private String groupName;
     private Long bookId;
     private LocalDate startDate;
@@ -19,6 +20,7 @@ public class GroupDTO {
     private String authority;
 
     public GroupDTO(GroupEntity group) {
+        this.groupId = group.getGroupId();
         this.groupName = group.getGroupName();
         this.bookId = group.getBookId();
         this.startDate = group.getStartDate();
