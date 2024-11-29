@@ -8,11 +8,6 @@
     margin-bottom: 10px;
 }
 
-#postList {
-    position: relative;
-    margin-bottom: 20px;
-}
-
 #postList table {
     width: 100%;
     border-collapse: collapse;
@@ -25,7 +20,22 @@
 }
 
 #postRegistration {
-    position: relative;
-    top: 0px;
-    margin-top: 0px;
+text-align: right;
+}
+
+#searchSection_2 button {
+    width: 100px;
+    background-color: #fbdfad;
+    color: black;
+    margin: 10px;
+}
+#postRegistration button {
+    width: 70px;
+    font-size: 10px;
+    padding: 10px 5px;
+    background-color: #fbdfad;
+    color: black;
+}
+thead th {
+    color: black;
 }

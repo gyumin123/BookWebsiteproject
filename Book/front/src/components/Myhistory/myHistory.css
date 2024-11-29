@@ -5,21 +5,10 @@ header h1 {
     margin-bottom: 10px;
 }
 
-
 section h2 {
-    font-size: 20px;
     color: #262626;
     margin-bottom: 15px;
-    border-bottom: 1px solid #dbdbdb; 
     padding-bottom: 5px;
-}
-
-
-table {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto 40px; 
-    border-collapse: collapse; 
 }
 
 thead th {

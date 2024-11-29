@@ -122,7 +122,7 @@ useEffect(() => {
                 {/* <!-- 제출 버튼 --> */}
                 <button type="submit">등록하기</button>
             </form>
-            <button onClick = {Back}>취소</button>
+            <button type="submit" onClick = {Back}>취소</button>
         </section>
     </main>
 

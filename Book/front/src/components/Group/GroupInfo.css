@@ -1,3 +1,4 @@
+
 .header{
     align-items: baseline;
     display: flex;
@@ -23,7 +24,9 @@
     cursor: pointer;
 }
 .action-bar span{
-    text-decoration: underline;
+    border: 5px solid white; /* 검은색 테두리 */
+    background-color: white;
+    border-radius: 5px;
 }
 .group-summary{
     display: flex;
@@ -31,7 +34,9 @@
     border:1px solid black;
     padding: 10px;
     justify-content: space-around;
+    background-color: white;
 }
+
 .column{
     display:flex;
     flex-direction: column;
@@ -39,6 +44,7 @@
 .summary{
     display: flex;
     flex-direction: column;
+    line-height: 2;
 }
 .plans{
     display: flex;
@@ -59,4 +65,10 @@
 .plans span{
     cursor: pointer;
     border-radius: 5px;
+}
+#plan-create {
+    border: 5px solid white;
+    background-color: white; 
+    border-radius: 5px; 
+    cursor: pointer;
 }
