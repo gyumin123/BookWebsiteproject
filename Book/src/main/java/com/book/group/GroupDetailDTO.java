@@ -3,7 +3,6 @@ package com.book.group;
 import com.book.memberjpa.MemberEntity;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.List;
 @Getter
 @Setter

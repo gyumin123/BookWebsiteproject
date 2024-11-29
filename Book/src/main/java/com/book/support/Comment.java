@@ -3,6 +3,7 @@ package com.book.support;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
+
 @Entity
 @Table(name = "support_comment")
 public class Comment {

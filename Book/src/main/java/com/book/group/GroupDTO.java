@@ -19,6 +19,7 @@ public class GroupDTO {
     private String leaderId;
     private String authority;
 
+
     public GroupDTO(GroupEntity group) {
         this.groupId = group.getGroupId();
         this.groupName = group.getGroupName();
