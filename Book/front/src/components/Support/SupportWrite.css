@@ -23,14 +23,13 @@ label {
 }
 
 input[type="text"],
-input[type="password"],
 textarea,
 select {
-    width: 100%;
+    width: 200px;
     padding: 10px;
     font-size: 14px;
-    border: 1px solid #dbdbdb;
-    border-radius: 5px;
+    border: none;
+    border-bottom: 2px solid #333; 
     outline: none;
     margin-bottom: 15px;
 }
@@ -42,4 +41,15 @@ textarea::placeholder {
 
 button[type="submit"]:hover {
     background-color: #318be5; 
+}
+.submit-button {
+    width: 200px;
+    padding: 10px;
+    background-color: #e1a73c;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
 }
