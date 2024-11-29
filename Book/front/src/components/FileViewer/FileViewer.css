@@ -5,6 +5,16 @@
     --line-height: 32px;
 }
 
+.container {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+}
+
 .text-viewer {
     margin: 0 auto;
     width: 90%;
@@ -51,6 +61,7 @@
     bottom: 20px;
     right: 20px;
     padding: 15px 25px;
+    background-color: #007bff;
     color: #fff;
     border: none;
     border-radius: 10px;
@@ -92,33 +103,46 @@
     margin-top: 10px;
 }
 
+.user-menu input,
+.user-menu textarea {
+    width: calc(100% - 20px);
+    padding: 5px;
+    margin-top: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
 .highlighted {
     background-color: yellow;
 }
 
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.pagination button {
-    padding: 10px 20px;
-    border: none;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.pagination span {
+.user-menu h3 {
     font-size: 16px;
     font-weight: bold;
+    margin-bottom: 10px;
 }
 
-.pagination button:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
+.comment-section {
+    display: flex;
+    margin-top: 10px;
+    gap: 10px;
+}
+
+.comment-section .user-names,
+.comment-section .user-comments {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+.comment-section .user-names {
+    flex: 1;
+    height: 150px;
+}
+
+.comment-section .user-comments {
+    flex: 2;
+    height: 150px;
 }

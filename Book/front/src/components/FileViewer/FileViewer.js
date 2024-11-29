@@ -1,7 +1,5 @@
-import React, {useState, useEffect, useContext} from "react";
+import React, { useState, useEffect } from "react";
 import './FileViewer.css';
-import {UserContext} from "../../UserContext";
-import {useParams} from "react-router-dom";
 
 const FileViewer = () => {
     const [pages, setPages] = useState([]);
@@ -17,11 +15,6 @@ const FileViewer = () => {
     const [userComment, setUserComment] = useState("");
     const [pageComment, setPageComment] = useState("");
 
-
-    //유저, 책 아이디
-    const {userid} = useContext(UserContext);
-    const {bookId} = useParams();
-
     const lineHeight = 32;
     const linesPerPage = 20;
 
@@ -32,7 +25,7 @@ const FileViewer = () => {
         document.documentElement.style.setProperty('--text-color', darkMode ? '#fff' : '#000');
     }, [fontSize, darkMode]);
 
-    useEffect(() => async function(){
+    useEffect(() => {
         fetch("/book.txt")
             .then((response) => response.text())
             .then((text) => {
@@ -45,44 +38,75 @@ const FileViewer = () => {
                 }
                 setPages(paginatedContent);
             });
-        // 페이지 열람 기록 가져오기
-        try{
-            const response = await fetch(`/api/read/page/user`,{method:'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({userId:0,bookId:0})});
-            if(!response.ok)
-                throw new Error(response.status);
-            const page = await response.text();
-            setCurrentPage(page);
-        }
-        catch(error)
-        {
-            setCurrentPage(0);
-        }
     }, []);
 
-    //페이지 바뀔 때마다 페이지 저장
+    const goToPage = () => {
+        const pageNum = Number(pageInput);
+        if (pageNum >= 1 && pageNum <= pages.length) {
+            setCurrentPage(pageNum - 1);
+            setActiveMenu("");
+        } else {
+            alert("해당되지 않는 페이지 입니다");
+        }
+    };
 
-    useEffect(()=>{
-        fetch(`/api/read/page/save`,{method:'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({userId:userid,bookId,page:currentPage})})
-        .catch((error)=>console.log(error));
-    },[currentPage])
+    const handleSearch = () => {
+        const keyword = searchTerm.trim();
+        if (!keyword) {
+            alert("키워드를 입력해주세요.");
+            return;
+        }
+
+        const content = pages.flatMap((page) => page.left.concat(page.right)).join("\n");
+        const indices = [];
+        let startIndex = content.indexOf(keyword);
+
+        while (startIndex !== -1) {
+            indices.push(startIndex);
+            startIndex = content.indexOf(keyword, startIndex + 1);
+        }
+
+        if (indices.length > 0) {
+            setKeywordPositions(indices);
+            setHighlightedIndex(0);
+            alert(`"${keyword}"이(가) ${indices.length}번 발견되었습니다.`);
+        } else {
+            alert("해당 키워드가 텍스트에서 발견되지 않았습니다.");
+        }
+    };
+
+    const highlightKeyword = () => {
+        if (highlightedIndex < keywordPositions.length) {
+            const position = keywordPositions[highlightedIndex];
+            const pageIndex = Math.floor(position / (linesPerPage * 2));
+            setCurrentPage(pageIndex);
+            setHighlightedIndex((prevIndex) => prevIndex + 1);
+        } else {
+            alert("해당 키워드를 처음부터 끝까지 모두 탐색하였습니다.");
+            setHighlightedIndex(-1);
+            setKeywordPositions([]);
+        }
+    };
 
     const renderHighlightedText = (text, keyword) => {
         if (!keyword) return text;
 
         const parts = text.split(new RegExp(`(${keyword})`, "gi"));
         return parts.map((part, index) =>
-                part.toLowerCase() === keyword.toLowerCase() ? (
-                    <span key={index} className="highlighted">
-          {part}
-        </span>
-                ) : (
-                    part
-                )
+            part.toLowerCase() === keyword.toLowerCase() ? (
+                <span key={index} className="highlighted">
+                    {part}
+                </span>
+            ) : (
+                part
+            )
         );
+    };
+
+    const toggleDarkMode = () => setDarkMode((prev) => !prev);
+    const closeMenu = () => {
+        setActiveMenu("");
+        setMenuOpen(false);
     };
 
     return (
@@ -120,9 +144,66 @@ const FileViewer = () => {
             {!menuOpen && <button className="menu-button" onClick={() => setMenuOpen(true)}>사용자 메뉴</button>}
             {menuOpen && (
                 <div className="user-menu">
-                    <button className="menu-close-button" onClick={() => setMenuOpen(false)}>✖</button>
-                    <div className="menu-bar">
-                    </div>
+                    <button className="menu-close-button" onClick={closeMenu}>✖</button>
+                    {!activeMenu && (
+                        <div>
+                            <button onClick={() => setActiveMenu("pageMove")}>페이지 이동</button>
+                            <button onClick={() => setActiveMenu("search")}>키워드 검색</button>
+                            <button onClick={() => setActiveMenu("comment")}>감상평 작성</button>
+                            <button onClick={toggleDarkMode}>다크모드</button>
+                            <button onClick={() => setFontSize((prev) => prev + 2)}>화면 확대</button>
+                            <button onClick={() => setFontSize((prev) => Math.max(prev - 2, 10))}>화면 축소</button>
+                        </div>
+                    )}
+                    {activeMenu === "pageMove" && (
+                        <div>
+                            <h2>페이지 이동</h2>
+                            <input
+                                type="number"
+                                placeholder="페이지 번호"
+                                value={pageInput}
+                                onChange={(e) => setPageInput(e.target.value)}
+                            />
+                            <button onClick={goToPage}>이동</button>
+                            <button onClick={() => setActiveMenu("")}>←</button>
+                        </div>
+                    )}
+                    {activeMenu === "search" && (
+                        <div>
+                            <h2>키워드 작성</h2>
+                            <input
+                                type="text"
+                                placeholder="키워드 입력"
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
+                            <button onClick={handleSearch}>검색</button>
+                            <button onClick={() => setActiveMenu("")}>←</button>
+                        </div>
+                    )}
+                    {activeMenu === "comment" && (
+                        <div>
+                            <h2>감상평 작성</h2>
+                            <textarea
+                                placeholder="감상평 입력"
+                                value={userComment}
+                                onChange={(e) => setUserComment(e.target.value)}
+                                style={{ width: "100%", height: "100px", marginBottom: "20px" }}
+                            ></textarea>
+                            <button>저장</button>
+                            <button onClick={() => setActiveMenu("")}>←</button>
+
+                            <h3 style={{ marginTop: "20px" }}>(감상평 목록 불러올 부분)</h3>
+                            <div className="comment-section">
+                                <div className="user-names">
+                                    사용자명
+                                </div>
+                                <div className="user-comments">
+                                    감상평
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </div>
             )}
         </div>
