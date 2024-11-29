@@ -21,24 +21,14 @@ public class LoginhistoryController {
         this.loginhistoryService = loginhistoryService;
     }
 
+    // 총 페이지
     @GetMapping("/api/user/history/login/totalpage/{userid}")
     public ResponseEntity<Integer> getTotalPage(@PathVariable String userid, HttpServletRequest request){
-        HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("member") == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build(); // 401 Unauthorized
-        }
-        String userId = session.getAttribute("member").toString();
         return ResponseEntity.ok(loginhistoryService.getTotalPage(userid));
-
     }
 
     @GetMapping("/api/user/histroy/login/{userid}/{start}")
     public ResponseEntity<List<Loginhistory>> getLoginPage(@PathVariable String userid, @PathVariable int start, HttpServletRequest request){
-        HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("member") == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build(); // 401 Unauthorized
-        }
-        String userId = session.getAttribute("member").toString();
         return ResponseEntity.ok(loginhistoryService.getList(userid, start));
     }
 }
