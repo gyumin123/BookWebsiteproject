@@ -26,6 +26,7 @@
     border-radius: 30px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    width: 100%;
 }
 
 .button .subscribe:hover {

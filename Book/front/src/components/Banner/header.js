@@ -55,7 +55,7 @@ const Header = () => {
             <header className = "mainbannerheader">
                 <div className="header-left">
                     <section id="searchSection">
-                        <h2>BookWeb</h2> 
+                        <h2>Book & Y</h2> 
                         <div className="search-container">
                             <input 
                                 type="text" 
