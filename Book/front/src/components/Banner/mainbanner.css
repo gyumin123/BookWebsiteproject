@@ -14,10 +14,6 @@
     width: 100%;
   }
 
-  .header-left h2 {
-  margin-top: 20px; 
-  }  
-
   #searchSection {
     display: flex;
     align-items: center;
@@ -144,3 +140,11 @@
 .footer a:hover {
     background-color: #d19f4c;
 }
+
+#searchSection h2 {
+    font-family: "Protest Revolution";
+    font-weight: 400;
+    font-style: normal;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Protest+Revolution&display=swap');
