@@ -1,21 +1,54 @@
 import React , {useState,useEffect,useContext} from "react"
-import {Link,useNavigate} from "react-router-dom";
+import {Link, Route, useNavigate} from "react-router-dom";
 import './mainbanner.css';
+import HomeImg from './image/icon_home.png';
+import SearchImg from './image/icon_search.png';
+import NoneUserImg from './image/icon_user.png';
+import BasicImg from './image/profile-basic.png';
 import {UserContext} from '../../UserContext';
+import BookData from '../Data/book.json';
 
 
 const Header = () => {
-    const [inputValue,setInputValue] = useState('');
     const [UserImg,setUserImg] = useState('');
     const navigate = useNavigate();
     const [isUserTapHovered,setUserTapHovered] = useState(false);
-    const { userid } = useContext(UserContext);
+    const { userid,setUserid } = useContext(UserContext);
+    const [searchView,setSearchView] = useState(false);
+    const [pageMove,setPageMove] = useState("/");
+    const menuOption = {
+        "홈":{authority:null,url:"/"},
+        "로그인": {authority:false,url:"/login"},
+        "회원가입":{authority:false,url:"/membership"},
+        "아이디 찾기":{authority:false,url:"/findId"},
+        "비밀번호 찾기":{authority:false,url:"/findPwd"},
+        "마이페이지":{authority:true,url:"/mypage"},
+        "비밀번호 변경":{authority:true,url:"/mypage"},
+        "로그인 기록 보기":{authority:true,url:"/mypage/myhistory"},
+        "구매 기록 보기":{authority:true,url:"/mypage/purchasehistory"},
+        "장바구니":{authority:true,url:"/cart"},
+        "이용권":{authority:true,url:"/subscribe"},
+        "고객센터":{authority:null,url:"/support"},
+        "분야별 책 보기":{authority:null,url:"/classification?category=1&sep=1"},
+        "테마별 책 보기":{authority:null,url:"/classification?category=2&sep=1"},
+        "인기 책 보기":{authority:null,url:"/classification?category=3&sep=1"},
+        "그룹":{authority:null,url:"/group"},
+    }
+    const bookOption = BookData.reduce((acc, book,id) => {
+        const key = `책 : ${book.title}`;
+        acc[key] = {authority:null,url:`/book/${id}`};
+        return acc;
+    }, {});
+    const [viewMenuOption,setViewMenuOption] = useState({});
+
+    const [selectedmenuOption,setSelectedMenuOption] = useState("");
+    const [menuState,setMenuState] = useState(false);
 
     //로그인 되었는지 안되었는지 체크
 //사용자의 이미지가 없으면 시스템 기본 이미지 저장
     function getImg(){
         if (userid == null)
-            setUserImg('image/icon_user.png')
+            setUserImg(NoneUserImg);
         else
         {
              fetch(`/api/user/image/${userid}`, { method: 'GET' })
@@ -25,22 +58,44 @@ const Header = () => {
                  return response.blob()
                  })
                  .then((blob)=>{setUserImg(URL.createObjectURL(blob))})
-                 .catch((error)=>{setUserImg('image/profile-basic.png')});
+                 .catch((error)=>{setUserImg(BasicImg)});
         }
+    }
+    function getOption(){
+        let option = {...menuOption,...bookOption};
+        const filteredMenu = Object.fromEntries(
+            Object.entries(option).filter(([key, value]) => {
+                if (userid == null && value.authority === true)
+                    return false;
+                if (userid != null && value.authority === false)
+                    return false;
+                return key.includes(selectedmenuOption);
+            })
+        );
+        setViewMenuOption(filteredMenu);
     }
     useEffect(()=>{
         getImg();
     },[userid]);
+    useEffect(() => {
+        getOption();
+    }, [menuState]);
 
     function Logout(){
             fetch(`/api/user/logout`, {method: 'POST' })
-            .then(()=>window.location.reload())
+            .then(()=> {
+                navigate("/");
+                setUserid(null);
+            })
             .catch((error)=>console.error(error));
     }
-
-    function handleSearchSection(e){
-        setInputValue(e.target.value);
-    };
+    function handleSearchSection(value){
+        setSelectedMenuOption(value);
+        setMenuState(!menuState);
+        let options = {...menuOption,...bookOption};
+        if (options[value] != null)
+            setPageMove(options[value].url);
+    }
     // hover 되었을 때
     function HoverEnter(){
         setUserTapHovered(true);
@@ -48,35 +103,63 @@ const Header = () => {
     function HoverLeave(){
         setUserTapHovered(false);
     }
-    //함수 실행
-
+    function onPageMove(){
+        let options = {...menuOption,...bookOption}
+        if (selectedmenuOption === "")
+            navigate("/")
+        else
+            navigate(options[selectedmenuOption].url)
+    }
     return (
         <div className = "mainbannerbody">
             <header className = "mainbannerheader">
                 <div className="header-left">
-                    <section id="searchSection">
-                        <h2>Book & Y</h2> 
+                    <section id="searchSection" onMouseLeave={()=> {
+                        setSearchView(false)
+                    }}>
+                        <h2 style={{cursor:"pointer"}} onClick={()=>navigate("/")}>Book & Y</h2>
                         <div className="search-container">
-                            <input 
-                                type="text" 
-                                placeholder="검색어 입력"
-                                value={inputValue}
-                                onChange={handleSearchSection}
-                            >
-                            </input>
-                            <button className="search-icon">
-                                <img src='image/icon_search.png' alt="Search Icon" style={{height:20}}></img>
-                            </button>
+                            <div className="search-header">
+                                <input
+                                    type="text"
+                                    placeholder="빠른 검색"
+                                    value={selectedmenuOption}
+                                    onChange={(e)=>handleSearchSection(e.target.value)}
+                                    onClick={()=> {
+                                        setSearchView(true)
+                                        setMenuState(!menuState);
+                                    }}
+                                >
+                                </input>
+                                <a href={pageMove}>
+                                    <img src={SearchImg} alt="Search Icon" style={{height: 20}}></img>
+                                </a>
+                                {
+                                    searchView &&
+                                    <div className="search-menu">
+                                        {
+                                            Object.keys(viewMenuOption).map((menu) => (
+                                                <span onClick={(e) => {
+                                                    setSelectedMenuOption(menu)
+                                                    handleSearchSection(menu)
+                                                }}>{menu}</span>
+                                            ))
+                                        }
+                                    </div>
+
+                                }
+
+                            </div>
                         </div>
                     </section>
                 </div>
                 <div className="header-icons">
                     <Link to="/" className="icon">
-                        <img src='image/icon_home.png'alt="Home Icon"style={{height:20}}></img>
+                        <img src={HomeImg} alt="Home Icon" style={{height: 20}}></img>
                     </Link>
                     <div className="icon" onMouseEnter={HoverEnter} onMouseLeave={HoverLeave}>
-                    <button className="icon">
-                        <img src={UserImg} alt="User Icon"style={{height:30}}></img>
+                        <button className="icon">
+                            <img src={UserImg} alt="User Icon" id="userimg"></img>
                     </button>
                     {
                         isUserTapHovered &&
