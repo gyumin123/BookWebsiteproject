@@ -19,19 +19,32 @@ const SupportSearch = () =>{
 
     //검색할 단어
 
-    const [searchParams] = useSearchParams();
-    const [search,setSearch] = useState(searchParams.get('search'));
+    const [search,setSearch] = useState("");
 
     const [popupOpen,setPopupOpen] = useState(false);
     const [message,setMessage] = useState(null);
     const [buttonMessage,setButtonMessage] = useState([]);
     const [onClickFunction,setOnclickFunction] = useState([]);
 
+    const [effectSearchState,setEffectSearchState] = useState(false);
+
+    const [ViewOption,setViewOption] = useState([]);
+
     //한 페이지당 5개씩 보여주기
     const perpage = 10;
 
     const navigate = useNavigate();
 
+    useEffect(()=>{
+        getSearch(SupportPosts);
+    },[effectSearchState])
+
+    function getSearch(data){
+        const filteredMenu = data.filter((content)=>{
+            return content.title.includes(search)
+        })
+        setViewOption(filteredMenu);
+    }
     function GetSupportData()
     {
         useEffect(() => {
@@ -47,14 +60,12 @@ const SupportSearch = () =>{
             })
             .then(pages => {
                 setSupportTotalPage(parseInt(pages, 10)); // 문자열을 숫자로 변환하여 상태에 저장
-                console.log(SupportTotalPage);
             })
             .catch(error => console.error(error));
     
             // 현재 페이지 가져오기 (해당 번호 부터 (개수) 개 가져오기)
             const start = (supportCurrentPage-1)*perpage;
-
-            fetch(`/api/user/support/${search}/${start}`, {
+            fetch(`/api/user/support/${"search"}/${start}`, {
                 method: 'GET',
             })
             .then(response => {
@@ -65,6 +76,7 @@ const SupportSearch = () =>{
             })
             .then(data => {
                 SetSupportPosts(data);
+                getSearch(data);
             })
             .catch(error => console.error(error));
 
@@ -107,7 +119,7 @@ return(
             <h2>글 검색</h2>
             <input type="text" placeholder="검색어 입력"
             value={search} onChange={(e)=>setSearch(e.target.value)}></input>
-            <button onClick = {()=>navigate(`/support?search=${search}`)}>검색</button>
+            <button onClick = {()=>setEffectSearchState(!effectSearchState)}>검색</button>
         </section>
 
         {/* <!-- 등록된 글 목록을 보여주는 섹션 --> */}
@@ -125,7 +137,7 @@ return(
                 </thead>
                 <tbody>
                     {
-                        (SupportPosts.length > 0) && SupportPosts.map((post,index) => (
+                        (SupportPosts.length > 0) && ViewOption.map((post,index) => (
                             <tr key={post.id}>
                                 <td>{index+1}</td>
                                 <td id = {post.id} onClick={()=>handleRead(post)} style={{cursor:"pointer"}}>{post.title}</td>
