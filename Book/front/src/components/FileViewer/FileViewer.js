@@ -324,7 +324,7 @@ const FileViewer = () => {
                                 </select>
                                 <div className="comment-section">
                                     {
-                                        comments.length >= 0 &&
+                                        comments.length <= 0 &&
                                         "비어 있음"
                                     }
                                     {
