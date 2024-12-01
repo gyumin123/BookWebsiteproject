@@ -48,6 +48,7 @@ const Classification = () => {
             }
             else
                 SetTitle("인기");
+
             fetch('/api/books', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -66,15 +67,15 @@ const Classification = () => {
 
 return (
 
-<div class="container">
-    <div class="category-section" id="category-theme">
-        <h2 class="category-title">{title}</h2>
-        <div class = "pagination">
+<div className="container">
+    <div className="category-section" id="category-theme">
+        <h2 className="category-title">{title}</h2>
+        <div className = "pagination">
             {optionList.map ((option,index)=>(
                     <a href = {`/classification?category=${category}&sep=${sep}&option=${index}`}>{option}</a>
                     ))}
          </div>
-        <div class="product-grid">
+        <div className="product-grid">
         {
             bookData.length > 0 &&
             bookData.slice((sep-1)*25,sep*25).map((book,index) => (
@@ -91,7 +92,7 @@ return (
 
         </div>
     </div>
-    <div class="pagination">
+    <div className="pagination">
         <a href ={`/classification?category=${category}&sep=1&option=${optionIdx}`} class="active">1</a>
         <a href={`/classification?category=${category}&sep=2&option=${optionIdx}`}>2</a>
         <a href={`/classification?category=${category}&sep=3&option=${optionIdx}`}>3</a>

@@ -11,7 +11,7 @@ const BookInfo = () => {
 
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
-    const id = parseInt(searchParams.get("id"));
+    const {id} = useParams();
     const {userid} = useContext(UserContext);
 
     const [Book,setBook] = useState({});
@@ -21,25 +21,17 @@ const BookInfo = () => {
     const [buttonText,setButtonText] = useState("구매하기");
     const [popupOpen,setPopupOpen] = useState(false);
     const [message,setMessage] = useState("");
-    const [isSubscribed,setSubscribe] = useState(false);
-
+    const [SubscribeState,setSubscribe] = useState(false);
 
     function onHandleAction()
     {
-         if (buttonText == "구매하기")
+         if (buttonText === "구매하기")
          {
                  if (userid == null)
                  //아이디가 없을 경우
                  {
                     setMessage("로그인 먼저 해주세요!");
                     setPopupOpen(true);
-                 }
-                 else
-                 {
-                 GetSubscribe(userid);
-                 if (isSubscribed)
-                    //아직 구현 안함
-                    navigate('/read');
                  }
             setButtonText("닫기");
             setClicked(true);
@@ -66,17 +58,39 @@ const BookInfo = () => {
         .then(data => setBook(BookData[id]))
         .catch(error=>setBook(BookData[id]))
     },[])
-    function GetSubscribe(userid)
-    {
-        fetch(`/api/subscribe/${userid}`, {
+
+    useEffect(()=>{
+        isSubscribe();
+    },[userid])
+
+    function isSubscribe(){
+        fetch(`/api/user/history/purchase/${userid}/${0}`, {
             method: 'GET',
         })
-        .then(response=>response.text())
-        .then(data => data=='true'?setSubscribe(true):setSubscribe(false))
-        .catch(error=>console.log(error))
+            .then(response => {
+                if (!response.ok)
+                    throw new Error(response.status)
+                else
+                    return response.json()
+            })
+            .then(data => {
+                for(const item of data)
+                {
+                    if (item.purchaseType === "구독") {
+                        setSubscribe(true);
+                        return;
+                    }
+                    if (item.id == id)
+                    {
+                        setSubscribe(true);
+                        return;
+                    }
+                }
+            })
+            .catch(error => console.error(error));
     }
     return (
-        <div class="container_2">
+        <div className="container_2">
         {
             popupOpen &&
             <Popup
@@ -85,43 +99,46 @@ const BookInfo = () => {
                 onClickFunction={[()=>{navigate('/login');},()=>{window.location.reload();}]}
             />
         }
-            <div class="book-header">
-                <div class="book-image">
+            <div className="book-header">
+                <div className="book-image">
                     <img src={BookImg} alt="책 제목"></img>
                 </div>
-                <div class="book-info">
-                    <h2 class="book-title">{Book.title}</h2>
-                    <h4 class="book-author">{Book.author}</h4>
-                    <div class="book-rating">
-                        <span class="rating-value">{Book.rating}</span>
-                        <span class="rating-stars">{generateStars(Book.rating)}</span>
-                    </div>
-                    <div class="book-meta">
-                        <span>구매수: {Book.buys}회</span> · <span>장바구니 : {Book.hearts}</span> · <span>리뷰 : {Book.reviews}개</span>
+                <div className="book-info">
+                    <h2 className="book-title">{Book.title}</h2>
+                    <h4 className="book-author">{Book.author}</h4>
+                    <div className="book-rating">
+                        <span className="rating-value">{Book.rating}</span>
+                        <span className="rating-stars">{generateStars(Book.rating)}</span>
                     </div>
 
-                    <div class="book-description">
+                    <div className="book-description">
                         {Book.description}
                     </div>
-                    <div class="book-price">
+                    <div className="book-price">
                         <h3><strong>가격:{Book.rating*10000}</strong></h3>
                     </div>
-                    <div class="book-actions">
+                    <div className="book-actions">
                         {
-                            Clicked == true &&
+                            Clicked === true &&
                             <BookDetail
                             id = {id}
                             price = {Book.rating*10000}
                             />
                         }
-                        <button class="open-button" onClick={()=>navigate('/view')}>책 읽기</button>
-                        <button class="open-button" onClick = {()=>{onHandleAction()}}>{buttonText}</button>
+                        {
+                            SubscribeState &&
+                            <button className="open-button" onClick={() => navigate(`/view/${id}`)}>책 읽기</button>
+                        }
+                        {
+                            !SubscribeState &&
+                            <button className="open-button" onClick = {()=>{onHandleAction()}}>{buttonText}</button>
+                        }
                     </div>
                 </div>
             </div>
 
-            <div class="book-details">
-                <div class="book-summary">
+            <div className="book-details">
+                <div className="book-summary">
                     요약 들어갈 자리
                     {Book.summary}
                 </div>

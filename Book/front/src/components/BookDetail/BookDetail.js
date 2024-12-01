@@ -12,22 +12,23 @@ function BookDetail({id,price}){
     const [popupOpen,SetOpen] = useState(false);
     const [message,SetMessage] = useState("");
     const {userid} = useContext(UserContext);
+    const [totalPrice,setTotalPrice] = useState(0);
     const handlePurchaseTypeChange = (event) => {
     setPurchaseType(event.target.value);
     setPeriod('');
     };
     const handlePeriodChange = (event) => {
     setPeriod(event.target.value);
+    setTotalPrice(calPrice(purchaseType,price,event.target.value));
     }
 
     function onSubmitPurchase()
     {
-        let totalPrice = calPrice();
     //구매 옵션 보내기
         fetch('/api/purchase', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify([{id,period,price:totalPrice,purchaseType}])
+            body: JSON.stringify({userid,id,period,price:totalPrice,purchaseType})
         })
         .catch(error=>console.log(error))
         navigate('/purchase');
@@ -35,12 +36,11 @@ function BookDetail({id,price}){
     }
     function onSubmitCart()
     {
-        let totalPrice = calPrice();
         //장바구니 옵션 보내기
         fetch('/api/user/cart/add', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({id,userid,purchaseType,period,totalPrice})
+            body: JSON.stringify({id,userid,purchaseType,period,price:totalPrice})
         })
         .catch(error=>console.log(error))
         SetOpen(true);
@@ -48,7 +48,7 @@ function BookDetail({id,price}){
     }
 
 return (
-    <div class="container">
+    <div className="container">
     {
         popupOpen &&
         <Popup
@@ -58,7 +58,7 @@ return (
         />
     }
 
-        <div class="purchase-type">
+        <div className="purchase-type">
             <label for="purchase-option">구매 분류</label>
             <select id="purchase-option" name="purchase-option"
             value = {purchaseType} onChange={handlePurchaseTypeChange}>
@@ -69,7 +69,7 @@ return (
 
         {
             purchaseType == '대여' &&(
-            <div class="period" id="rental-period">
+            <div className="period" id="rental-period">
                 <label for="rental-days">대여 일수</label>
                 <select id="rental-days" name="rental-days"
                 value = {period} onChange={handlePeriodChange} >
@@ -82,28 +82,28 @@ return (
         }
         {
             purchaseType == '소장' &&(
-            <div class="period" id="rental-period">
+            <div className="period" id="rental-period">
                 <label for="buy-days">구매</label>
                 <select id = "buy-days" name="buy-days"
                 value = {period} onChange={handlePeriodChange}>
                     <option value="" selected disabled>옵션을 선택하세요</option>
-                    <option value="-" >-</option>
+                    <option value="0" >-</option>
                 </select>
             </div>
             )
         }
         {
             period != '' && purchaseType!='' &&
-            <div class="total">
+            <div className="total">
                 <label for="total-type">{purchaseType}</label>
                 <label for="total-period">{period}</label>
-                <label for="total-price">{calPrice(purchaseType,price,period)}</label>
-                <button class="init-data"
+                <label for="total-price">{totalPrice}</label>
+                <button className="init-data"
                 onClick = {()=>{setPeriod('');setPurchaseType('대여')}}>
                 삭제하기
                 </button>
-                <button class="wish-button" onClick = {()=>{onSubmitCart()}}>장바구니</button>
-                <button class="buy-button" onClick = {()=>{onSubmitPurchase()}}>구매하기</button>
+                <button className="wish-button" onClick = {()=>{onSubmitCart()}}>장바구니</button>
+                <button className="buy-button" onClick = {()=>{onSubmitPurchase()}}>구매하기</button>
             </div>
         }
     </div>
