@@ -1,6 +1,7 @@
 import React ,{useState,useEffect,useContext}from "react"
 import './purchaseHistory.css';
 import {UserContext} from '../../UserContext'
+import BookData from '../Data/book.json';
 
 const PurchaseHistory = () => {
 
@@ -42,7 +43,7 @@ const PurchaseHistory = () => {
                 setPurchaseHistory(data.slice(0,perpage));
             })
             .catch(error => console.error(error));
-        }, [purchaseCurrentPageNumber]);
+        }, [userid,purchaseCurrentPageNumber]);
     
 
     return(
@@ -53,28 +54,23 @@ const PurchaseHistory = () => {
             <table>
                 <thead>
                     <tr>
-                        <th>도서명</th>
+                        <th>구매명</th>
                         <th>구매 날짜</th>
                         <th>가격</th>
                         <th>상태</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
                     {
-                        PurchaseHistory.length>0 &&
                         PurchaseHistory.map((post) => (
-                            <tr key={post.bookname}>
-                                <td>{post.date}</td>
+                            <tr key={post.id}>
+                                <td>{post.id === 100000?"이용권":post.id !=null && post.id<107?BookData[post.id].title:"비어 있음"}</td>
+                                <td>{post.purchaseType}</td>
                                 <td>{post.price}</td>
-                                <td>{post.state}</td>
+                                <td>{post.period}</td>
                             </tr>
                         ))
                     }
-                    </tr>
-                    <tr>
-
-                    </tr>
                 </tbody>
             </table>
                 {Array.from({ length: purchaseTotalPage }, (_, index) => (
@@ -89,28 +85,6 @@ const PurchaseHistory = () => {
                             {index + 1}
                         </span>
                     ))}
-        </section>
-
-        <section id="rentalHistory">
-            <h2>대여 내역</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>도서명</th>
-                        <th>대여 시작일</th>
-                        <th>대여 종료일</th>
-                        <th>상태</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-
-                    </tr>
-                    <tr>
-
-                    </tr>
-                </tbody>
-            </table>
         </section>
     </main>
         </div>

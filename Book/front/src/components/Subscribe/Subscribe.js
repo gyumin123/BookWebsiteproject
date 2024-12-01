@@ -7,15 +7,17 @@ import {UserContext} from '../../UserContext';
 const Subscribe = () => {
     const navigate = useNavigate();
     const {userid} = useContext(UserContext);
-    const purchaseData = [{id:100000,userid,purchaseType:"구독",period:"30",price:"10000"}];
+    const purchaseData = {id:100000,userid,purchaseType:"구독",period:"30",price:"10000"};
     function subscribe()
     {
+
         fetch(`/api/purchase`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({purchaseData})
+            body: JSON.stringify(purchaseData)
         })
         .catch(error=>console.log(error))
+
         navigate('/purchase');
     }
 return (

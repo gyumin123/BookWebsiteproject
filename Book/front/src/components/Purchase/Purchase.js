@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom";
 import {Popup,totalPrice} from '../Data/function';
 import './Purchase.css'
 import {UserContext} from '../../UserContext';
+import BookData from '../Data/book.json'
 
 const Purchase = () => {
     const [PurchaseData,setPurchaseData] = useState([]);
@@ -12,7 +13,7 @@ const Purchase = () => {
 
     useEffect(()=>
     {
-        fetch(`/api/purchase`, {
+        fetch(`/api/purchase/${userid}`, {
             method: 'GET',
         })
         .then(response=>{
@@ -23,16 +24,20 @@ const Purchase = () => {
         })
         .then(data => setPurchaseData(data))
         .catch(error=>console.log(error))
-    },[])
-    function Payment()
+    },[userid])
+    function Payment(item)
     {
-        fetch(`/api/purchase/confirm`, {
+        fetch(`/api/user/purchase/confirm`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(PurchaseData)
+            body: JSON.stringify(item)
         })
         .catch(error=>console.log(error))
         setPopupOpen(true);
+    }
+    function onPaymentSubmit(){
+        for (const item of PurchaseData)
+            Payment(item);
     }
 
 return (
@@ -59,10 +64,9 @@ return (
                     </thead>
                     <tbody class = "payment-item">
                     {
-                        Purchase.length > 0 &&
                         PurchaseData.map((item,index)=>(
                             <tr class="selectedItem">
-                                <td>{item.title}</td>
+                                <td>{item.id === 100000? "이용권":item.id != null?BookData[item.id].title:"비어 있음"}</td>
                                 <td>{item.purchaseType}</td>
                                 <td>{item.period}</td>
                                 <td>{item.price}</td>
@@ -105,7 +109,7 @@ return (
 
             <div class="buttons">
                 <button class="cancel-button" onClick={()=>navigate('/')}>취소</button>
-                <button class="next-button" onClick={Payment}>결제</button>
+                <button class="next-button" onClick={onPaymentSubmit}>결제</button>
             </div>
         </div>
 )
