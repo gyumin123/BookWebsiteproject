@@ -2,9 +2,10 @@ import {React,useEffect,useState,useContext} from "react";
 import { Route, useNavigate, useParams } from "react-router-dom";
 import { UserContext } from "../../UserContext";
 import Plan from '../Plan/Plan'
+import {Popup} from "../Data/function";
 
 const GroupManage = () => {
-    const {groupid} = useParams();
+    const {groupId} = useParams();
     const navigate = useNavigate();
     const {userid} = useContext(UserContext);
 
@@ -20,19 +21,33 @@ const GroupManage = () => {
     const [plan_new_name,setPlanName] = useState('');
     const [request_join,setRequestJoin] = useState([]);
 
+    const [effectPlanState,setEffectPlanState] = useState(false);
+    const [effectJoinState,setEffectJoinState] = useState(false);
+
+    const [popupOpen,setPopupOpen] = useState(false);
+    const [message,setMessage] = useState(null);
+    const [buttonMessage,setButtonMessage] = useState([]);
+    const [onClickFunction,setOnclickFunction] = useState([]);
+
 
     const plan_example = [
-        {plan_id:1,plan_name:"1페이지 읽기"},
-        {plan_id:2,plan_name:"2페이지 읽기"}
+        {planId:1,title:"1페이지 읽기"},
+        {planId:2,title:"2페이지 읽기"}
     ]
     const request_example = [
         {userid:"root"},
         {userid:"홍길동"}
     ]
+    useEffect(() => {
+        setEffectPlanState(!effectPlanState);
+        setEffectJoinState(!effectJoinState);
+    }, []);
 
-    useEffect(() => async function(){
+    useEffect(() =>{
+        const getPlan = async() => {
+            // 플랜 가져오기 (완료)
             try {
-                const response = await fetch(`/api/user/group/${groupid}`, {
+                const response = await fetch(`/api/group/plan/${groupId}`, {
                     method: 'GET',
                 });
 
@@ -46,9 +61,13 @@ const GroupManage = () => {
                 setPlans(plan_example);
                 setCheckedPlanState(new Array(plan_example.length + 1).fill(false));
             }
-
+        }
+        getPlan();
+        }, [effectPlanState]);
+    useEffect(() => {
+        const getRequest = async() => {
             try {
-                const response = await fetch(`/api/group/join/request/${groupid}`, {
+                const response = await fetch(`/api/group/join/request/${groupId}`, {
                     method: 'GET',
                 });
 
@@ -62,108 +81,106 @@ const GroupManage = () => {
                 setRequestJoin(request_example);
                 setCheckedJoinState(new Array(request_example.length + 1).fill(false));
             }
-
-}, [groupid]);
+        }
+        getRequest();
+    }, [effectJoinState]);
     
     
         function handlePlanChecked(plan,index)
         {
             const newChecked = [...CheckedPlanState];
             newChecked[index] = !newChecked[index];
-    
-    
-            if (newChecked[index])
-            {
-                setSelectPlan(prevItems=> [...prevItems,plan]);
-            }
-            else
-            {
-                setSelectPlan(
-                prevItems=>prevItems.filter((item) => item !== plan))
-            }
             setCheckedPlanState(newChecked);
         }
         function isJoinChecked(index)
          {return CheckedJoinState[index];}
-    
+
+
+         // 그룹 참여 신청 거절하기 (완료)
          function JoinDelete(user)
          {
-            const userid = user.userid;
+            const userid = user.id;
             fetch(`/api/group/join/reject`, {
-                method: 'DELETE',
+                method: 'post',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({userid,groupid})
+                body: JSON.stringify({userId:userid,groupId})
             })
-            .catch(error=>console.log(error))
+                .then((response)=> {
+                    if (!response.ok)
+                        throw new Error(response.status);
+                    setEffectJoinState(!effectJoinState)
+                })
+                .catch(error=>console.log(error))
     
          }
          function CheckedJoinDelete()
          {
-            for (let index=0;index< plans.length;index++)
-                if (CheckedPlanState[index])
-                    JoinDelete(plans[index]);
-            window.location.reload();
+            for (let index=0;index< request_join.length;index++)
+                if (CheckedJoinState[index])
+                    JoinDelete(request_join[index]);
          }
          function AllJoinDelete()
          {
-            for(const user of SelectedJoin)
-                JoinDelete(user);
-           window.location.reload();
+             for (let index=0;index< request_join.length;index++)
+                 JoinDelete(request_join[index]);
          }
+         // 그룹 가입하기 (완료)
          function JoinConfirm(user)
          {
-            const userid = user.userid;
+            const userid = user.id;
             fetch(`/api/group/join/confirm`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({userid,groupid})
+                body: JSON.stringify({userId:userid,groupId})
             })
-            .then(()=>JoinDelete(user))
+            .then((response)=> {
+                if (!response.ok)
+                    throw new Error(response.status);
+                JoinDelete(user)
+            })
             .catch(error=>console.log(error))
     
          }
          function CheckedJoinConfirm()
          {
-            for (let index=0;index< plans.length;index++)
-                if (CheckedPlanState[index])
-                    JoinConfirm(plans[index]);
-            window.location.reload();
+            for (let index=0;index< request_join.length;index++)
+                if (CheckedJoinState[index])
+                    JoinConfirm(request_join[index]);
          }
          function AllJoinConfirm()
          {
-            for(const user of SelectedJoin)
-                JoinConfirm(user);
-           window.location.reload();
+             for (let index=0;index< request_join.length;index++)
+                 JoinConfirm(request_join[index]);
          }
          function handleJoinChecked(user,index)
          {
              const newChecked = [...CheckedJoinState];
              newChecked[index] = !newChecked[index];
-     
-     
-             if (newChecked[index])
-             {
-                setSelectJoin(prevItems=> [...prevItems,user]);
-             }
-             else
-             {
-                 setSelectJoin(
-                 prevItems=>prevItems.filter((item) => item !== user))
-             }
              setCheckedJoinState(newChecked);
          }
          function isPlanChecked(index)
           {return CheckedPlanState[index];}
-     
+
+          // 플랜 삭제하기
           function PlanDelete(plan)
           {
-             const planid = plan.plan_id;
+             const planId = plan.planId;
              fetch(`/api/group/plan/delete`, {
                  method: 'DELETE',
                  headers: { 'Content-Type': 'application/json' },
-                 body: JSON.stringify({groupid,planid})
+                 body: JSON.stringify({groupId,planId})
              })
-             .catch(error=>console.log(error))
+                 .then((response)=> {
+                     if (!response.ok)
+                         throw new Error();
+                     setEffectPlanState(!effectPlanState)
+                 })
+                 .catch(error=>{
+                     setPopupOpen(true);
+                     setMessage("😡 이미 사용중인 플랜 입니다.");
+                     setButtonMessage(["닫기"]);
+                     setOnclickFunction([()=>{setPopupOpen(false)}]);
+                 })
      
           }
           function CheckedPlanDelete()
@@ -171,21 +188,20 @@ const GroupManage = () => {
              for (let index=0;index< plans.length;index++)
                  if (CheckedPlanState[index])
                      PlanDelete(plans[index]);
-             window.location.reload();
           }
           function AllPlanDelete()
           {
-             for(const item of SelectedPlan)
-                 PlanDelete(item);
-            window.location.reload();
+              for (let index=0;index< plans.length;index++)
+                  PlanDelete(plans[index]);
           }
          async function onPlanCreate(){
             try{
                 const response = await fetch(`/api/group/plan/create`,{method:'POST',        
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({groupid,planid:plans.length,plan_name:plan_new_name})});
+                    body: JSON.stringify({groupId,title:plan_new_name})});
                 if(!response.ok)
                     throw new Error(response.status);
+                setEffectPlanState(!effectJoinState);
             }
             catch(error)
             {
@@ -194,16 +210,22 @@ const GroupManage = () => {
           }
     return (
         <div class="container">
+            {
+                popupOpen &&
+                <Popup
+                    message={message} buttonMessage = {buttonMessage} onClickFunction = {onClickFunction}
+                />
+            }
             <div class="plan-manage">
                 <h2>플랜</h2>
                 {
                     plans.map((plan,index) => (
-                    <label key={plan.plan_id}>
+                    <label key={plan.planId}>
                         <input type="checkbox" class="cart-checkbox"
-                        name={plan.plan_id}
+                        name={plan.planId}
                         checked={isPlanChecked(index)}
                         onChange={()=>handlePlanChecked(plan,index)}></input>
-                    {<Plan plan_id={plan.plan_id} plan_name={plan.plan_name}></Plan>}
+                        {plan.planId} {plan.title}
                     </label>
                     ))
                 }
@@ -239,7 +261,7 @@ const GroupManage = () => {
                         name={index}
                         checked={isJoinChecked(index)}
                         onChange={()=>handleJoinChecked(user,index)}></input>
-                        {user.userid}
+                        {user.id}
                     </label>
                     ))
                 }

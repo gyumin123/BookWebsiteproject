@@ -12,9 +12,9 @@ const GroupMain = () => {
             <div className="group-container">
                 <Routes>
                     <Route path="/" element={<GroupList/>}/>
-                    <Route path="/info/*" element={<GroupInfo/>}/>
+                    <Route path="/info/:groupId" element={<GroupInfo/>}/>
                     <Route path="/plan/content/write/*"element={<ContentWrite/>}/>
-                    <Route path="/manage/*"element={<GroupManage/>}/>
+                    <Route path="/manage/:groupId"element={<GroupManage/>}/>
                 </Routes>
             </div>
     )

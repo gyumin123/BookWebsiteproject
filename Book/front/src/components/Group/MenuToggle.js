@@ -20,7 +20,7 @@ const MenuToggle = ({userid,state}) => {
 
   useEffect(()=>async function(){
     try {
-      const response = await fetch(`/api/group/list/${state}/${userid!=null?userid:''}`,{method:'GET'});
+      const response = await fetch(`/api/group/list/${state}${userid!=null?`/${userid}`:''}`,{method:'GET'});
       if(!response.ok)
         throw new Error(response.status);
       const data = await response.json();
@@ -53,13 +53,12 @@ return (
       isOpen && groups.length > 0 && 
       groups.map((group)=>(
         <GroupToggle
-          group_id={group.id}
-          group_name={group.group_name}
-          book_name={BookData[group.book_id].title}
-          leader={group.leader}
-          participants={group.participants}
-          start_date={group.start_date}
-          end_date={group.end_date}
+          groupId={group.groupId}
+          group_name={group.groupName}
+          book_name={group.bookId!=null ? BookData[group.bookId].title :"비어 있음"}
+          leader={group.leaderId}
+          start_date={group.startDate}
+          end_date={group.endDate}
           userid={userid}
         />
       ))

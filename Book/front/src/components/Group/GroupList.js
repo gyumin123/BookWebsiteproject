@@ -14,17 +14,17 @@ const GroupList = () => {
           <div class="header">
             <div class="group-option">
             <span id="total" onClick={()=>setGroupOption("total")}>전체</span>
-            {userid==null && 
+            {userid!=null &&
             <span id="user" onClick={()=>setGroupOption("user")}>내 그룹</span>
             }
             </div>
             {
-              userid==null&&
+              userid!=null&&
               <span id="create" onClick={()=>setCreate(true)}>+ 그룹 추가하기</span>
             }
             {
               create&&
-              <GroupCreation userid={userid}/>
+              <GroupCreation/>
             }
           </div>
           <hr></hr>
@@ -42,9 +42,9 @@ const GroupList = () => {
             groupOption == "user" &&
             (
               <div>
-                <MenuToggle userid={null} state={0}></MenuToggle>
-                <MenuToggle userid={null} state={1}></MenuToggle>
-                <MenuToggle userid={null} state={2}></MenuToggle>
+                <MenuToggle userid={userid} state={0}></MenuToggle>
+                <MenuToggle userid={userid} state={1}></MenuToggle>
+                <MenuToggle userid={userid} state={2}></MenuToggle>
               </div>
             )
           }

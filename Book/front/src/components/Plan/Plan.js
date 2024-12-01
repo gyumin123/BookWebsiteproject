@@ -2,7 +2,7 @@ import React, { useState,useEffect,useContext} from "react"
 import {Route,Routes,useNavigate} from "react-router-dom";
 import './Plan.css'
 
-const PlanToggle = ({userid,plan_id,plan_name}) => {
+const Plan = ({userid,plan_id,plan_name}) => {
   const [isOpen,setIsOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -19,4 +19,4 @@ return (
 </div>
 )
 }
-export default PlanToggle;
+export default Plan;

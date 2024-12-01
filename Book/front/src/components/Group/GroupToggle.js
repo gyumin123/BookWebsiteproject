@@ -7,7 +7,7 @@ import {UserContext} from '../../UserContext';
 import './Toggle_bar.css'
 import Plan from '../Plan/Plan'
 
-const PlanToggle = ({userid,group_id,group_name,book_name,leader,participants,start_date,end_date}) => {
+const GroupToggle = ({userId,groupId,group_name,book_name,leader,participants,start_date,end_date}) => {
   const [isOpen,setIsOpen] = useState(false);
   const [plans,setPlans] = useState([]);
   const navigate=useNavigate();
@@ -16,7 +16,7 @@ const PlanToggle = ({userid,group_id,group_name,book_name,leader,participants,st
 
   useEffect(()=>async function(){
     try {
-      const response = await fetch(`/api/group/plan/${group_id}`,{method:'GET'});
+      const response = await fetch(`/api/group/plan/${groupId}`,{method:'GET'});
       if(!response.ok)
         throw new Error(response.status);
       const data = await response.json();
@@ -33,7 +33,7 @@ const PlanToggle = ({userid,group_id,group_name,book_name,leader,participants,st
   }
 return (
   <div>
-      <button class="group-bar" onClick={()=>{navigate(`/group/info/${group_id}`)}}>
+      <button class="group-bar" onClick={()=>{navigate(`/group/info/${groupId}`)}}>
         <div class="title-bar">
             <button id="toggle-button" onClick={(event)=>{event.stopPropagation();setIsOpen(!isOpen)}}>{!isOpen?"▶":"▼"}</button>
             <span id="group_name">{group_name}</span>
@@ -50,8 +50,8 @@ return (
         isOpen && plans.length > 0 && 
         plans.map((plan)=>(
           <Plan
-            plan_id={plan.plan_id}
-            plan_name={plan.plan_name}
+            plan_id={plan.planId}
+            plan_name={plan.title}
           />
         ))
       )
@@ -59,4 +59,4 @@ return (
 </div>
 )
 }
-export default PlanToggle;
+export default GroupToggle;
