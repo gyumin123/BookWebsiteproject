@@ -36,7 +36,7 @@ const Login = () =>
 
     return(
         <div className="login-container">
-            <h2>BookWeb</h2>
+            <h2>Book & Y</h2>
             <form className="login-form" onSubmit={onSubmitLogin}>
                 {
                     error?(
