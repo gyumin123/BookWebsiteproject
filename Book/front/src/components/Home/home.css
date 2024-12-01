@@ -14,8 +14,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    width: 90%;
     background-color: rgba(255, 255, 255, 0.5);
+    margin-left: 50px;
   }
   
   .book-grid {
@@ -26,7 +27,7 @@
   }
   
   .side-book {
-    width: 60px;
+    width: 200px;
     height: 200px;
     border: 2px solid black;
     display: flex;
