@@ -36,7 +36,6 @@
     text-align: center;
 }
 
-
 label[for="card"] {
     color: #000000;
     margin-top: -20px;
@@ -63,18 +62,16 @@ label[for="other"]{
     height: 100px;
     cursor: pointer;
     border: 1px dashed #888;
-    margin-left: 140px;
+    margin: 0 auto;
     border-radius: 10px;
     color: #888;
     margin-bottom: 30px;
-
 }
 
 .card-box:hover {
     border-color: #0066cc;
     color: #ffffff;
 }
-
 
 .card-register {
     font-size: 16px;
@@ -84,7 +81,7 @@ label[for="other"]{
 
 .buttons {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     margin-top: 20px;
 }
 
