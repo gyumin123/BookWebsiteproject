@@ -1,13 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../UserContext";
 import './ContentWrite.css'
-import { useNavigate } from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 
 const  ContentWrite = ()=>{
     const {userid} = useContext(UserContext);
+    const [Params] = useSearchParams();
+    const groupId = Params.get('groupid');
+    const bookid = Params.get('bookid');
+    const planId = Params.get('planid');
     const [selectedOptions, setSelectedOptions] = useState({});
     const navigate=useNavigate();
-    const [options,SetOptions] = useState([])
+    const [options,setOptions] = useState([]);
     const [content,setContent] = useState("")
     const example_option = [
         "Cu vel feugiat utroque. Sed an tation iriure appareat, sea ut graeci erroribus, ea voluptua maiestatis reprehendunt mei. Quo an mentitum honestatis. Vel in adhuc alterum repudiare, tritani debitis an eam, sed nostrud oportere persecuti ad.",
@@ -15,21 +19,41 @@ const  ContentWrite = ()=>{
     ]
 
     useEffect(()=>{
-        try {
-            const response = fetch(`/api/read/${0}/${userid}`,{method:"GET"});
-            if (!response.ok)
-                throw new Error(response.status);
-            const data = response.json();
-            SetOptions(data);
-        } catch (error) {
-            SetOptions(example_option)
+        const getOption = async(page) => {
+            try {
+                const response = await fetch(`/api/read/comment/user`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({bookid,userid,page})
+                })
+                if (!response.ok)
+                    throw new Error(response.status);
+                const data = await response.json();
+                setOptions(prevData => [...prevData, ...data]);
+            } catch (error) {
+                console.log(error);
+            }
         }
-    },[])
+        setOptions([]);
+        if (userid!=null) {
+            for (let i = 1; i <= 6; i++)
+                getOption(i);
+        }
+    },[userid])
+    function onSubmitContent(){
+        fetch(`/api/group/plan/write`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({userId:userid,groupId,planId, content})
+        })
+            .then(()=>navigate(-1))
+            .catch((error)=>console.log(error));
+    }
 
     const handleCheckboxChange = (event) => {
         const { name, checked } = event.target;
         if (checked)
-            setContent(content + options[name])
+            setContent(content + `${options[name].page}페이지에서 ${options[name].comment}"라고 생각하였습니다.`)
     };
 
     return (
@@ -46,7 +70,7 @@ const  ContentWrite = ()=>{
                         checked={selectedOptions[idx]}
                         onChange={handleCheckboxChange}
                     />
-                    {option}
+                    {option.page}에서 "{option.comment}"라고 생각하였습니다.
                 </label>
                 ))
             }
@@ -59,7 +83,7 @@ const  ContentWrite = ()=>{
             </div>
         </div>
         <div class="action-bar">
-            <button id="submit">제출</button>
+            <button id="submit" onClick={()=>onSubmitContent()}>제출</button>
             <button id="back" onClick={()=>navigate(-1)}>취소</button>
         </div>
     </div>
