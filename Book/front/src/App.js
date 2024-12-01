@@ -33,13 +33,13 @@ return(
                 <Route path="/findpwd" element={<FindPWD />} />
                 <Route path="/detail" element={<BookDetail />} />
                 <Route path="/classification" element={<Classification />} />
-                <Route path="/book/*" element={<BookInfo />} />
+2024.                <Route path="/book/:id" element={<BookInfo />} />
                 <Route path="/cart" element={<ShoppingCart />} />
                 <Route path="/purchase" element={<Purchase />} />
                 <Route path="/subscribe" element={<Subscribe />} />
                 <Route path="/support/*" element={<Support />} />
                 <Route path="/group/*" element={<GroupMain />} />
-                <Route path="/view/*" element={<FileViewer/>}/>
+                <Route path="/view/:bookid" element={<FileViewer/>}/>
             </Routes>
             <Footer />
         </Router>
