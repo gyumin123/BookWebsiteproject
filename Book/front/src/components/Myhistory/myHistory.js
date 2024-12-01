@@ -16,7 +16,7 @@ const MyHistory = () => {
 
         useEffect(() => {
             // 총 페이지 수 가져오기
-            fetch(`/api/user/history/login/totalPage/${userid}`, {
+            fetch(`/api/user/history/login/totalpage/${userid}`, {
                 method: 'GET',
             })
             .then(response => {
@@ -32,7 +32,7 @@ const MyHistory = () => {
 
             const start = (loginCurrentPageNumber-1)*perpage;
 
-            fetch(`/api/user/history/login/${userid}/${start}`, {
+            fetch(`/api/user/histroy/login/${userid}/${start}`, {
                 method: 'GET',
             })
             .then(response => {
@@ -45,7 +45,7 @@ const MyHistory = () => {
                 SetLoginHistory(data.slice(0,perpage));
             })
             .catch(error => console.error(error));
-        }, [loginCurrentPageNumber]);
+        }, [userid,loginCurrentPageNumber]);
     return (
         <div>
             <main>
@@ -66,7 +66,6 @@ const MyHistory = () => {
                         loginHistory.length > 0 &&
                         loginHistory.map((post) => (
                             <tr>
-                                <td>{post.id}></td>
                                 <td>{post.date}</td>
                                 <td>{post.ip}</td>
                             </tr>
@@ -88,41 +87,6 @@ const MyHistory = () => {
                     </span>
                 ))}
             </div>
-        </section>
-
-        {/* <!-- 그룹 활동 --> */}
-        <section id="groupActivity">
-            <h2>그룹 활동</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>활동명</th>
-                        <th>참여 날짜</th>
-                        <th>상태</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                </tbody>
-            </table>
-        </section>
-
-        {/* <!-- 대여 내역 --> */}
-        <section id="rentalHistory">
-            <h2>대여 내역</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>도서명</th>
-                        <th>대여 시작일</th>
-                        <th>대여 종료일</th>
-                        <th>상태</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                </tbody>
-            </table>
         </section>
     </main>
         </div>

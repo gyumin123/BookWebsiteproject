@@ -5,9 +5,10 @@ import MyHistory from "../Myhistory/myHistory";
 import PurchaseHistory from "../PurchaseHistory/purchaseHistory";
 import './mypage.css'
 import {UserContext} from '../../UserContext';
+import BasicImg from '../Banner/image/profile-basic.png'
 
 const Mypage = () => {
-    const { userid } = useContext(UserContext);
+    const { userid ,setUserid} = useContext(UserContext);
     const [nickname,setNickname] = useState('');
     const [newNickname,setNewNickname] = useState('');
     const [nameEdit,setNameEdit] = useState(false);
@@ -24,7 +25,7 @@ const Mypage = () => {
              return response.blob()
              })
              .then((blob)=>{console.log(blob);setUserImg(URL.createObjectURL(blob))})
-             .catch((error)=>{setUserImg('image/profile-basic.png')});
+             .catch((error)=>{setUserImg(BasicImg)});
     }
     useEffect(()=>{
     GetName();GetImg();
@@ -58,7 +59,7 @@ const Mypage = () => {
             if (!response.ok) {
               throw new Error(`HTTP error! Status: ${response.status}`);
             }
-            console.log(response); // 성공한 응답 출력
+            setUserid(null);
             GetImg();
           } catch (error) {
             console.error('Error:', error); // 오류 처리
@@ -110,7 +111,7 @@ const Mypage = () => {
                         <div className="group">
                             내 그룹 :
                             <input type="text" disabled></input>
-                            <button className="house-icon">🏠</button>
+                            <button className="house-icon" onClick={()=>navigate("/group")}>🏠</button>
                         </div>
                     </div>
                 </div>
