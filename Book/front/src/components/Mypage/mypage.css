@@ -70,8 +70,7 @@
 }
 
 .sidebar {
-    width: 30%;
-    margin-right:5px;
+    text-align: center;
 }
 
 .sidebar ul {
@@ -101,18 +100,6 @@
 }
 
 .box-panel {
-    width: 50%;
-    margin-left: 320px;
-    margin-top: -185px;
     border-radius: 5px;
     background-color: #fff;
-}
-
-.profile-section {
-    flex-direction: row;
-}
-
-.sidebar, .box-panel {
-    display: inline-block;
-    vertical-align: top;
 }
