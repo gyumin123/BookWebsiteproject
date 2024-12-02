@@ -1,7 +1,6 @@
 .product-grid {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   margin-top: 30px;
 }
 .product-card {
@@ -14,7 +13,6 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  position: relative;
 }
 .product-card img {
           width: 100%;
