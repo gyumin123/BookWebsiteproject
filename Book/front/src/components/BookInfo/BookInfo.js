@@ -45,18 +45,7 @@ const BookInfo = () => {
     useEffect(()=>
     {
     // 가져 와야 될 것 : 제목,평점,짧은 설명,줄거리,구매 수,찜한 횟수,책 이미지,장바구니에 담긴 횟수
-
-        fetch(`/api/book/${id}`, {
-            method: 'GET',
-        })
-        .then(response=>{
-        if (!response.ok)
-            throw new Error(response.status)
-        else
-            return response.json();
-        })
-        .then(data => setBook(BookData[id]))
-        .catch(error=>setBook(BookData[id]))
+        setBook(BookData[id-1]);
     },[])
 
     useEffect(()=>{

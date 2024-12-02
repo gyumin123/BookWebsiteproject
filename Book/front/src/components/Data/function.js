@@ -10,7 +10,7 @@ const ContentCard = ({rank,title,image,author,rating,description}) =>  {
       className="product-card"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      onClick = {() => navigate(`/book/${rank-1}`)}
+      onClick = {() => navigate(`/book/${rank}`)}
     >
       <h2 class="product-rank">{rank}</h2>
       <img src={image} alt={title} className="product-image" />

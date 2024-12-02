@@ -66,7 +66,6 @@ const GroupInfo = () => {
         if (userid!=null) {
             setEffectGroupState(!effectGroupState);
             setEffectPlanState(!effectPlanState);
-            isPrevRequest();
         }
         },[userid])
     useEffect(()=>{
@@ -111,6 +110,10 @@ const GroupInfo = () => {
             if(!response.ok)
                 throw new Error(response.status);
             setEffectGroupState(!effectGroupState);
+            setPopupOpen(true);
+            setMessage("그룹원이 되었습니다\n그룹 활동을 시작해 주세요");
+            setButtonMessage(["닫기"]);
+            setOnclickFunction([()=>setPopupOpen(false)]);
         }
         catch(error)
         {
@@ -118,29 +121,30 @@ const GroupInfo = () => {
         }
       }
       async function isPrevRequest(){
-        let Request = [];
         const fetchData = async() =>{
             try {
                 const response = await fetch(`/api/group/join/request/${groupId}`, {
                     method: 'GET',
                 });
                 Request = await response.json();
+                for(let req of Request){
+                    if (userid === req.id)
+                    {
+                        setRequest(true)
+                        return;
+                    }
+                }
             } catch (error) {
                 console.log(error);
             }
         }
         await fetchData();
-        for(let req of Request){
-            if (userid === req.id)
-            {
-                setRequest(true)
-                return;
-            }
-        }
+
       }
       async function onGroupJoinRequest(){
         //그룹 신청 (완료)
           // 이미 보낸적이 있으면 에러
+          isPrevRequest();
           if (request)
           {
               setPopupOpen(true);
@@ -156,6 +160,10 @@ const GroupInfo = () => {
             if(!response.ok)
                 throw new Error(response.status);
             setRequest(true);
+            setPopupOpen(true);
+            setMessage("그룹에 가입 신청이 완료되었습니다.\n리더가 승인할 때까지 기다려주세요...");
+            setButtonMessage(["닫기"]);
+            setOnclickFunction([()=>setPopupOpen(false)]);
         }
         catch(error)
         {
@@ -164,6 +172,15 @@ const GroupInfo = () => {
       }
       async function onPlanCreate(){
         // 플랜 생성 (완료)
+          if (plan_name === "")
+          {
+              setPopupOpen(true);
+              setMessage("플랜 제목을 입력하세요");
+              setButtonMessage(["확인"]);
+              setOnclickFunction([()=>setPopupOpen(false)]);
+              return;
+          }
+
         try{
             const response = await fetch(`/api/group/plan/create`,{method:'POST',        
                 headers: { 'Content-Type': 'application/json' },
@@ -181,28 +198,29 @@ const GroupInfo = () => {
 
 return (
     <span class="group-container">
-        <div class="header">
+        <div class="group-info">
+        <div class="group-header">
             {
                 popupOpen &&
                 <Popup
                     message={message} buttonMessage = {buttonMessage} onClickFunction = {onClickFunction}
                 />
             }
+            <div className="group-option">
             <div class="group-title">
                 <span id="back" onClick={()=>navigate(-1)}>←</span>
-                <h3>{group.groupName}</h3>
+                <span>{group.groupName}</span>
             </div>
-                <div className="action-bar">
                     {userid === group.leaderId &&
-                    <span onClick={() => navigate(`/group/manage/${groupId}`)}>관리하기</span>
+                    <span className="action" onClick={() => navigate(`/group/manage/${groupId}`)}>관리하기</span>
                     }
                     {
                         !groupMember &&
-                        <span onClick={() => {
-                            group.authority === false ? onGroupJoinRequest() : onGroupJoin()
+                        <span className="action" onClick={() => {
+                            group.authority === "false" ? onGroupJoinRequest() : onGroupJoin()
                         }}>참여하기</span>
                     }
-                </div>
+            </div>
         </div>
         <div class="group-summary">
             <div class="column">
@@ -214,10 +232,10 @@ return (
                 <span>기간</span>
             </div>
             <div class="summary">
-                <a href={`/book/${group.bookId}`}>{group.bookId != null ?BookData[group.bookId].title:"비어 있음"}</a>
+                <a href={`/book/${group.bookId}`}>{group.bookId != null ?BookData[group.bookId-1].title:"비어 있음"}</a>
                 <span>{group.leaderId != null ?group.leaderId:"비어 있음"}</span>
                 <span>{group.participants != null ? group.participants.length:"0"}</span>
-                <span>{group.authority===0?"신청":"자유"}</span>
+                <span>{group.authority==="false"?"신청":"자유"}</span>
                 <span>{group.state===0?"시작 전":group.state===1?"진행 중":"완료"}</span>
                 <span>{group.startDate}~{group.endDate}</span>
             </div>
@@ -227,28 +245,27 @@ return (
             <div className="plan">
                 {
                     plans.map((plan)=>(
-                        <span id="plan" onClick={()=>setPlanPage(plan.planId)}>
+                        <span id="plan-content" className={`tab ${planPage === plan.planId ? "active" : ""}`} onClick={()=>setPlanPage(plan.planId)}>
                             <Plan plan_id={plan.planId} plan_name={plan.title}></Plan>
                         </span>
                     ))
                 }
             </div>
-            {
-                input &&
                 <div className="plan-input">
-                    <input type="text" value={plan_name} onChange={(e)=>setPlanName(e.target.value)}></input>
+                    {
+                        input &&
+                        <input type="text" value={plan_name} onChange={(e)=>setPlanName(e.target.value)}></input>
+                    }
+                    {
+                        plans.length <= 5 && userid!=null &&
+                        <span id="plan-create" onClick={()=>{
+                            if (input)
+                                onPlanCreate();
+                            setInput(!input)
+                        }}>{input?"+ 제출하기":"+ 플랜 추가하기"}</span>
+                    }
                 </div>
-            }
-            {
-                plans.length <= 5 && userid!=null &&
-                <span id="plan-create" onClick={()=>{
-                    if (input)
-                        onPlanCreate();
-                    setInput(!input)
-                }}>
-                {input?"+ 제출하기":"+ 플랜 추가하기"}
-                </span>
-            }
+
 
         </div>
         <hr></hr>
@@ -291,6 +308,7 @@ return (
                 </table>
         </div>
         </div>
+            </div>
     </span>
 )
 }

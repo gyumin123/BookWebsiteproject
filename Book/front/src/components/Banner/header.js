@@ -16,7 +16,7 @@ const Header = () => {
     const { userid,setUserid } = useContext(UserContext);
     const [searchView,setSearchView] = useState(false);
     const [pageMove,setPageMove] = useState("/");
-    const menuOption = {
+    const basicOption = {
         "홈":{authority:null,url:"/"},
         "로그인": {authority:false,url:"/login"},
         "회원가입":{authority:false,url:"/membership"},
@@ -62,7 +62,7 @@ const Header = () => {
         }
     }
     function getOption(){
-        let option = {...menuOption,...bookOption};
+        let option = {...basicOption,...bookOption};
         const filteredMenu = Object.fromEntries(
             Object.entries(option).filter(([key, value]) => {
                 if (userid == null && value.authority === true)
@@ -92,7 +92,7 @@ const Header = () => {
     function handleSearchSection(value){
         setSelectedMenuOption(value);
         setMenuState(!menuState);
-        let options = {...menuOption,...bookOption};
+        let options = {...basicOption,...bookOption};
         if (options[value] != null)
             setPageMove(options[value].url);
     }
@@ -104,7 +104,7 @@ const Header = () => {
         setUserTapHovered(false);
     }
     function onPageMove(){
-        let options = {...menuOption,...bookOption}
+        let options = {...basicOption,...bookOption}
         if (selectedmenuOption === "")
             navigate("/")
         else

@@ -64,7 +64,7 @@ const PurchaseHistory = () => {
                     {
                         PurchaseHistory.map((post) => (
                             <tr key={post.id}>
-                                <td>{post.id === 100000?"이용권":post.id !=null && post.id<107?BookData[post.id].title:"비어 있음"}</td>
+                                <td>{post.id === 100000?"이용권":post.id !=null && post.id<107?BookData[post.id-1].title:"비어 있음"}</td>
                                 <td>{post.purchaseType}</td>
                                 <td>{post.price}</td>
                                 <td>{post.period}</td>
