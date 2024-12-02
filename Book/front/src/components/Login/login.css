@@ -2,11 +2,10 @@
 .login-container {
     background-color: #ffffff;
     padding: 40px;
-    border: 1px solid #ddd;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
     text-align: center;
+    margin: 0 auto;
 }
 
 .login-container h2 {
@@ -17,8 +16,7 @@
 
 .login-form {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    justify-content: center;
 }
 
 .login-form label {
@@ -38,24 +36,13 @@
 }
 
 .login-form button {
-    background-color: #0095f6;
-    color: #ffffff;
-    padding: 10px;
     font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
     margin-top: 10px;
-    font-weight: bold;
+    width: 100%;
 }
 
 .login-form button:hover {
     background-color: #007bb5;
-}
-
-.error-message {
-    color: #d93025;
-    margin-bottom: 10px;
 }
 
 .separator {
@@ -103,3 +90,10 @@
     width: 100%;
     border: 1px solid #dbdbdb;
 }
+.login-container h2 {
+    font-family: "Protest Revolution";
+    font-weight: 400;
+    font-style: normal;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Protest+Revolution&display=swap');

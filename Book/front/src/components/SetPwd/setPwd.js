@@ -37,7 +37,7 @@ const SetPwd = () => {
     return (
         <div>
             <main>
-                <h1>BookWeb</h1>
+                <h1>Book & Y</h1>
                 <form id="resetPassword" onSubmit={onSubmitSetPwd}>
                     <div className="form-group">
                         <label htmlFor="currentPassword">현재 비밀번호</label>

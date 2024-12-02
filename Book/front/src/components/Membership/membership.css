@@ -1,17 +1,11 @@
 
 .form-container {
     background-color: #ffffff;
-    padding: 40px;
-    border: 1px solid #ddd;
+    padding: 50px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    text-align: center;
-}
-
-.form-group {
-    margin-bottom: 20px;
-    text-align: left;
+    width: 50%;
+    margin: 0 auto;
 }
 
 .form-group label {
@@ -32,44 +26,9 @@
     margin-bottom: 10px;
 }
 
-.check-btn {
-    background-color: #0095f6;
-    color: #ffffff;
-    padding: 10px;
-    font-size: 14px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    width: 100%;
-    margin-top: 5px;
-}
-
-.check-btn:hover {
-    background-color: #007bb5;
-}
-
 .submit-btn {
-    background-color: #0095f6;
-    color: #ffffff;
-    padding: 10px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
     width: 100%;
     margin-top: 20px;
-}
-
-.submit-btn:hover {
-    background-color: #007bb5;
-}
-
-.error-message {
-    color: #d93025;
-    font-size: 14px;
-    margin-top: 5px;
 }
 
 .link-options {
@@ -87,4 +46,7 @@
     width: 100%;
     border: 1px solid #dbdbdb;
     border-radius: 5px;
+}
+.form-group button {
+    width: 100%;
 }

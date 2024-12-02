@@ -3,11 +3,13 @@
     display: flex;
     justify-content: space-between;
     gap:100px;
+    width: 90%;
 }
 .group-bar{
     display: flex;
     margin-left: 2rem;
     justify-content: space-between;
+    width: 90%;
 }
 .title-bar{
     display: flex;

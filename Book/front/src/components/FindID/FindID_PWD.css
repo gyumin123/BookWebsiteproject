@@ -9,6 +9,8 @@ header h1 {
 .form-group {
     margin-bottom: 20px;
     text-align: left;
+    width: 50%;
+    margin: 0 auto;
 }
 
 label {
@@ -19,14 +21,7 @@ label {
 }
 
 button[type="submit"] {
-    width: 100%;
-    padding: 10px;
     background-color: #3897f0; 
-    color: #fff;
-    font-size: 14px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
 }
 
 button[type="submit"]:hover {
