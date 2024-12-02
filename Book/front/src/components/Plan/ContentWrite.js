@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../UserContext";
 import './ContentWrite.css'
 import {useNavigate, useSearchParams} from "react-router-dom";
+import {Popup} from "../Data/function";
 
 const  ContentWrite = ()=>{
     const {userid} = useContext(UserContext);
@@ -13,10 +14,12 @@ const  ContentWrite = ()=>{
     const navigate=useNavigate();
     const [options,setOptions] = useState([]);
     const [content,setContent] = useState("")
-    const example_option = [
-        "Cu vel feugiat utroque. Sed an tation iriure appareat, sea ut graeci erroribus, ea voluptua maiestatis reprehendunt mei. Quo an mentitum honestatis. Vel in adhuc alterum repudiare, tritani debitis an eam, sed nostrud oportere persecuti ad.",
-        "Cu vel feugiat utroque. Sed an tation iriure appareat, sea ut graeci erroribus, ea voluptua maiestatis reprehendunt mei. Quo an mentitum honestatis. Vel in adhuc alterum repudiare, tritani debitis an eam, sed nostrud oportere persecuti ad."
-    ]
+
+    const [popupOpen,setPopupOpen] = useState(false);
+    const [message,setMessage] = useState(null);
+    const [buttonMessage,setButtonMessage] = useState([]);
+    const [onClickFunction,setOnclickFunction] = useState([]);
+
 
     useEffect(()=>{
         const getOption = async(page) => {
@@ -29,18 +32,35 @@ const  ContentWrite = ()=>{
                 if (!response.ok)
                     throw new Error(response.status);
                 const data = await response.json();
-                setOptions(prevData => [...prevData, ...data]);
+                data.map(newOption=>{
+                    setOptions(prevItems => {
+                        // id가 중복되지 않으면 새 항목 추가
+                        if (!prevItems.some(item => item.groupId === newOption.groupId)) {
+                            return [...prevItems, newOption];
+                        }
+                        // 중복되면 기존 상태 그대로 반환
+                        return prevItems;
+                    });
+                })
             } catch (error) {
                 console.log(error);
             }
         }
-        setOptions([]);
         if (userid!=null) {
             for (let i = 1; i <= 6; i++)
                 getOption(i);
         }
+
     },[userid])
     function onSubmitContent(){
+        if (content === "")
+        {
+            setPopupOpen(true);
+            setMessage("내용을 입력해주세요");
+            setButtonMessage(["확인"]);
+            setOnclickFunction([()=>setPopupOpen(false)]);
+            return;
+        }
         fetch(`/api/group/plan/write`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -58,6 +78,12 @@ const  ContentWrite = ()=>{
 
     return (
     <div class="write-container">
+        {
+            popupOpen &&
+            <Popup
+                message={message} buttonMessage = {buttonMessage} onClickFunction = {onClickFunction}
+            />
+        }
         <h1>글쓰기</h1>
         <div class="write-body">
             <div class="content-data">
@@ -83,8 +109,8 @@ const  ContentWrite = ()=>{
             </div>
         </div>
         <div class="action-bar">
-            <button id="submit" onClick={()=>onSubmitContent()}>제출</button>
-            <button id="back" onClick={()=>navigate(-1)}>취소</button>
+            <button class="action" onClick={()=>onSubmitContent()}>제출</button>
+            <button class="action" onClick={()=>navigate(-1)}>취소</button>
         </div>
     </div>
     );
