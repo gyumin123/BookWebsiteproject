@@ -36,8 +36,6 @@
     padding: 10px;
     justify-content: space-evenly;
     background-color: white;
-    width: 50%;
-    margin-left: 300px;
 }
 
 .column{
@@ -64,7 +62,6 @@
     border:none;
     width: 200px;
     margin: 0;
-    margin-left: 350px;
 }
 .plans span{
     cursor: pointer;
