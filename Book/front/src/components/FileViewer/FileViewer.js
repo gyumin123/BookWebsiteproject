@@ -44,7 +44,7 @@ const FileViewer = () => {
             fetch("/api/read/save",
                 {
                     method: "post", headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({bookid, userid, page: currentPage})
+                    body: JSON.stringify({bookid, userid, page: currentPage+1})
                 })
                 .catch((error) => console.log(error));
         }
@@ -88,8 +88,10 @@ const FileViewer = () => {
             try{
                 const response = await fetch("/api/read/page",{method:"post",headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({bookid,userid})})
+                if (!response.ok)
+                    throw new Error(response.ok);
                 const data = await response.text();
-                setCurrentPage(parseInt(data));
+                setCurrentPage(parseInt(data)-1);
             }catch (e) {
                 console.log(e);
             }
