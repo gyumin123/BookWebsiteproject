@@ -21,8 +21,13 @@ public class PurchaseProgressController {
 
     // 구매정보 전송하기
     @PostMapping("/api/purchase")
-    public ResponseEntity<String> getPurchaseItem(@RequestBody PurchaseDTO purchaseDTO) {
-        purchaseProgressService.setPurchaseItem(purchaseDTO.getUserid(), purchaseDTO);
-        return ResponseEntity.ok("transfer is successful!");
+    public ResponseEntity<String> setPurchaseItems(@RequestBody List<PurchaseDTO> purchaseDTOs) {
+        if (purchaseDTOs.isEmpty()) {
+            return ResponseEntity.badRequest().body("Purchase list cannot be empty!");
+        }
+
+        String userid = purchaseDTOs.get(0).getUserid();
+        purchaseProgressService.setPurchaseItems(userid, purchaseDTOs);
+        return ResponseEntity.ok("Transfer is successful!");
     }
 }

@@ -18,7 +18,8 @@ public class PurchaseProgressService {
         return progressRepository.getListByUserid(userid);
     }
 
-    public void setPurchaseItem(String userid, PurchaseDTO purchaseItem) {
-        progressRepository.save(userid, purchaseItem);
+    // 리스트를 저장하도록 변경
+    public void setPurchaseItems(String userid, List<PurchaseDTO> purchaseItems) {
+        progressRepository.save(userid, purchaseItems);
     }
 }

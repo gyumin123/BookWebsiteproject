@@ -11,10 +11,11 @@ import java.util.Map;
 public class PurchaseProgressRepository {
     private static Map<String, List<PurchaseDTO>> store = new HashMap<>();
 
-    public List<PurchaseDTO> save(String userid, PurchaseDTO purchase) {
-        store.putIfAbsent(userid, new ArrayList<>()); // 없으면 새 리스트 생성 후 추가
-        store.get(userid).add(purchase);
-        return store.get(userid);
+
+    // 새로운 리스트로 덮어쓰기
+    public List<PurchaseDTO> save(String userid, List<PurchaseDTO> purchases) {
+        store.put(userid, purchases); // 기존 리스트 덮어쓰기
+        return purchases;
     }
 
     public List<PurchaseDTO> getListByUserid(String userid) {
