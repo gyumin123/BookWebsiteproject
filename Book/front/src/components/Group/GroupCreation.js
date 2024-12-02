@@ -6,7 +6,7 @@ import {Popup} from "../Data/function";
 
 const GroupCreation = () =>{
     const [groupName,setGroupName] = useState('');
-    const [bookId,setBookId] = useState(0);
+    const [bookId,setBookId] = useState(1);
     const [authority,setAuthority] = useState(0);
     const [startDate,setStartDate] = useState('');
     const [endDate,setEndDate] = useState('')
@@ -22,16 +22,18 @@ const GroupCreation = () =>{
             const response = await fetch(`/api/group/create`,{method:'POST',        
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({groupName,bookId,leaderId:userid,state:0, startDate, endDate, authority})});
+            setPopupOpen(true);
             if(!response.ok)
                 throw new Error(response.status);
-            setPopupOpen(true);
             setMessage("그룹 생성을 완료하였습니다.");
             setButtonMessage(["닫기"]);
             setOnclickFunction([()=>window.location.reload()]);
         }
         catch(error)
         {
-            console.error(error);
+            setMessage("모두 입력해주세요");
+            setButtonMessage(["확인"]);
+            setOnclickFunction([()=>setPopupOpen(false)]);
         }
     }
     return(
@@ -49,14 +51,13 @@ const GroupCreation = () =>{
                     <span>리더</span>
                     <span>가입</span>
                     <span>기간</span>
-                    <span>설명</span>
                 </div>
                 <div className="body">
                     <input id="group_name" type="text" value={groupName} onChange={(e)=>setGroupName(e.target.value)}></input>
                     <select id="book_name" value={bookId} onChange={(e)=>setBookId(e.target.value)}>
                     {
                         BookData.map((book,idx)=>(
-                            <option value={idx}>{book.title}</option>
+                            <option value={idx+1}>{book.title}</option>
                         ))
                     }
                     </select>
@@ -67,7 +68,6 @@ const GroupCreation = () =>{
                     </select>
                     <div id="date"><input type="date" value={startDate} onChange={(e)=>setStartDate(e.target.value)}>
                     </input> ~ <input type="date" value={endDate} onChange={(e)=>setEndDate(e.target.value)}></input></div>
-                    <textarea id="summary"></textarea>
                 </div>
             </div>
             <div className="action-bar">

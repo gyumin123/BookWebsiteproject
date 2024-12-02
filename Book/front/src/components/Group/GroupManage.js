@@ -29,15 +29,6 @@ const GroupManage = () => {
     const [buttonMessage,setButtonMessage] = useState([]);
     const [onClickFunction,setOnclickFunction] = useState([]);
 
-
-    const plan_example = [
-        {planId:1,title:"1페이지 읽기"},
-        {planId:2,title:"2페이지 읽기"}
-    ]
-    const request_example = [
-        {userid:"root"},
-        {userid:"홍길동"}
-    ]
     useEffect(() => {
         setEffectPlanState(!effectPlanState);
         setEffectJoinState(!effectJoinState);
@@ -58,8 +49,7 @@ const GroupManage = () => {
                 setPlans(data);
                 setCheckedPlanState(new Array(data.length + 1).fill(false));
             } catch (error) {
-                setPlans(plan_example);
-                setCheckedPlanState(new Array(plan_example.length + 1).fill(false));
+                console.error(error);
             }
         }
         getPlan();
@@ -78,8 +68,7 @@ const GroupManage = () => {
                 setRequestJoin(data);
                 setCheckedJoinState(new Array(data.length + 1).fill(false));
             } catch (error) {
-                setRequestJoin(request_example);
-                setCheckedJoinState(new Array(request_example.length + 1).fill(false));
+                console.error(error);
             }
         }
         getRequest();
@@ -177,7 +166,7 @@ const GroupManage = () => {
                  })
                  .catch(error=>{
                      setPopupOpen(true);
-                     setMessage("😡 이미 사용중인 플랜 입니다.");
+                     setMessage("이미 사용중인 플랜 입니다.");
                      setButtonMessage(["닫기"]);
                      setOnclickFunction([()=>{setPopupOpen(false)}]);
                  })
@@ -225,7 +214,7 @@ const GroupManage = () => {
                         name={plan.planId}
                         checked={isPlanChecked(index)}
                         onChange={()=>handlePlanChecked(plan,index)}></input>
-                        {plan.planId} {plan.title}
+                        {plan.title}
                     </label>
                     ))
                 }
