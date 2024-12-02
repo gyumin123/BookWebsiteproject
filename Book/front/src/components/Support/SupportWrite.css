@@ -21,7 +21,6 @@ label {
 input[type="text"],
 textarea,
 select {
-    width: 200px;
     padding: 10px;
     font-size: 14px;
     border: none;
@@ -49,3 +48,14 @@ button[type="submit"]:hover {
     cursor: pointer;
     font-weight: bold;
 }
+
+#writePost input[type="text"] {
+    width: 100%;
+}
+#content {
+    width: 100%;
+}
+#visibility {
+    width: 100%;
+}
+
