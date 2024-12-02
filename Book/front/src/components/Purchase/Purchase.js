@@ -66,7 +66,7 @@ return (
                     {
                         PurchaseData.map((item,index)=>(
                             <tr class="selectedItem">
-                                <td>{item.id === 100000? "이용권":item.id != null?BookData[item.id].title:"비어 있음"}</td>
+                                <td>{item.id === 100000? "이용권":item.id != null?BookData[item.id-1].title:"비어 있음"}</td>
                                 <td>{item.purchaseType}</td>
                                 <td>{item.period}</td>
                                 <td>{item.price}</td>

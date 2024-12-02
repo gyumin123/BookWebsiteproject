@@ -24,11 +24,12 @@ function BookDetail({id,price}){
 
     function onSubmitPurchase()
     {
+        const purchaseData = [{userid,id,period,price:totalPrice,purchaseType}]
     //구매 옵션 보내기
         fetch('/api/purchase', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({userid,id,period,price:totalPrice,purchaseType})
+            body: JSON.stringify(purchaseData)
         })
         .catch(error=>console.log(error))
         navigate('/purchase');

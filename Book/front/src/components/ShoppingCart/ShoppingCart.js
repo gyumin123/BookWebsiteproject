@@ -38,7 +38,6 @@ const ShoppingCart = () => {
 
     function onSubmitPurchase(item)
     {
-        console.log(item);
         fetch('/api/purchase', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -49,13 +48,11 @@ const ShoppingCart = () => {
     }
     function AllPurchase()
     {
-        for(let item of CartData)
-            onSubmitPurchase(item);
+        onSubmitPurchase(CartData)
     }
     function CheckedPurchase()
     {
-        for(let item of SelectItem)
-            onSubmitPurchase(item);
+        onSubmitPurchase(SelectItem)
     }
     function handleChecked(book,index)
     {
@@ -110,7 +107,7 @@ return (
                     onChange={()=>handleChecked(book,index)}
                     ></input>
                     <div class="cart-item-info">
-                        <h3>{BookData[book.id].title}</h3>
+                        <h3>{BookData[book.id-1].title}</h3>
                         <p>{book.price}</p>
                         <p>{book.period}일</p>
                         <p>구매 분류: <strong>{book.purchaseType}</strong></p>
@@ -137,7 +134,7 @@ return (
                 {
                     SelectItem.map((item,index)=>(
                         <tr class="selectedItem">
-                            <td>{item.id!=null?BookData[item.id].title:"비어 있음"}</td>
+                            <td>{item.id!=null?BookData[item.id-1].title:"비어 있음"}</td>
                             <td>{item.purchaseType}</td>
                             <td>{item.period}</td>
                             <td>{item.price}</td>
