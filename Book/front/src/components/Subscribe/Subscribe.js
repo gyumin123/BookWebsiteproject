@@ -7,7 +7,7 @@ import {UserContext} from '../../UserContext';
 const Subscribe = () => {
     const navigate = useNavigate();
     const {userid} = useContext(UserContext);
-    const purchaseData = {id:100000,userid,purchaseType:"구독",period:"30",price:"10000"};
+    const purchaseData = [{id:100000,userid,purchaseType:"구독",period:"30",price:"10000"}];
     function subscribe()
     {
 
@@ -24,7 +24,7 @@ return (
 <div class="container">
 
         <div class="logo">
-            <img src=".png" alt="Subscribe"></img>
+            <h1>SUbSCRIBE</h1>
         </div>
 
 
