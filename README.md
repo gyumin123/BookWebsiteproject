@@ -1,50 +1,129 @@
-# BookWebsiteproject
+# 📖 감상평 공유 책 뷰어 시스템 README
 
-Ex> [frontend - 송유진] 2024.08.30 로그인 – 로그인 버튼 추가
+<br>
 
-=======
-+ 2024.10.24 정승환 > 기본 웹 페이지 구성 html 완료
-required를 사용시 "이 입력란을 작성하세요." 등의 경고메시지가 자동으로 등장하는 html 기본기능
-현재 vs code로 연결프로그램이 설정되어 있음. 파일에서 속성 - 연결프로그램 - google chrome 등으로 바꾸면 웹 디자인이 보이시거나, vs code에서 open with live server 쓰시면 됩니다.
+## 프로젝트 소개
 
-+ [frontend - 방민승] 2024.10.08 기본 웹 페이지 구성 css 완료
-기존 html코드에 약간 더 추가해서 css 작성하였습니다.
-
-+ [fronted - 송유진 ] 2024.10.12 기본 웹 페이지 구성 js 완료
-+ 다운 받아서 실행하려면 npm install 해주세요! 안될 시 npm init
-
-+ [backend - 최효정 ] 2024.10.15 서버 기본 구성 생성
-
-+ [backend - 박규민 ] 2024.10.18 DB + mysql jdbc 연동 
-메이븐 의존성 업데이트 새로고침 
-
-+ [backend - 박규민 ] 2024.10.19 member 등록 api
-/api/member-entity/register 
-memberJPA/MemberEntity.java에 SQL쿼리있습니다. 
-
-+ [backend - 박규민 ] 2024.10.23  
- 기존 MembershipDTO바탕으로 sql 맵핑 api 생성
-사용자생성하기/ post : /api/user/create 추가
-사용자정보 재설정/put : /api/user/update 추가
-사용자프로필이미지 추가하기/post : /api/user/uploadImage
-사용자 프로필 이미지 가져오기 /get : /api/user/image/{userid}
-
-+ [backend - 최효정 ] 2024.10.23 Controller 형식 수정 - js의 수정된 형태에 따라 반환값과 DTO 형식 일부 수정됨.
-
-+ [frontend - 방민승] 2024.10.23 css 수정 - Home.css, mainbanner.css, mypage.css, SupportSearch.css 수정
-
-+ [frontend - 정승환] 2024.10.24 html 추가 - 상품 구매, 결제 목록, 장바구니, 책 구매, 책 상세 설명, 멤버쉽 페이지 html 생성
-
-+ [frontend - 송유진] 2024.11.04 html->js 파일 변환,css 파일 위치 변경,마이페이지 userid 함수 수정,메인 배너 프로필 링크 변경,App 구조 추가
-+ 정기권 구독 페이지 추가,장바구니 페이지 추가,상품 구매 페이지,상품 목록 페이지 추가 및 임시 css 파일 생성,예시 데이터 및 function.js 추가
-+ 책 목록 페이지 추가,책 상세 페이지,구매 옵션 추가
-
-+ [backend - 박규민] 2024.11.06 기존 맵매핑방식 api 경로 수정, 아래의 api 경로 까지 구현됨
-+ 로그인 상태 확인 ,이미지 가져오기 ,이미지 올리기 ,회원정보 수정하기 ,아이디 중복 체크하기 ,회원가입하기 ,로그인 하기 ,로그아웃하기
-아이디 찾기 ,임시 비밀번호 전송 ,비밀번호  가져오기
+- Book Website Project(Book&Y)는  사용자가 도서를 효율적으로 관리하고, 읽고, 의견을 남기며 다양한 기능을 활용할 수 있는 플랫폼입니다. 사용자 경험을 개선하고 독서 커뮤니티를 활성화하기 위한 목적으로 설계되었습니다.
 
 
-+ [backend - 박규민] 2024.11.08 – api 구현  글 쓰기, 해당 번호의 게시글 가져오기 , 해당 번호의 게시글 삭제하기, 
-+ 해당 게시글의 댓글 가져오기 , 해당 게시글의 댓글 쓰기, 해당 게시글의 댓글 삭제하기)까지 구현
-+  현재까지 구현한 api 잘정리해서 인썸니아로 테스트할수 있게 했다.
-+ [frontend - 방민승] 2024.11.07 BookDetail.css, Bookinfo.css, Classification.css, function.css, Purchase.css, ShoppingCart.css, Subcribe.css 추가
+<br>
+
+<br>
+
+# 프로젝트 기술 스택
+
+### 프론트엔드
+- ![HTML5](https://img.shields.io/badge/-HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
+- ![CSS3](https://img.shields.io/badge/-CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)
+- ![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
+- ![JSON](https://img.shields.io/badge/-JSON-000000?style=flat-square&logo=json&logoColor=white)
+
+### 백엔드
+- ![Java](https://img.shields.io/badge/-Java-007396?style=flat-square&logo=java&logoColor=white)
+- ![Spring](https://img.shields.io/badge/-Spring-6DB33F?style=flat-square&logo=spring&logoColor=white)
+- ![SQL](https://img.shields.io/badge/-SQL-4479A1?style=flat-square&logo=postgresql&logoColor=white)
+
+### 주요 도구
+- ![JDK17](https://img.shields.io/badge/-JDK%2017-007396?style=flat-square&logo=java&logoColor=white)
+- ![React](https://img.shields.io/badge/-React-61DAFB?style=flat-square&logo=react&logoColor=black)
+- ![MySQL](https://img.shields.io/badge/-MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white)
+- ![Maven](https://img.shields.io/badge/-Maven-C71A36?style=flat-square&logo=apache-maven&logoColor=white)
+- ![Tomcat](https://img.shields.io/badge/-Tomcat-F8DC75?style=flat-square&logo=apache-tomcat&logoColor=black)
+
+### 협업 도구
+- ![Jira](https://img.shields.io/badge/-Jira-0052CC?style=flat-square&logo=jira&logoColor=white)  
+  프로젝트 관리 및 작업 추적을 위해 Jira를 사용했습니다.
+
+- ![GitHub](https://img.shields.io/badge/-GitHub-181717?style=flat-square&logo=github&logoColor=white)  
+  코드 형상 관리를 위해 GitHub를 사용했습니다.
+
+<br>
+
+### 브랜치
+
+- Git-flow 전략을 기반으로 main, develop 브랜치와 feature 보조 브랜치를 운용했습니다.
+- main, code 브랜치로 나누어 개발을 하였습니다.
+ - **main** 브랜치는 (....)
+ - **code** 브랜치는 개발 단계에서 git-flow의 master 역할을 하는 브랜치입니다.
+
+<br>
+
+## 3. 프로젝트 구조
+
+```
+├─Book
+│  ├─.mvn
+│  │  └─wrapper
+│  ├─front
+│  │  ├─public
+│  │  │  └─image
+│  │  └─src
+│  │      └─components
+│  │          ├─Banner
+│  │          │  └─image
+│  │          ├─BookDetail
+│  │          ├─BookInfo
+│  │          ├─Classification
+│  │          ├─Data
+│  │          ├─FileViewer
+│  │          ├─FindID
+│  │          ├─Group
+│  │          ├─Home
+│  │          │  └─image
+│  │          ├─Login
+│  │          ├─Membership
+│  │          ├─Myhistory
+│  │          ├─Mypage
+│  │          ├─Plan
+│  │          ├─Purchase
+│  │          ├─PurchaseHistory
+│  │          ├─SetPwd
+│  │          ├─ShoppingCart
+│  │          ├─Subscribe
+│  │          └─Support
+│  ├─src
+│  │  ├─main
+│  │  │  ├─java
+│  │  │  │  └─com
+│  │  │  │      └─book
+│  │  │  │          ├─bookcomment
+│  │  │  │          ├─cart
+│  │  │  │          ├─communityjpa
+│  │  │  │          ├─DTO
+│  │  │  │          ├─group
+│  │  │  │          ├─groupplan
+│  │  │  │          ├─history
+│  │  │  │          ├─memberjpa
+│  │  │  │          ├─pagehistory
+│  │  │  │          ├─purchase
+│  │  │  │          ├─purchaseProgress
+│  │  │  │          ├─support
+│  │  │  │          └─testclass
+│  │  │  │              ├─controller
+│  │  │  │              ├─domain
+│  │  │  │              ├─repository
+│  │  │  │              └─service
+│  │  │  └─resources
+│  │  │      └─static
+│  │  └─test
+│  │      └─java
+│  │          └─com
+│  │              └─example
+│  │                  └─book
+
+```
+
+
+## 5. 개발 기간 및 작업 관리
+
+### 개발 기간
+
+- 전체 개발 기간 : 2024.08.31 ~ 2024.12.03
+- 프로젝트 전체 기획 : 2024.08.31 ~ 2024.09.23
+- 기본 웹 페이지 구현 : 2024.10.01 ~ 2024.10. 15
+- 책 상세페이지 및 구매,대여 구현 : 2024.10.23 ~ 11.29
+- 전자책 뷰어 구현 : 2024. 11.18 ~ 12.03
+- 그룹 플랜 기능 구현 : 2024.  11. 18 ~ 12.03
+
+<br>
