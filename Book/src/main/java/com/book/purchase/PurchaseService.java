@@ -1,21 +1,24 @@
 package com.book.purchase;
 
+import com.book.purchaseProgress.PurchaseProgressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
 import java.util.Optional;
 
 @Service
 public class PurchaseService {
     private final PurchaseRepository purchaseRepository;
+    private final PurchaseProgressRepository purchaseProgressRepository;
 
     @Autowired
-    public PurchaseService(PurchaseRepository purchaseRepository) {
+    public PurchaseService(PurchaseRepository purchaseRepository, PurchaseProgressRepository purchaseProgressRepository) {
         this.purchaseRepository = purchaseRepository;
+        this.purchaseProgressRepository = purchaseProgressRepository;
     }
 
     // 구매 정보 추가
     public PurchaseItem addPurchaseItem(PurchaseItem purchaseItem) {
+        purchaseProgressRepository.getListByUserid(purchaseItem.getUserid()).clear();
         return purchaseRepository.save(purchaseItem);
     }
 
