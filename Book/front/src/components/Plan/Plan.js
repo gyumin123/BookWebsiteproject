@@ -1,6 +1,5 @@
 import React, { useState,useEffect,useContext} from "react"
 import {Route,Routes,useNavigate} from "react-router-dom";
-import './Plan.css'
 
 const Plan = ({userid,plan_id,plan_name}) => {
   const [isOpen,setIsOpen] = useState(false);
@@ -13,7 +12,7 @@ return (
           <span id="plan-state"></span>
         </div>
         <div class="attribute-bar">
-          <span id="plan_name">{plan_name}</span>
+          <span class="plan_name">{plan_name}</span>
         </div>
     </span>
 </div>

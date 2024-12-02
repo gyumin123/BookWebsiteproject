@@ -1,11 +1,6 @@
 import React, { useState,useEffect,useContext} from "react"
 import {Route,Routes,useNavigate} from "react-router-dom";
-import SetPwd from "../SetPwd/setPwd";
-import MyHistory from "../Myhistory/myHistory";
-import PurchaseHistory from "../PurchaseHistory/purchaseHistory";
-import {UserContext} from '../../UserContext';
 import GroupToggle from "./GroupToggle";
-import './Toggle_bar.css'
 import BookData from '../Data/book.json'
 
 const MenuToggle = ({userid,state}) => {
@@ -36,34 +31,41 @@ const MenuToggle = ({userid,state}) => {
     setIsOpen(!isOpen);
   }
 return (
-  <div>
+  <div className="menu-toggle">
       <button class="menu-bar" onClick={()=>setIsOpen(!isOpen)}>
         <div class="title-bar">
             <button id="toggle-button">{!isOpen?"▶":"▼"}</button>
-            <span class="state">{state == 0?"시작 전":state==1?"진행 중":"완료"}</span>
+            <span class="state" id={state}>{state === 0?"시작 전":state==1?"진행 중":"완료"}</span>
             <div id="count">{groups.length}</div>
         </div>
         <div class="attribute-bar">
             <span id="leader">리더</span>
-            <span id="participants">참여자</span>
+            <span id="authority">권한</span>
             <span id="date">기간</span>
         </div>
     </button>
+
     {
-      isOpen && groups.length > 0 && 
-      groups.map((group)=>(
-        <GroupToggle
-          groupId={group.groupId}
-          group_name={group.groupName}
-          book_name={group.bookId!=null ? BookData[group.bookId].title :"비어 있음"}
-          leader={group.leaderId}
-          start_date={group.startDate}
-          end_date={group.endDate}
-          userid={userid}
-        />
-      ))
+        isOpen && groups.length > 0 &&
+        <div className="groups">
+            {
+            groups.map((group)=>(
+            <GroupToggle
+                groupId={group.groupId}
+                group_name={group.groupName}
+                book_name={group.bookId != null ? BookData[group.bookId - 1].title : "비어 있음"}
+                authority={group.authority === "false"?"신청":"자유"}
+                leader={group.leaderId}
+                start_date={group.startDate}
+                end_date={group.endDate}
+                userid={userid}
+            />
+            ))
+            }
+        </div>
+            }
+
+        </div>
+        )
     }
-</div>
-)
-}
 export default MenuToggle;

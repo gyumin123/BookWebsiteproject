@@ -25,6 +25,9 @@
     flex-direction: column;
     overflow:hidden;
 }
+.container button:hover{
+
+}
 
 .page-content {
     display: flex;

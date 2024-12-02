@@ -1,10 +1,3 @@
-
-.header{
-    align-items: baseline;
-    display: flex;
-    justify-content: space-between;
-    margin-left:2rem;
-}
 .group-title{
     display: flex;
     align-items: baseline;
@@ -25,7 +18,7 @@
     justify-content: center;
 }
 .action-bar span{
-    border: 5px solid white; 
+    border: 5px solid white;
     background-color: white;
     border-radius: 5px;
 }
@@ -37,7 +30,6 @@
     justify-content: space-evenly;
     background-color: white;
 }
-
 .column{
     display:flex;
     flex-direction: column;
@@ -47,29 +39,49 @@
     flex-direction: column;
     line-height: 2;
 }
-.plans{
+.group-info .plans{
     display: flex;
     justify-content: space-between;
     margin:10px;
     align-items: flex-end;
     gap: 10px;
 }
-.plans .plan{
+.group-info .tab.active .plan_name{
+    color: rgb(238 174 119);
+    position: relative;
+}
+.group-info .tab.active .plan_name::after {
+    content: "";
+    display: block;
+    height: 3px;
+    background-color: rgb(238 174 119); /* 선의 색상 */
+    width: 100%;
+    position: absolute;
+    bottom: -12px; /* 글자 아래 간격 */
+    left: 0;
+}
+.group-info .plans .plan{
+    position: relative;
     display: flex;
 }
-.plans input{
+.plan-input{
     display: flex;
+    flex-direction: row;
     border:none;
-    width: 200px;
-    margin: 0;
+    margin-right: 30px;
+    gap:10px;
+    justify-content: space-between;
+    border-radius: 20px;
+    padding:0;
 }
-.plans span{
-    cursor: pointer;
-    border-radius: 5px;
+.plan-input input{
+    width:300px;
+    padding:0;
+    margin:0;
 }
 #plan-create {
     border: 5px solid white;
-    background-color: white; 
-    border-radius: 5px; 
+    background-color: white;
+    border-radius: 5px;
     cursor: pointer;
 }

@@ -4,10 +4,9 @@ import SetPwd from "../SetPwd/setPwd";
 import MyHistory from "../Myhistory/myHistory";
 import PurchaseHistory from "../PurchaseHistory/purchaseHistory";
 import {UserContext} from '../../UserContext';
-import './Toggle_bar.css'
 import Plan from '../Plan/Plan'
 
-const GroupToggle = ({userId,groupId,group_name,book_name,leader,participants,start_date,end_date}) => {
+const GroupToggle = ({userId,groupId,group_name,book_name,leader,authority,start_date,end_date}) => {
   const [isOpen,setIsOpen] = useState(false);
   const [plans,setPlans] = useState([]);
   const navigate=useNavigate();
@@ -32,7 +31,7 @@ const GroupToggle = ({userId,groupId,group_name,book_name,leader,participants,st
     setIsOpen(!isOpen);
   }
 return (
-  <div>
+  <div className="group-toggle">
       <button class="group-bar" onClick={()=>{navigate(`/group/info/${groupId}`)}}>
         <div class="title-bar">
             <button id="toggle-button" onClick={(event)=>{event.stopPropagation();setIsOpen(!isOpen)}}>{!isOpen?"▶":"▼"}</button>
@@ -41,19 +40,23 @@ return (
         </div>
         <div class="attribute-bar">
             <span id="leader">{leader}</span>
-            <span id="participants">{participants}</span>
+            <span id="authority">{authority}</span>
             <span id="date">{start_date}~{end_date}</span>
         </div>
     </button>
     {
       isOpen && (
-        isOpen && plans.length > 0 && 
-        plans.map((plan)=>(
-          <Plan
-            plan_id={plan.planId}
-            plan_name={plan.title}
-          />
-        ))
+        isOpen && plans.length > 0 &&
+            <div className="plans">
+                {
+                    plans.map((plan)=>(
+                        <Plan
+                            plan_id={plan.planId}
+                            plan_name={plan.title}
+                        />
+                    ))
+                }
+            </div>
       )
     }
 </div>
