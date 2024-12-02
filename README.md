@@ -118,7 +118,6 @@
 
 ### 브랜치
 
-- Git-flow 전략을 기반으로 main, develop 브랜치와 feature 보조 브랜치를 운용했습니다.
 - main, code 브랜치로 나누어 개발을 하였습니다.
  - **main** 브랜치는 (....)
  - **code** 브랜치는 개발 단계에서 git-flow의 master 역할을 하는 브랜치입니다.
