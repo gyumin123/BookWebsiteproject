@@ -79,11 +79,11 @@
    $ git clone git@github.com:0000yuyu/BookWebsiteproject.git
    ```
 2. 리액트 환경을 시작합니다.
-```bash
-$ cd book/front
-$ npm install
-$ npm start
-```
+   ```bash
+   $ cd book/front
+   $ npm install
+   $ npm start
+   ```
 3. 백엔드 (......)
 <br>
 
