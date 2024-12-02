@@ -6,7 +6,7 @@ const Plan = ({userid,plan_id,plan_name}) => {
   const navigate = useNavigate();
 
 return (
-  <div>
+  <div class="plan">
       <span class="plan-bar">
         <div class="title-bar">
           <span id="plan-state"></span>

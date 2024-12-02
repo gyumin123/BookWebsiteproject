@@ -45,6 +45,7 @@
     margin:10px;
     align-items: flex-end;
     gap: 10px;
+    cursor: pointer;
 }
 .group-info .tab.active .plan_name{
     color: rgb(238 174 119);

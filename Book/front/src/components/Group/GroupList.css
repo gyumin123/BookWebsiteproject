@@ -74,9 +74,12 @@
     border:1px solid #adadaf;
     margin: 10px 0 10px 30px;
 }
-.groups .plans{
+.groups .plans .plan{
     padding:20px;
-    border-bottom: 1px solid #adadaf;
+    border-top: 1px solid #adadaf;
+}
+.groups .plans .plan:first-child{
+    border-bottom: initial;
 }
 .groups .plans .attribute-bar{
     margin-left:4rem;
