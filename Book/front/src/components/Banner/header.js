@@ -36,7 +36,7 @@ const Header = () => {
     }
     const bookOption = BookData.reduce((acc, book,id) => {
         const key = `책 : ${book.title}`;
-        acc[key] = {authority:null,url:`/book/${id}`};
+        acc[key] = {authority:null,url:`/book/${id+1}`};
         return acc;
     }, {});
     const [viewMenuOption,setViewMenuOption] = useState({});
