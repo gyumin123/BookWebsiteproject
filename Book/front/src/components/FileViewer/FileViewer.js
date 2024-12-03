@@ -8,7 +8,7 @@ const FileViewer = () => {
     const {bookid} = useParams();
     const {userid} = useContext(UserContext);
     const [pages, setPages] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(null);
     const [activeMenu, setActiveMenu] = useState("");
     const [fontSize, setFontSize] = useState(16);
     const [darkMode, setDarkMode] = useState(false);
