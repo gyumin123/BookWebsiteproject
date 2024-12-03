@@ -36,7 +36,7 @@ public class PageHistoryService {
     public int getPage(String userid, Long bookid) {
         return pageHistoryRepository.findByBookIdAndUserid(bookid, userid)
                 .map(PageHistoryEntity::getPage)
-                .orElse(0); // 기본값 0 반환
+                .orElse(1); // 기본값 0 반환
     }
 
     public List<GroupHistoryDTO> getPageGroup(Long groupid, Long bookid) {
