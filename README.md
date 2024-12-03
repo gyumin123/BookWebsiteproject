@@ -84,7 +84,20 @@
    $ npm install
    $ npm start
    ```
-3. 백엔드 (......)
+3. MySQL을 설치하고, BOOK이라는 데이터베이스를 생성합니다.
+   ```sql
+   CREATE DATABASE BOOK;
+   ```
+4. application.properties 파일을 수정합니다.
+   ```properties
+   spring.datasource.url=jdbc:mysql://localhost:3306/BOOK
+   spring.datasource.username=본인의 MySQL 사용자 이름으로 변경
+   spring.datasource.password=본인의 MySQL 비밀번호로 변경
+   spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+   ```
+5. 백엔드 애플리케이션을 실행합니다.
+- **경로**: `src/main/java/com/book/BookApplication.java`
+- IDE를 통해 `BookApplication.java` 파일을 실행합니다.
 <br>
 
 # 프로젝트 기술 스택
