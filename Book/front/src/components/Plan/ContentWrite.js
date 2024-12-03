@@ -35,7 +35,7 @@ const  ContentWrite = ()=>{
                 data.map(newOption=>{
                     setOptions(prevItems => {
                         // id가 중복되지 않으면 새 항목 추가
-                        if (!prevItems.some(item => item.groupId === newOption.groupId)) {
+                        if (!prevItems.some(item => item.page === newOption.page)) {
                             return [...prevItems, newOption];
                         }
                         // 중복되면 기존 상태 그대로 반환
