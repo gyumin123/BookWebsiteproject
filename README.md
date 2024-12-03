@@ -89,13 +89,14 @@
    CREATE DATABASE BOOK;
    ```
 4. application.properties 파일을 수정합니다.
+- **경로**: `src/main/resources/application.properties`
    ```properties
    spring.datasource.url=jdbc:mysql://localhost:3306/BOOK
    spring.datasource.username=본인의 MySQL 사용자 이름으로 변경
    spring.datasource.password=본인의 MySQL 비밀번호로 변경
    spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
    ```
-5. 백엔드 애플리케이션을 실행합니다.
+6. 백엔드 애플리케이션을 실행합니다.
 - **경로**: `src/main/java/com/book/BookApplication.java`
 - IDE를 통해 `BookApplication.java` 파일을 실행합니다.
 <br>
