@@ -19,13 +19,13 @@ const HOME = () => {
         setMinId(Math.max(0,current-5))
     },[])
     function getRandomNumber() {
-        return Math.floor(Math.random() * 105) + 1;
+        return Math.floor(Math.random() * 104) + 1;
     }
     return (
             <div className ="homebody" style={{ backgroundImage: `url(${BackgroundImage})`}}>
                 <main className = "homemain">
                     <div className="book-grid" >
-                        <div className="book-item side-book left" onClick={()=>navigate(`/book/${id-1}`)}>
+                        <div className="book-item side-book left" onClick={()=>navigate(`/book/${id}`)}>
                             <img src={BookImg}  alt="책">
                             </img>
                             <div>
@@ -41,7 +41,7 @@ const HOME = () => {
                             <path d="M16 4l-8 8 8 8" />
                         </svg>
 
-                        <div className="book-item" id="main" onClick={()=>navigate(`/book/${id}`)}>
+                        <div className="book-item" id="main" onClick={()=>navigate(`/book/${id+1}`)}>
                             <img src={BookImg} alt="책"></img>
                             <div>
                                 {BookData[id].title}
@@ -58,7 +58,7 @@ const HOME = () => {
                             <path d="M8 4l8 8-8 8" />
                         </svg>
 
-                        <div className="book-item side-book right" onClick={()=>navigate(`/book/${id+1}`)}>
+                        <div className="book-item side-book right" onClick={()=>navigate(`/book/${id+2}`)}>
                             <img src={BookImg} alt="책"></img>
                             <div>
                                 {BookData[id+1].title}
